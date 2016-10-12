@@ -21,5 +21,6 @@ public class VersionServlet extends HttpServlet {
 
         VersionInfo versionInfo = new VersionInfo(getServletContext());
         resp.getWriter().println("Build: " + versionInfo.getBuildNumber());
+        resp.getWriter().println("SVN revision: " + versionInfo.getRevision());
     }
 }

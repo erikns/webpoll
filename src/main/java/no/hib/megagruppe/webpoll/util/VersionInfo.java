@@ -14,8 +14,16 @@ import java.util.Properties;
 public class VersionInfo {
     private final String version;
     private final String buildNumber;
+    private final String revision;
 
     public VersionInfo(ServletContext servletContext) {
+        version = gatherVersionFromPackage(servletContext);
+        buildNumber = gatherBuildNumberFromResource(servletContext);
+        revision = gatherRevisionFromResource(servletContext);
+    }
+
+    private String gatherVersionFromPackage(ServletContext servletContext) {
+        String version;
         String tmpVersion = getClass().getPackage().getImplementationVersion();
         if (tmpVersion == null) {
             Properties prop = new Properties();
@@ -27,18 +35,29 @@ public class VersionInfo {
             }
         }
         version = tmpVersion;
+        return version;
+    }
 
-        String tmpBuildNumber = "X";
-        InputStream is = servletContext.getResourceAsStream("WEB-INF/buildNumber");
+    private String gatherBuildNumberFromResource(ServletContext servletContext) {
+        return readFromResource(servletContext, "WEB-INF/buildNumber");
+    }
+
+    private String gatherRevisionFromResource(ServletContext servletContext) {
+        return readFromResource(servletContext, "WEB-INF/revision");
+    }
+
+    private static String readFromResource(ServletContext servletContext, String resourcePath) {
+        String tmp = "X";
+        InputStream is = servletContext.getResourceAsStream(resourcePath);
         if (is != null) {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             try {
-                tmpBuildNumber = br.readLine();
+                tmp = br.readLine();
             } catch (IOException e) {
-                tmpBuildNumber = "DEV";
+                tmp = "DEV";
             }
         }
-        buildNumber = tmpBuildNumber;
+        return tmp;
     }
 
     private String getVersion() {
@@ -48,6 +67,8 @@ public class VersionInfo {
     public String getBuildNumber() {
         return buildNumber;
     }
+
+    public String getRevision() { return revision; }
 
     public String getVersionString() {
         return getVersion() + "-" + getBuildNumber();
