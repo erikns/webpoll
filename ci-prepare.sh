@@ -9,3 +9,4 @@ fi
 
 echo "$1" > src/main/web/WEB-INF/buildNumber
 exit 0
+
