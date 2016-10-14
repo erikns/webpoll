@@ -8,8 +8,9 @@ import java.io.InputStreamReader;
 import java.util.Properties;
 
 /**
- * Utility class to get the deployed build number. Expects to find the build number
- * in a text file 'buildNumber' under WEB-INF/
+ * Utility class to get the deployed build number, and SVN revision number.
+ * Expects to find the build number in a text file 'buildNumber', and the
+ * SVN revision number in a test file 'revision' under WEB-INF/
  */
 public class VersionInfo {
     private final String version;
