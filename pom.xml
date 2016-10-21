@@ -49,5 +49,10 @@
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
     </dependencies>
 </project>
