@@ -17,10 +17,14 @@ public class VersionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("utf-8");
-        resp.setContentType("text/plain");
+        resp.setContentType("application/json");
 
         VersionInfo versionInfo = new VersionInfo(getServletContext());
-        resp.getWriter().println("Build: " + versionInfo.getBuildNumber());
-        resp.getWriter().println("SVN revision: " + versionInfo.getRevision());
+        resp.getWriter().print(buildJson(versionInfo));
+    }
+
+    private String buildJson(VersionInfo versionInfo) {
+        return "{ \"build\": \"" + versionInfo.getBuildNumber()
+                + "\", \"revision\": \"" + versionInfo.getRevision() + "\" }";
     }
 }
