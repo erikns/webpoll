@@ -11,7 +11,7 @@
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar">
 				<li>
-					<a href="/webpoll">
+					<a href="/h16_dat104_g02/">
 						<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 						<span class="sr-only"></span>
 					</a>
@@ -19,7 +19,7 @@
 				
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/webpoll/logginnforeleser.jsp">Logg inn</a></li>
+				<li><a href="/h16_dat104_g02/logginnforeleser.jsp">Logg inn</a></li>
 			</ul>
 		</div>
 	</div>
