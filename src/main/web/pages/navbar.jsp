@@ -11,7 +11,7 @@
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar">
 				<li>
-					<a href="../">
+					<a href="/webpoll">
 						<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 						<span class="sr-only"></span>
 					</a>
