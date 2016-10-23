@@ -19,7 +19,7 @@
 				
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Logg inn</a></li>
+				<li><a href="/webpoll/logginnforeleser.jsp">Logg inn</a></li>
 			</ul>
 		</div>
 	</div>

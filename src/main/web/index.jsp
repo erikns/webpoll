@@ -27,22 +27,26 @@
   			</div>
   			<div class="row">
 	  			<div class="col-md-6">
-	  				<h3 class="text-center">Simple</h3>
+	  				<img src="http://placehold.it/150x150" alt="" class="img-responsive img-circle center-block">
+	  				<h2 class="text-center">Simple</h2>
 	  				<p class="text-center">Lorem ipsum doler</p>
 	  			</div>
 	  			<div class="col-md-6">
-	  				<h3 class="text-center">Innovative</h3>
+	  				<img src="http://placehold.it/150x150" alt="" class="img-responsive img-circle center-block">
+	  				<h2 class="text-center">Innovative</h2>
 	  				<p class="text-center">sit amet, consectetur</p>
 	  			</div>
   			</div>
 
   			<div class="row">
 				<div class="col-md-6">
-  					<h3 class="text-center">Cinematic</h3>
+					<img src="http://placehold.it/150x150" alt="" class="img-responsive img-circle center-block">
+  					<h2 class="text-center">Cinematic</h2>
   					<p class="text-center">adipiscing elit. Nulla</p>
   				</div>
   				<div class="col-md-6">
-  					<h3 class="text-center">Built with love</h3>
+  					<img src="http://placehold.it/150x150" alt="" class="img-responsive img-circle center-block">
+  					<h2 class="text-center">Built with love</h2>
   					<p class="text-center">mattis rhoncus nibh,</p>
   				</div>
   			</div>
