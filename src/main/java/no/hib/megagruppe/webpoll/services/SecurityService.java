@@ -3,7 +3,7 @@ package no.hib.megagruppe.webpoll.services;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
 
 /**
- * Exposed services interface to the presentation layer for dealing with logging in and out
+ * Exposed service interface to the presentation layer for dealing with logging in and out
  */
 public interface SecurityService {
     /**

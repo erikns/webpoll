@@ -1,9 +1,9 @@
 package no.hib.megagruppe.webpoll.services;
 
 /**
- * Interface serving as a layer of indirection between the services layer and the Servlets API in the
+ * Interface serving as a layer of indirection between the services layer and the
  * presentation layer, to avoid any dependencies from the services layer to the presentation layer on top.
- * Concrete realisations of this interface will be passed from the presentation layer to the services layer
+ * Concrete implementations of this interface will be passed from the presentation layer to the services layer
  * for integration purposes.
  */
 public interface SecurityAdapter {
