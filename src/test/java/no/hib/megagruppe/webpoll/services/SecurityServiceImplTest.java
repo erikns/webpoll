@@ -1,11 +1,10 @@
 package no.hib.megagruppe.webpoll.services;
 
-import no.hib.megagruppe.webpoll.data.UserRepository;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
-import no.hib.megagruppe.webpoll.util.PasswordHasher;
+import no.hib.megagruppe.webpoll.fakes.TestPasswordHasher;
+import no.hib.megagruppe.webpoll.fakes.TestSecurityAdapter;
+import no.hib.megagruppe.webpoll.fakes.TestUserRepository;
 import org.junit.Test;
-
-import java.util.List;
 
 import static junit.framework.TestCase.*;
 import static org.junit.Assert.assertNotEquals;
@@ -162,98 +161,4 @@ public class SecurityServiceImplTest {
         assertNull(user);
     }
 
-    /**
-     * Dummy password hasher that just does nothing to the password
-     */
-    private class TestPasswordHasher implements PasswordHasher {
-        public boolean hashPasswordCalled = false;
-        public boolean comparePasswordCalled = false;
-
-        @Override
-        public String hashPassword(String password) {
-            hashPasswordCalled = true;
-            return password;
-        }
-
-        @Override
-        public boolean comparePassword(String password, String hash) {
-            comparePasswordCalled = true;
-            return password.equals(hash);
-        }
-    }
-
-    private class TestUserRepository implements UserRepository {
-        public UserEntity userToReturn;
-        public int findByEmailCalled;
-        public String findByEmailCalledWith;
-        public int findByIdCalledWith;
-        public int findByIdCalled;
-
-        @Override
-        public UserEntity add(UserEntity entity) {
-            return null;
-        }
-
-        @Override
-        public UserEntity findById(int id) {
-            findByIdCalled++;
-            findByIdCalledWith = id;
-            return userToReturn;
-        }
-
-        @Override
-        public List<UserEntity> findAll() {
-            return null;
-        }
-
-        @Override
-        public UserEntity update(UserEntity entity) {
-            return null;
-        }
-
-        @Override
-        public void remove(UserEntity entity) {
-
-        }
-
-        @Override
-        public UserEntity findByEmail(String email) {
-            findByEmailCalled++;
-            findByEmailCalledWith = email;
-            return userToReturn;
-        }
-    }
-
-    private class TestSecurityAdapter implements SecurityAdapter {
-        public boolean isLoggedInToReturn = false;
-        public int isLoggedInCalled = 0;
-        public boolean logInToReturn = false;
-        public int logInCalledWith;
-        public int logInCalled = 0;
-        public int logOutCalled = 0;
-        public int getLoggedInUserToReturn;
-
-        @Override
-        public boolean isLoggedIn() {
-            isLoggedInCalled++;
-            return isLoggedInToReturn;
-        }
-
-        @Override
-        public int getLoggedInUser() {
-            return getLoggedInUserToReturn;
-        }
-
-        @Override
-        public boolean logIn(int userId) {
-            logInCalledWith = userId;
-            logInCalled++;
-            return logInToReturn;
-        }
-
-        @Override
-        public void logOut() {
-            logOutCalled++;
-        }
-    }
 }

@@ -5,8 +5,8 @@ import no.hib.megagruppe.webpoll.models.QuestionModel;
 
 public interface SurveyAnsweringService {
     boolean isValidSurvey(String code);
-    SurveyAnsweringContext startSurveyAnswering(String code);
-    QuestionModel getNextQuestion(SurveyAnsweringContext context);
-    void answerCurrentQuestion(SurveyAnsweringContext context, AnswerModel answer);
-    void commitSurveyAnswering(SurveyAnsweringContext context);
+    SurveyResponseContext startSurveyAnswering(String code);
+    QuestionModel getNextQuestion(SurveyResponseContext context);
+    void answerCurrentQuestion(SurveyResponseContext context, AnswerModel answer);
+    void commitSurveyAnswering(SurveyResponseContext context);
 }
