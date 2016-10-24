@@ -1,21 +1,22 @@
 package no.hib.megagruppe.webpoll.services;
 
+import no.hib.megagruppe.webpoll.data.UserRepository;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
+import no.hib.megagruppe.webpoll.fakes.FakeRepositoryFactory;
 import no.hib.megagruppe.webpoll.fakes.TestPasswordHasher;
 import no.hib.megagruppe.webpoll.fakes.TestSecurityAdapter;
 import no.hib.megagruppe.webpoll.fakes.TestUserRepository;
+import no.hib.megagruppe.webpoll.util.PasswordHasher;
 import org.junit.Test;
 
 import static junit.framework.TestCase.*;
-import static org.junit.Assert.assertNotEquals;
 
 public class SecurityServiceImplTest {
     @Test
     public void noLoggedInUserReturnsNoneLoggedIn() {
         TestSecurityAdapter securityAdapter = new TestSecurityAdapter();
-        TestUserRepository userRepository = new TestUserRepository();
 
-        SecurityServiceImpl securityService = new SecurityServiceImpl(securityAdapter, userRepository, null);
+        SecurityService securityService = buildService(securityAdapter, null, null);
 
         assertFalse(securityService.isLoggedIn());
         assertEquals(1, securityAdapter.isLoggedInCalled);
@@ -26,7 +27,7 @@ public class SecurityServiceImplTest {
         TestSecurityAdapter securityAdapter = new TestSecurityAdapter();
         TestUserRepository userRepository = new TestUserRepository();
 
-        SecurityServiceImpl securityService = new SecurityServiceImpl(securityAdapter, userRepository, null);
+        SecurityService securityService = buildService(securityAdapter, null, userRepository);
 
         securityAdapter.isLoggedInToReturn = true;
         assertTrue(securityService.isLoggedIn());
@@ -41,7 +42,7 @@ public class SecurityServiceImplTest {
         TestUserRepository userRepository = new TestUserRepository();
         TestPasswordHasher passwordHasher = new TestPasswordHasher();
 
-        SecurityServiceImpl securityService = new SecurityServiceImpl(securityAdapter, userRepository, passwordHasher);
+        SecurityService securityService = buildService(securityAdapter, passwordHasher, userRepository);
 
         UserEntity user = new UserEntity();
         user.setEmail("test@user.none");
@@ -67,7 +68,7 @@ public class SecurityServiceImplTest {
         TestUserRepository userRepository = new TestUserRepository();
         TestPasswordHasher passwordHasher = new TestPasswordHasher();
 
-        SecurityServiceImpl securityService = new SecurityServiceImpl(securityAdapter, userRepository, passwordHasher);
+        SecurityService securityService = buildService(securityAdapter, passwordHasher, userRepository);
 
         UserEntity user = new UserEntity();
         user.setEmail("test@user.none");
@@ -93,7 +94,7 @@ public class SecurityServiceImplTest {
         TestUserRepository userRepository = new TestUserRepository();
         TestPasswordHasher passwordHasher = new TestPasswordHasher();
 
-        SecurityServiceImpl securityService = new SecurityServiceImpl(securityAdapter, userRepository, passwordHasher);
+        SecurityService securityService = buildService(securityAdapter, passwordHasher, userRepository);
 
         UserEntity user = new UserEntity();
         user.setEmail("test@user.none");
@@ -115,7 +116,7 @@ public class SecurityServiceImplTest {
     public void logOutCallsLogOutOnSecurityAdapter() {
         TestSecurityAdapter securityAdapter = new TestSecurityAdapter();
 
-        SecurityServiceImpl securityService = new SecurityServiceImpl(securityAdapter, null, null);
+        SecurityService securityService = buildService(securityAdapter, null, null);
 
         securityService.logOut();
         assertEquals(1, securityAdapter.logOutCalled);
@@ -134,7 +135,7 @@ public class SecurityServiceImplTest {
 
         TestPasswordHasher passwordHasher = new TestPasswordHasher();
 
-        SecurityServiceImpl securityService = new SecurityServiceImpl(securityAdapter, userRepository, passwordHasher);
+        SecurityService securityService = buildService(securityAdapter, passwordHasher, userRepository);
 
         UserEntity user = securityService.getLoggedInUser();
 
@@ -153,12 +154,18 @@ public class SecurityServiceImplTest {
         TestUserRepository userRepository = new TestUserRepository();
         TestPasswordHasher passwordHasher = new TestPasswordHasher();
 
-        SecurityServiceImpl securityService = new SecurityServiceImpl(securityAdapter, userRepository, passwordHasher);
+        SecurityService securityService = buildService(securityAdapter, passwordHasher, userRepository);
 
         UserEntity user = securityService.getLoggedInUser();
 
         assertEquals(0, userRepository.findByIdCalled);
         assertNull(user);
+    }
+
+    private static SecurityService buildService(SecurityAdapter securityAdapter, PasswordHasher passwordHasher,
+                                                UserRepository userRepository) {
+        return new SecurityServiceImpl(securityAdapter, passwordHasher,
+                new FakeRepositoryFactory(userRepository, null));
     }
 
 }

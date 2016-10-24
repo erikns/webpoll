@@ -1,5 +1,6 @@
 package no.hib.megagruppe.webpoll.services;
 
+import no.hib.megagruppe.webpoll.data.RepositoryFactory;
 import no.hib.megagruppe.webpoll.data.UserRepository;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.util.PasswordHasher;
@@ -8,9 +9,10 @@ import javax.inject.Inject;
 
 public class SecurityServiceImpl implements SecurityService {
     private final SecurityAdapter securityAdapter;
-    private final UserRepository userRepository;
     private final PasswordHasher passwordHasher;
+    private final RepositoryFactory repositoryFactory;
 
+    /*
     @Inject
     public SecurityServiceImpl(SecurityAdapter securityAdapter, UserRepository userRepository,
                                PasswordHasher passwordHasher) {
@@ -18,10 +20,19 @@ public class SecurityServiceImpl implements SecurityService {
         this.userRepository = userRepository;
         this.passwordHasher = passwordHasher;
     }
+    */
+
+    @Inject
+    public SecurityServiceImpl(SecurityAdapter securityAdapter, PasswordHasher passwordHasher,
+                               RepositoryFactory repositoryFactory) {
+        this.securityAdapter = securityAdapter;
+        this.passwordHasher = passwordHasher;
+        this.repositoryFactory = repositoryFactory;
+    }
 
     @Override
     public boolean logIn(String username, String password) {
-        UserEntity user = userRepository.findByEmail(username);
+        UserEntity user = repositoryFactory.getUserRepository().findByEmail(username);
         if (user == null) return false;
 
         boolean passwordMatches = passwordHasher.comparePassword(password, user.getPassword());
@@ -46,6 +57,6 @@ public class SecurityServiceImpl implements SecurityService {
             return null;
         }
 
-        return userRepository.findById(sessionUser);
+        return repositoryFactory.getUserRepository().findById(sessionUser);
     }
 }

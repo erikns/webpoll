@@ -1,6 +1,6 @@
 package no.hib.megagruppe.webpoll.services;
 
-import no.hib.megagruppe.webpoll.data.SurveyRepository;
+import no.hib.megagruppe.webpoll.data.RepositoryFactory;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.models.AnswerModel;
 import no.hib.megagruppe.webpoll.models.QuestionModel;
@@ -8,16 +8,16 @@ import no.hib.megagruppe.webpoll.models.QuestionModel;
 import javax.inject.Inject;
 
 public class SurveyAnsweringServiceImpl implements SurveyAnsweringService {
-    private final SurveyRepository surveyRepository;
+    private final RepositoryFactory repositoryFactory;
 
     @Inject
-    public SurveyAnsweringServiceImpl(SurveyRepository surveyRepository) {
-        this.surveyRepository = surveyRepository;
+    public SurveyAnsweringServiceImpl(RepositoryFactory repositoryFactory) {
+        this.repositoryFactory = repositoryFactory;
     }
 
     @Override
     public boolean isValidSurvey(String code) {
-        SurveyEntity survey = surveyRepository.findByCode(code);
+        SurveyEntity survey = repositoryFactory.getSurveyRepository().findByCode(code);
         return survey != null && survey.getActive();
     }
 

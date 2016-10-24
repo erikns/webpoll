@@ -2,6 +2,7 @@ package no.hib.megagruppe.webpoll.services;
 
 import no.hib.megagruppe.webpoll.data.SurveyRepository;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
+import no.hib.megagruppe.webpoll.fakes.FakeRepositoryFactory;
 import no.hib.megagruppe.webpoll.fakes.TestSurveyRepository;
 import org.junit.Test;
 
@@ -20,7 +21,7 @@ public class SurveyAnsweringServiceImplTest {
         survey.setActive(true);
         surveyRepository.add(survey);
 
-        SurveyAnsweringService service = new SurveyAnsweringServiceImpl(surveyRepository);
+        SurveyAnsweringService service = buildService(surveyRepository);
 
         assertTrue(service.isValidSurvey("abc"));
     }
@@ -35,9 +36,13 @@ public class SurveyAnsweringServiceImplTest {
         survey.setActive(false);
         surveyRepository.add(survey);
 
-        SurveyAnsweringService service = new SurveyAnsweringServiceImpl(surveyRepository);
+        SurveyAnsweringService service = buildService(surveyRepository);
 
         assertFalse(service.isValidSurvey("abc"));
+    }
+
+    private static SurveyAnsweringService buildService(SurveyRepository surveyRepository) {
+        return new SurveyAnsweringServiceImpl(new FakeRepositoryFactory(null, surveyRepository));
     }
 
 }
