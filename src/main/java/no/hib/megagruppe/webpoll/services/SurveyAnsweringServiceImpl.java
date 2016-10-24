@@ -5,9 +5,12 @@ import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.models.AnswerModel;
 import no.hib.megagruppe.webpoll.models.QuestionModel;
 
+import javax.inject.Inject;
+
 public class SurveyAnsweringServiceImpl implements SurveyAnsweringService {
     private final SurveyRepository surveyRepository;
 
+    @Inject
     public SurveyAnsweringServiceImpl(SurveyRepository surveyRepository) {
         this.surveyRepository = surveyRepository;
     }
