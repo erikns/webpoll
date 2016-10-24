@@ -7,9 +7,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 import static org.junit.Assert.assertNotEquals;
 
 public class SecurityServiceImplTest {
@@ -145,6 +143,25 @@ public class SecurityServiceImplTest {
         assertTrue(user.getId() == 42);
     }
 
+    @Test
+    public void getLoggedInUserWithoutLoggedInUserReturnsNullUser() {
+        UserEntity returnThisUser = new UserEntity();
+        returnThisUser.setId(42);
+
+        TestSecurityAdapter securityAdapter = new TestSecurityAdapter();
+        securityAdapter.getLoggedInUserToReturn = SecurityAdapter.USER_NOT_LOGGED_IN;
+
+        TestUserRepository userRepository = new TestUserRepository();
+        TestPasswordHasher passwordHasher = new TestPasswordHasher();
+
+        SecurityServiceImpl securityService = new SecurityServiceImpl(securityAdapter, userRepository, passwordHasher);
+
+        UserEntity user = securityService.getLoggedInUser();
+
+        assertEquals(0, userRepository.findByIdCalled);
+        assertNull(user);
+    }
+
     /**
      * Dummy password hasher that just does nothing to the password
      */
@@ -170,6 +187,7 @@ public class SecurityServiceImplTest {
         public int findByEmailCalled;
         public String findByEmailCalledWith;
         public int findByIdCalledWith;
+        public int findByIdCalled;
 
         @Override
         public UserEntity add(UserEntity entity) {
@@ -178,6 +196,7 @@ public class SecurityServiceImplTest {
 
         @Override
         public UserEntity findById(int id) {
+            findByIdCalled++;
             findByIdCalledWith = id;
             return userToReturn;
         }

@@ -41,6 +41,11 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public UserEntity getLoggedInUser() {
-        return userRepository.findById(securityAdapter.getLoggedInUser());
+        int sessionUser = securityAdapter.getLoggedInUser();
+        if (sessionUser == SecurityAdapter.USER_NOT_LOGGED_IN) {
+            return null;
+        }
+
+        return userRepository.findById(sessionUser);
     }
 }
