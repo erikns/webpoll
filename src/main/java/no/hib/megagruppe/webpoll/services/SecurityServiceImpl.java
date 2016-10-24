@@ -31,6 +31,7 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public void logOut() {
+        securityAdapter.logOut();
     }
 
     @Override
@@ -40,6 +41,6 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public UserEntity getLoggedInUser() {
-        return null;
+        return userRepository.findById(securityAdapter.getLoggedInUser());
     }
 }

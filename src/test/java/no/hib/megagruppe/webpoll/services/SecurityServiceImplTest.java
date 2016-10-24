@@ -114,6 +114,37 @@ public class SecurityServiceImplTest {
         assertFalse(result);
     }
 
+    @Test
+    public void logOutCallsLogOutOnSecurityAdapter() {
+        TestSecurityAdapter securityAdapter = new TestSecurityAdapter();
+
+        SecurityServiceImpl securityService = new SecurityServiceImpl(securityAdapter, null, null);
+
+        securityService.logOut();
+        assertEquals(1, securityAdapter.logOutCalled);
+    }
+
+    @Test
+    public void getLoggedInUserWithLoggedInUserReturnsCorrectUser() {
+        UserEntity returnThisUser = new UserEntity();
+        returnThisUser.setId(42);
+
+        TestSecurityAdapter securityAdapter = new TestSecurityAdapter();
+        securityAdapter.getLoggedInUserToReturn = 42;
+
+        TestUserRepository userRepository = new TestUserRepository();
+        userRepository.userToReturn = returnThisUser;
+
+        TestPasswordHasher passwordHasher = new TestPasswordHasher();
+
+        SecurityServiceImpl securityService = new SecurityServiceImpl(securityAdapter, userRepository, passwordHasher);
+
+        UserEntity user = securityService.getLoggedInUser();
+
+        assertEquals(42, userRepository.findByIdCalledWith);
+        assertTrue(user.getId() == 42);
+    }
+
     /**
      * Dummy password hasher that just does nothing to the password
      */
@@ -138,6 +169,7 @@ public class SecurityServiceImplTest {
         public UserEntity userToReturn;
         public int findByEmailCalled;
         public String findByEmailCalledWith;
+        public int findByIdCalledWith;
 
         @Override
         public UserEntity add(UserEntity entity) {
@@ -146,6 +178,7 @@ public class SecurityServiceImplTest {
 
         @Override
         public UserEntity findById(int id) {
+            findByIdCalledWith = id;
             return userToReturn;
         }
 
@@ -178,6 +211,8 @@ public class SecurityServiceImplTest {
         public boolean logInToReturn = false;
         public int logInCalledWith;
         public int logInCalled = 0;
+        public int logOutCalled = 0;
+        public int getLoggedInUserToReturn;
 
         @Override
         public boolean isLoggedIn() {
@@ -187,7 +222,7 @@ public class SecurityServiceImplTest {
 
         @Override
         public int getLoggedInUser() {
-            return 0;
+            return getLoggedInUserToReturn;
         }
 
         @Override
@@ -199,7 +234,7 @@ public class SecurityServiceImplTest {
 
         @Override
         public void logOut() {
-
+            logOutCalled++;
         }
     }
 }
