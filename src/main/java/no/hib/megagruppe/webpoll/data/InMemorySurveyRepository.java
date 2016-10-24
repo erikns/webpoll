@@ -3,16 +3,14 @@ package no.hib.megagruppe.webpoll.data;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 // TEMPORARY!!!!!!
 public class InMemorySurveyRepository implements SurveyRepository {
-    private List<SurveyEntity> surveys;
+    private Map<Integer, SurveyEntity> surveys;
 
     public InMemorySurveyRepository() {
-        surveys = new ArrayList<>();
+        surveys = new HashMap<>();
 
         UserEntity user = new UserEntity();
         user.setEmail("test@testesen.no");
@@ -27,19 +25,19 @@ public class InMemorySurveyRepository implements SurveyRepository {
         entity.setDeadline(new Date(System.currentTimeMillis() + 36000));
         entity.setOwner(user);
 
-        surveys.add(entity);
+        surveys.put(entity.getId(), entity);
     }
 
     @Override
     public SurveyEntity add(SurveyEntity entity) {
-        surveys.add(entity);
+        surveys.put(entity.getId(), entity);
         return entity;
     }
 
     @Override
     public SurveyEntity findById(int id) {
         SurveyEntity result = null;
-        for (SurveyEntity survey : surveys) {
+        for (SurveyEntity survey : surveys.values()) {
             result = survey;
         }
         return result;
@@ -47,15 +45,18 @@ public class InMemorySurveyRepository implements SurveyRepository {
 
     @Override
     public List<SurveyEntity> findAll() {
-        return surveys;
+        List<SurveyEntity> result = new ArrayList<>();
+        for (SurveyEntity e : surveys.values()) {
+            result.add(e);
+        }
+        return result;
     }
 
     @Override
     public SurveyEntity update(SurveyEntity entity) {
         SurveyEntity current = findById(entity.getId());
         if (current != null) {
-            surveys.remove(current);
-            surveys.add(entity);
+            surveys.put(entity.getId(), entity);
             return entity;
         } else {
             return null;
@@ -64,13 +65,13 @@ public class InMemorySurveyRepository implements SurveyRepository {
 
     @Override
     public void remove(SurveyEntity entity) {
-        surveys.remove(entity);
+        surveys.remove(entity.getId());
     }
 
     @Override
     public SurveyEntity findByCode(String code) {
         SurveyEntity result = null;
-        for (SurveyEntity survey : surveys) {
+        for (SurveyEntity survey : surveys.values()) {
             if (survey.getCode().equals(code)) {
                 result = survey;
             }
