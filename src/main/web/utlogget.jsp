@@ -10,11 +10,9 @@
 	<body>
 		<jsp:include page="pages/navbar.jsp"/>
 		<div class="container">
-			<div class="row">
-				<div class="panel panel-default utloggetboks center">
-					<div class="panel-body">
-						<p class="text-center">Du er logget ut!</p>
-					</div>
+			<div class="panel panel-default utloggetboks center">
+				<div class="panel-body">
+					<p class="text-center">Du er logget ut!</p>
 				</div>
 			</div>
 		</div>
