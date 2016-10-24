@@ -19,6 +19,6 @@
 		<jsp:include page="pages/footer.jsp"/>
 		<jsp:include page="pages/js.jsp"/>
 		<script src="assets/js/jquery.backstretch.min.js"></script>
-		<script>$.backstretch("assets/img/macbook-air-laptop-journal-mouse.jpg");</script>
+		<script>$.backstretch("assets/img/macdesk.jpg");</script>
 	</body>
 </html>
