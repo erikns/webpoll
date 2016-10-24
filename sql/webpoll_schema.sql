@@ -17,7 +17,8 @@ create table "survey" (
     date timestamp not null,
     deadline timestamp,
     owner_id integer not null references "user" (id),
-    code varchar(32) not null
+    code varchar(32) not null,
+    active boolean not null
 );
 
 create type q_type as enum ('multiple_choice', 'free_text');
