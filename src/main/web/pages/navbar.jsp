@@ -19,7 +19,7 @@
 				
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/h16_dat104_g02/logginnforeleser.jsp">Logg inn</a></li>
+				<li><a href="/h16_dat104_g02/login.jsp">Logg inn</a></li>
 			</ul>
 		</div>
 	</div>
