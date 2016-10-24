@@ -12,16 +12,6 @@ public class SecurityServiceImpl implements SecurityService {
     private final PasswordHasher passwordHasher;
     private final RepositoryFactory repositoryFactory;
 
-    /*
-    @Inject
-    public SecurityServiceImpl(SecurityAdapter securityAdapter, UserRepository userRepository,
-                               PasswordHasher passwordHasher) {
-        this.securityAdapter = securityAdapter;
-        this.userRepository = userRepository;
-        this.passwordHasher = passwordHasher;
-    }
-    */
-
     @Inject
     public SecurityServiceImpl(SecurityAdapter securityAdapter, PasswordHasher passwordHasher,
                                RepositoryFactory repositoryFactory) {
