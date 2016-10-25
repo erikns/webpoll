@@ -12,7 +12,7 @@
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar">
 				<li>
-					<a href="<c:url value="/"/>">">
+					<a href="<c:url value="/"/>">
 						<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 						<span class="sr-only"></span>
 					</a>
