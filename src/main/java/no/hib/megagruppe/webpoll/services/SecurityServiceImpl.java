@@ -1,7 +1,6 @@
 package no.hib.megagruppe.webpoll.services;
 
 import no.hib.megagruppe.webpoll.data.RepositoryFactory;
-import no.hib.megagruppe.webpoll.data.UserRepository;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.util.PasswordHasher;
 

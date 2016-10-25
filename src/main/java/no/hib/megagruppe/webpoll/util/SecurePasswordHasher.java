@@ -2,6 +2,10 @@ package no.hib.megagruppe.webpoll.util;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.inject.Named;
+import java.io.Serializable;
 import java.security.SecureRandom;
 
 class SecurePasswordHasher implements PasswordHasher {
