@@ -113,6 +113,26 @@ public class SecurityServiceImplTest {
     }
 
     @Test
+    public void backendHasherThrowsExceptionLoginReturnsFalse() {
+        TestSecurityAdapter securityAdapter = new TestSecurityAdapter();
+        TestUserRepository userRepository = new TestUserRepository();
+        TestPasswordHasher passwordHasher = new TestPasswordHasher();
+
+        SecurityService securityService = buildService(securityAdapter, passwordHasher, userRepository);
+
+        UserEntity user = new UserEntity();
+        user.setEmail("test@user.none");
+        user.setPassword("test");
+        user.setId(42);
+
+        userRepository.userToReturn = user;
+
+        passwordHasher.comparePasswordShallThrow = true;
+
+        assertFalse(securityService.logIn("test", ""));
+    }
+
+    @Test
     public void logOutCallsLogOutOnSecurityAdapter() {
         TestSecurityAdapter securityAdapter = new TestSecurityAdapter();
 

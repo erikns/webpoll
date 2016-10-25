@@ -26,9 +26,13 @@ public class SecurityServiceImpl implements SecurityService {
         UserEntity user = repositoryFactory.getUserRepository().findByEmail(username);
         if (user == null) return false;
 
-        boolean passwordMatches = passwordHasher.comparePassword(password, user.getPassword());
-        if (passwordMatches) securityAdapter.logIn(user.getId());
-        return passwordMatches;
+        try {
+            boolean passwordMatches = passwordHasher.comparePassword(password, user.getPassword());
+            if (passwordMatches) securityAdapter.logIn(user.getId());
+            return passwordMatches;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
     @Override

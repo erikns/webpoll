@@ -37,11 +37,7 @@ public class TestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String pwd = req.getParameter("password");
 
-        try {
-            securityService.logIn("admin@stud.hib.no", pwd);
-        } catch (Exception e) {
-            // Swallow exception
-        }
+        securityService.logIn("admin@stud.hib.no", pwd);
 
         resp.sendRedirect("test");
     }

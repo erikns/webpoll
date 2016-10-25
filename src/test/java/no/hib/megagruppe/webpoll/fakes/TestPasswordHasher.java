@@ -8,6 +8,7 @@ import no.hib.megagruppe.webpoll.util.PasswordHasher;
 public class TestPasswordHasher implements PasswordHasher {
     public boolean hashPasswordCalled = false;
     public boolean comparePasswordCalled = false;
+    public boolean comparePasswordShallThrow = false;
 
     @Override
     public String hashPassword(String password) {
@@ -18,6 +19,10 @@ public class TestPasswordHasher implements PasswordHasher {
     @Override
     public boolean comparePassword(String password, String hash) {
         comparePasswordCalled = true;
-        return password.equals(hash);
+        if (comparePasswordShallThrow) {
+            throw new IllegalArgumentException("foo");
+        } else {
+            return password.equals(hash);
+        }
     }
 }
