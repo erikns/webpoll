@@ -6,7 +6,7 @@
 				<span class="icon-bar"></span>    
 				<span class="icon-bar"></span>        
 			</button>
-			<a class="navbar-brand" href="#">Project Webpoll</a>
+			<a class="navbar-brand" href="/h16_dat104_g02/">Project Webpoll</a>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar">

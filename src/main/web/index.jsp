@@ -9,6 +9,25 @@
 
 	<body>
 		<jsp:include page="pages/navbar.jsp"/>
+		<div class="site-wrapper">
+      			<div class="site-wrapper-inner">
+      				<div class="cover-container">
+	          				<div class="inner cover text-center">
+	            				<h1 class="cover-heading">Project Webpoll.</h1>
+	            				<p class="lead">Create &amp; answer  polls anywhere, anytime.</p>
+	            				<form class="form-inline">
+				  				<div class="form-group">
+				  					<label for="pollcode">Poll code</label>
+				  					<input type="text" class="form-control" id="pollcode" placeholder="123456">
+				  					<button type="submit" class="btn btn-primary btn-default">Go!</button>
+				  				</div>
+		  					</form>
+	          				</div>
+          				</div>
+        			</div>
+        		</div>
+        	</div>
+		<!--
 		<div class="container">
 			<div class="jumbotron">
   				<h1 class="text-center">Project Webpoll <small>The Kahoot clone</small></h1>
@@ -50,8 +69,15 @@
   					<p class="text-center">mattis rhoncus nibh,</p>
   				</div>
   			</div>
-		</div>
+		</div> -->
 		<jsp:include page="pages/footer.jsp"/>
 		<jsp:include page="pages/js.jsp"/>
+		<script>
+			$.backstretch([
+				"assets/img/people.jpg",
+    				"assets/img/lecture.jpg",
+    				"assets/img/maclecture.jpg"
+  				], {duration: 6000});
+		</script>
 	</body>
 </html>
