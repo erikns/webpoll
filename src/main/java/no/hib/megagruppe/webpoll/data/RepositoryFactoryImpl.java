@@ -1,8 +1,8 @@
 package no.hib.megagruppe.webpoll.data;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 
-@Stateless
+@ApplicationScoped
 public class RepositoryFactoryImpl implements RepositoryFactory {
     private static SurveyRepository surveyRepository; // FIXME: temporary!
     private static UserRepository userRepository;

@@ -4,10 +4,12 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.security.SecureRandom;
 
+@ApplicationScoped
 class SecurePasswordHasher implements PasswordHasher {
     private static final int LOG_ROUNDS = 5;
 

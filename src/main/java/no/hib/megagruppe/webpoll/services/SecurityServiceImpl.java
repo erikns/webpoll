@@ -4,8 +4,10 @@ import no.hib.megagruppe.webpoll.data.RepositoryFactory;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.util.PasswordHasher;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+@Stateless
 public class SecurityServiceImpl implements SecurityService {
     private final SecurityAdapter securityAdapter;
     private final PasswordHasher passwordHasher;
