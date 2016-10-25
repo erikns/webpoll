@@ -77,7 +77,7 @@
 				"assets/img/people.jpg",
     				"assets/img/lecture.jpg",
     				"assets/img/maclecture.jpg"
-  				], {duration: 6000, fade: "slow"});
+  				], {duration: 5000, fade: "slow"});
 		</script>
 	</body>
 </html>
