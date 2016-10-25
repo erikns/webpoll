@@ -3,12 +3,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<jsp:include page="/pages/meta.jsp"/>
+		<jsp:include page="<c:url value="pages/meta.jsp"/>"/>
 		<title>Prosjekt WebPoll</title>
 	</head>
 
 	<body>
-		<jsp:include page="/pages/navbar.jsp"/>
+		<jsp:include page="<c:url value="pages/navbar.jsp"/>">"
 		<div class="container">
 			<div class="jumbotron">
 			

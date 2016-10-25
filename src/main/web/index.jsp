@@ -74,9 +74,9 @@
 		<jsp:include page="pages/js.jsp"/>
 		<script>
 			$.backstretch([
-				"assets/img/people.jpg",
-    				"assets/img/lecture.jpg",
-    				"assets/img/maclecture.jpg"
+				"<c:url value="assets/img/people.jpg"/>",
+    				"<c:url value="assets/img/lecture.jpg"/>",
+    				"<c:url value="assets/img/maclecture.jpg"/>"
   				], {duration: 5000, fade: "slow"});
 		</script>
 	</body>
