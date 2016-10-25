@@ -12,7 +12,7 @@ public class SessionSecurityAdapter implements SecurityAdapter {
     private final String LOGGED_IN_PARAMETER = "loggedIn";
 
     @Inject
-    HttpSession sessionContext;
+    private HttpSession sessionContext;
 
     @Override
     public boolean isLoggedIn() {
