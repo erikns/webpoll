@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.security.SecureRandom;
 
 @ApplicationScoped
-class SecurePasswordHasher implements PasswordHasher {
+public class SecurePasswordHasher implements PasswordHasher {
     private static final int LOG_ROUNDS = 5;
 
     @Override

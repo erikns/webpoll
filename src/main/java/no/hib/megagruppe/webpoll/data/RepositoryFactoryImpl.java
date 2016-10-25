@@ -8,7 +8,7 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
     private static UserRepository userRepository;
 
     public RepositoryFactoryImpl() {
-        userRepository = null;
+        userRepository = new InMemoryUserRepository();
         surveyRepository = new InMemorySurveyRepository();
     }
 

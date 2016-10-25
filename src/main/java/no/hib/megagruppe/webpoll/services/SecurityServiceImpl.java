@@ -9,9 +9,9 @@ import javax.inject.Inject;
 
 @Stateless
 public class SecurityServiceImpl implements SecurityService {
-    private final SecurityAdapter securityAdapter;
-    private final PasswordHasher passwordHasher;
-    private final RepositoryFactory repositoryFactory;
+    private SecurityAdapter securityAdapter;
+    private PasswordHasher passwordHasher;
+    private RepositoryFactory repositoryFactory;
 
     @Inject
     public SecurityServiceImpl(SecurityAdapter securityAdapter, PasswordHasher passwordHasher,
