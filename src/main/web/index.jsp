@@ -13,15 +13,15 @@
       			<div class="site-wrapper-inner">
       				<div class="cover-container">
 	          				<div class="inner cover text-center">
-	            				<h1 class="cover-heading">Project Webpoll.</h1>
+	            				<h1 class="cover-heading">Project Webpoll</h1>
 	            				<p class="lead">Create &amp; answer  polls anywhere, anytime.</p>
 	            				<form class="form-inline">
-				  				<div class="form-group">
-				  					<label for="pollcode">Poll code</label>
-				  					<input type="text" class="form-control" id="pollcode" placeholder="123456">
-				  					<button type="submit" class="btn btn-primary btn-default">Go!</button>
-				  				</div>
-		  					</form>
+				  			<div class="form-group">
+				  				<label for="pollcode">Poll code</label>
+				  				<input type="text" class="form-control" id="pollcode" placeholder="123456">
+				  				<button type="submit" class="btn btn-primary btn-default">Go!</button>
+				  			</div>
+		  				</form>
 	          				</div>
           				</div>
         			</div>
