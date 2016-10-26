@@ -35,9 +35,17 @@ public class AnswerModel {
      * This method should only be used when iterating questions[]
      * @return true if the end of questions[] is not reached
      */
-    //Dette maa testes
     public boolean hasNextQuestion(){
-        return counter != questions.length;
+        boolean retur = false;
+
+        if(questions == null){
+            retur = false;
+        }else if (counter < questions.length){
+            retur = true;
+        }else{
+            retur = false;
+        }
+        return retur;
     }
 
     /**
