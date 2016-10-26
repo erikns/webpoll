@@ -9,6 +9,12 @@ public class UserEntity {
     private String email;
     private String password;
     private List<SurveyEntity> surveys;
+    
+    
+    @Override
+    public String toString(){
+    	return firstName + " " + lastName;
+    }
 
     public Integer getId() {
         return id;

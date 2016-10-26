@@ -25,7 +25,13 @@ public class SurveyAnsweringModel {
 	public SurveyAnsweringModel(List<QuestionEntity> questions, String surveyName, Date surveyDate, Date surveyDeadline, String creator){
 		
 		this.questions = new SurveyQuestionModel[questions.size()];
-		// TODO create questionModels.
+		int i = 0;
+		for(QuestionEntity qe : questions){
+			qe.getType();
+			SurveyQuestionModel sqm = new SurveyQuestionModel(qe.getText(), qe.getType(), qe.getOptions());
+			this.questions[i] = sqm;
+			i++;
+		}
 		
 		this.surveyName = surveyName;
 		this.surveyDate = surveyDate;
