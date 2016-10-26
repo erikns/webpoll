@@ -2,7 +2,7 @@ package no.hib.megagruppe.webpoll.models;
 
 import no.hib.megagruppe.webpoll.util.QuestionType;
 
-public class QuestionModel {
+public class SurveyQuestionModel {
     private String[] options;
     private String text;
     private String answer[];

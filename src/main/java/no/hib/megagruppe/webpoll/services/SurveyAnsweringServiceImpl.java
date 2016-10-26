@@ -2,8 +2,6 @@ package no.hib.megagruppe.webpoll.services;
 
 import no.hib.megagruppe.webpoll.data.RepositoryFactory;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
-import no.hib.megagruppe.webpoll.models.AnswerModel;
-import no.hib.megagruppe.webpoll.models.QuestionModel;
 import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
 
 import javax.ejb.Stateless;

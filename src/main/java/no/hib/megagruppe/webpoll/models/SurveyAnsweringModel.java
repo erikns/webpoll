@@ -13,7 +13,7 @@ import no.hib.megagruppe.webpoll.entities.QuestionEntity;
  */
 public class SurveyAnsweringModel {
 	
-	private QuestionModel[] questions;
+	private SurveyQuestionModel[] questions;
 	private String surveyName;
 	private Date surveyDate;
 	private Date surveyDeadline;
@@ -24,7 +24,7 @@ public class SurveyAnsweringModel {
 	
 	public SurveyAnsweringModel(List<QuestionEntity> questions, String surveyName, Date surveyDate, Date surveyDeadline, String creator){
 		
-		this.questions = new QuestionModel[questions.size()];
+		this.questions = new SurveyQuestionModel[questions.size()];
 		// TODO create questionModels.
 		
 		this.surveyName = surveyName;
@@ -46,8 +46,8 @@ public class SurveyAnsweringModel {
 	 * Retrieves the next question. Throws an ArrayIndexOutOfBoundsException if there are no more questions left.
 	 * @return The next question.
 	 */
-	public QuestionModel getNextQuestion(){
-		QuestionModel qm = questions[currentQuestionCounter];
+	public SurveyQuestionModel getNextQuestion(){
+		SurveyQuestionModel qm = questions[currentQuestionCounter];
 		currentQuestionCounter++;
 		return qm;
 	}
