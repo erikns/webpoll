@@ -7,7 +7,7 @@ create table "user" (
     id serial primary key,
     fname varchar(40),
     lname varchar(40),
-    email varchar(256),
+    email varchar(256) unique,
     password varchar(256)
 );
 
