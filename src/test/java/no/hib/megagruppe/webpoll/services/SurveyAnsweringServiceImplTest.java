@@ -5,12 +5,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import no.hib.megagruppe.webpoll.data.SurveyRepository;
+import no.hib.megagruppe.webpoll.entities.OptionEntity;
+import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
+import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.fakes.FakeRepositoryFactory;
 import no.hib.megagruppe.webpoll.fakes.TestSurveyRepository;
 import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
@@ -48,10 +53,64 @@ public class SurveyAnsweringServiceImplTest {
 	@Before
 	public void setup() {
 		surveyRepository = new TestSurveyRepository();
+		
+		UserEntity user = new UserEntity();
+        user.setEmail("test@testesen.no");
+        user.setFirstName("Test");
+        user.setLastName("Testesen");
+        user.setId(1);
 
-		survey = new SurveyEntity();
-		survey.setName("Test");
-		survey.setCode("abc");
+        //////
+        OptionEntity optionA = new OptionEntity();
+        optionA.setId(1);
+        optionA.setText("Ja");
+
+        OptionEntity optionB = new OptionEntity();
+        optionB.setId(2);
+        optionB.setText("Nei");
+
+        QuestionEntity question1 = new QuestionEntity();
+        question1.setId(1);
+        question1.setText("Har du noen gang programmert JavaEE?");
+        question1.setMultiple(false);
+        question1.setType(QuestionEntity.QuestionType.MULTIPLE_CHOICE);
+
+        List<OptionEntity> options = new ArrayList<>();
+        options.add(optionA);
+        options.add(optionB);
+        question1.setOptions(options);
+
+        optionA.setQuestion(question1);
+        optionB.setQuestion(question1);
+        //////
+        //////
+        QuestionEntity question2 = new QuestionEntity();
+        question2.setId(2);
+        question2.setText("Hva synes du om WebPoll?");
+        question2.setType(QuestionEntity.QuestionType.FREE_TEXT);
+        //////
+
+        survey = new SurveyEntity();
+        survey.setId(1);
+        survey.setName("Testundersøkelse");
+        survey.setDate(new Date(System.currentTimeMillis() - 3600));
+        survey.setDeadline(new Date(System.currentTimeMillis() + 36000));
+        survey.setOwner(user);
+        survey.setActive(true);
+        survey.setCode("abc");
+
+        List<QuestionEntity> questions = new ArrayList<>();
+        question1.setSurvey(survey);
+        question2.setSurvey(survey);
+        questions.add(question1);
+        questions.add(question2);
+
+        survey.setQuestions(questions);
+        
+        
+        
+		
+		
 		
 		surveyRepository.add(survey);
 		service = buildService(surveyRepository);
@@ -81,9 +140,9 @@ public class SurveyAnsweringServiceImplTest {
 		survey.setDeadline(new Date(120000));
 		
 		SurveyAnsweringModel sam = service.startSurveyAnswering("abc");
-		//assertEquals(survey.getName(), sam.getSurveyName()); // TODO
-		//assertEquals(survey.getDate(), sam.getSurveyDate());
-		//assertEquals(survey.getDeadline(), sam.getSurveyDeadline());
+		assertEquals(survey.getName(), sam.getSurveyName());
+		assertEquals(survey.getDate(), sam.getSurveyDate());
+		assertEquals(survey.getDeadline(), sam.getSurveyDeadline());
 	}
 	
 	@Test
