@@ -1,6 +1,6 @@
 package no.hib.megagruppe.webpoll.entities;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public class SurveyEntity {
