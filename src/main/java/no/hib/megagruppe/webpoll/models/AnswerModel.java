@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class AnswerModel {
     private QuestionModel[] questions;
-    private int teller;
+    private int counter;
 
     public String SurveyTitle;
     public Date DateCreated;
@@ -18,8 +18,8 @@ public class AnswerModel {
     public QuestionModel getNextQuestion(){
         QuestionModel ret = null;
         if (hasNextQuestion()){
-            teller++;
-            ret = questions[teller-1];
+            counter++;
+            ret = questions[counter -1];
         }
         return ret;
     }
@@ -37,13 +37,21 @@ public class AnswerModel {
      */
     //Dette maa testes
     public boolean hasNextQuestion(){
-        return teller != questions.length;
+        return counter != questions.length;
     }
 
     /**
      * HelperMethod, resets counter used to iterate :questions in Answermodel
      */
     private void reset(){
-        this.teller = 0;
+        this.counter = 0;
+    }
+
+    /**
+     * Method that returns counter
+     * @return
+     */
+    public int getCounter() {
+        return counter;
     }
 }

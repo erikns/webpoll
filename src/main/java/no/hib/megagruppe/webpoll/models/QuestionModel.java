@@ -8,7 +8,7 @@ public class QuestionModel {
     private String answer[];
     private QuestionType questionType; //HVOR og hvordan skal denne settes?
 
-    private int teller; //er dette greit til bruk i submitAnswer?
+    private int counter; //er dette greit til bruk i submitAnswer?
 
 
     /**
