@@ -18,9 +18,5 @@ public class AnswerModelTest {
         assertFalse(am.hasNextQuestion());
     }
 
-    @Test
-    public void resetResets(){
-        assertEquals(am.getCounter() , 0);
-    }
 
 }
