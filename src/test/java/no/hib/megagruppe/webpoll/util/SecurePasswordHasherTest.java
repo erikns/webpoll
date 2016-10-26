@@ -63,6 +63,15 @@ public class SecurePasswordHasherTest {
         passwordHasher.comparePassword("", hash);
     }
 
-    // TODO: add some more bad-path tests for password hasher
+    @Test(expected = IllegalArgumentException.class)
+    public void comparePasswordWithNullHashThrowsException() {
+        PasswordHasher passwordHasher = new SecurePasswordHasher();
+        passwordHasher.comparePassword("password", null);
+    }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void comparePasswordWithInvalidHashThrowsException() {
+        PasswordHasher passwordHasher = new SecurePasswordHasher();
+        passwordHasher.comparePassword("password", "invalid/hash");
+    }
 }

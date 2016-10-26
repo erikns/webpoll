@@ -11,7 +11,7 @@ public class SecurePasswordHasher implements PasswordHasher {
 
     @Override
     public String hashPassword(String password) {
-        verifyPasswordCandidate(password);
+        verifyPasswordInput(password);
 
         String salt = BCrypt.gensalt(LOG_ROUNDS, new SecureRandom());
         return BCrypt.hashpw(password, salt);
@@ -19,11 +19,12 @@ public class SecurePasswordHasher implements PasswordHasher {
 
     @Override
     public boolean comparePassword(String password, String hash) {
-        verifyPasswordCandidate(password);
+        verifyPasswordInput(password);
+        if (hash == null) throw new IllegalArgumentException("Hash cannot be null");
         return BCrypt.checkpw(password, hash);
     }
 
-    private void verifyPasswordCandidate(String password) {
+    private void verifyPasswordInput(String password) {
         if (password == null)
             throw new IllegalArgumentException("Password cannot be null");
         if (password.length() < 1)
