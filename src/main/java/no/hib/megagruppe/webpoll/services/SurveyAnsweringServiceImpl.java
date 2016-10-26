@@ -30,16 +30,6 @@ public class SurveyAnsweringServiceImpl implements SurveyAnsweringService {
     }
 
     @Override
-    public QuestionModel getNextQuestion(SurveyAnsweringModel context) {
-        return null;
-    }
-
-    @Override
-    public void answerCurrentQuestion(SurveyAnsweringModel context, AnswerModel answer) {
-
-    }
-
-    @Override
     public void commitSurveyAnswering(SurveyAnsweringModel context) {
 
     }

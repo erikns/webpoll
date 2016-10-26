@@ -1,7 +1,5 @@
 package no.hib.megagruppe.webpoll.services;
 
-import no.hib.megagruppe.webpoll.models.AnswerModel;
-import no.hib.megagruppe.webpoll.models.QuestionModel;
 import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
 
 /**
@@ -22,20 +20,6 @@ public interface SurveyAnsweringService {
      * @return Context representing the survey answering session
      */
     SurveyAnsweringModel startSurveyAnswering(String code);
-
-    /**
-     * Get the next question in the survey represented by the response context
-     * @param context The response context
-     * @return The next question
-     */
-    QuestionModel getNextQuestion(SurveyAnsweringModel context);
-
-    /**
-     * Answer the current question in the context
-     * @param context The response context
-     * @param answer The answer
-     */
-    void answerCurrentQuestion(SurveyAnsweringModel context, AnswerModel answer);
 
     /**
      * Commit (finish) the answering of a survey
