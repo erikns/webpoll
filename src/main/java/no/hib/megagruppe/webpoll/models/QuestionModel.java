@@ -1,9 +1,14 @@
 package no.hib.megagruppe.webpoll.models;
 
+import no.hib.megagruppe.webpoll.util.QuestionType;
+
 public class QuestionModel {
     private String[] options;
     private String text;
     private String answer[];
+    private QuestionType questionType; //HVOR og hvordan skal denne settes?
+
+    private int teller; //er dette greit til bruk i submitAnswer?
 
 
     /**
@@ -24,11 +29,10 @@ public class QuestionModel {
     }
 
     /**
-     * @return enum question type
+     * @return String from enum, representing question type
      */
-    public Enum getType(){
-        //FIXME need to implement this Enum, -OpenQuestion-, -MultipleChoiceQuestion- and add it to this method
-        return null;
+    public String getType(){
+        return questionType.name();
     }
 
     /**
