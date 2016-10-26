@@ -146,6 +146,8 @@ public class SecurityServiceImplTest {
     public void getLoggedInUserWithLoggedInUserReturnsCorrectUser() {
         UserEntity returnThisUser = new UserEntity();
         returnThisUser.setId(42);
+        returnThisUser.setFirstName("Alan");
+        returnThisUser.setLastName("York");
 
         TestSecurityAdapter securityAdapter = new TestSecurityAdapter();
         securityAdapter.getLoggedInUserToReturn = 42;
@@ -157,10 +159,10 @@ public class SecurityServiceImplTest {
 
         SecurityService securityService = buildService(securityAdapter, passwordHasher, userRepository);
 
-        UserEntity user = securityService.getLoggedInUser();
+        String userName = securityService.getLoggedInUserName();
 
         assertEquals(42, userRepository.findByIdCalledWith);
-        assertTrue(user.getId() == 42);
+        assertEquals("Alan York", userName);
     }
 
     @Test
@@ -176,10 +178,10 @@ public class SecurityServiceImplTest {
 
         SecurityService securityService = buildService(securityAdapter, passwordHasher, userRepository);
 
-        UserEntity user = securityService.getLoggedInUser();
+        String userName = securityService.getLoggedInUserName();
 
         assertEquals(0, userRepository.findByIdCalled);
-        assertNull(user);
+        assertNull(userName);
     }
 
     private static SecurityService buildService(SecurityAdapter securityAdapter, PasswordHasher passwordHasher,

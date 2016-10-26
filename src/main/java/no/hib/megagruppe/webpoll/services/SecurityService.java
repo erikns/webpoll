@@ -26,8 +26,8 @@ public interface SecurityService {
     boolean isLoggedIn();
 
     /**
-     * Get the user that is presently logged in.
-     * @return The logged in user if someone is logged in, null otherwise
+     * Get the user display name that is presently logged in.
+     * @return The logged in user display name if someone is logged in, null otherwise
      */
-    UserEntity getLoggedInUser();
+    String getLoggedInUserName();
 }

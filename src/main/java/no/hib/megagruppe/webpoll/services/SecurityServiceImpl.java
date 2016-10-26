@@ -46,12 +46,13 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public UserEntity getLoggedInUser() {
+    public String getLoggedInUserName() {
         int sessionUser = securityAdapter.getLoggedInUser();
         if (sessionUser == SecurityAdapter.USER_NOT_LOGGED_IN) {
             return null;
         }
 
-        return repositoryFactory.getUserRepository().findById(sessionUser);
+        UserEntity user = repositoryFactory.getUserRepository().findById(sessionUser);
+        return user.getFirstName() + " " + user.getLastName();
     }
 }
