@@ -23,7 +23,7 @@ public interface SurveyAnsweringService {
 
     /**
      * Commit (finish) the answering of a survey
-     * @param context The response context
+     * @param answeringModel The survey answering model
      */
-    void commitSurveyAnswering(SurveyAnsweringModel context);
+    void commitSurveyAnswering(SurveyAnsweringModel answeringModel);
 }

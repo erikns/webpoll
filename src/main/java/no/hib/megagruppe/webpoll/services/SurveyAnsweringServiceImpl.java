@@ -30,7 +30,7 @@ public class SurveyAnsweringServiceImpl implements SurveyAnsweringService {
     }
 
     @Override
-    public void commitSurveyAnswering(SurveyAnsweringModel context) {
+    public void commitSurveyAnswering(SurveyAnsweringModel answeringModel) {
 
     }
 }
