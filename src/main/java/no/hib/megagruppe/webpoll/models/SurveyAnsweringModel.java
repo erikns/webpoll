@@ -2,6 +2,9 @@ package no.hib.megagruppe.webpoll.models;
 
 import java.sql.Date;
 import java.time.Duration;
+import java.util.List;
+
+import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 
 /**
  * 
@@ -19,10 +22,17 @@ public class SurveyAnsweringModel {
 	private int currentQuestionCounter;
 	
 	
-	public SurveyAnsweringModel(){
+	public SurveyAnsweringModel(List<QuestionEntity> questions, String surveyName, Date surveyDate, Date surveyDeadline, String creator){
+		
+		this.questions = new QuestionModel[questions.size()];
+		
+		this.surveyName = surveyName;
+		this.surveyDate = surveyDate;
+		this.surveyDeadline = surveyDeadline;
+		this.creator = creator;
 		currentQuestionCounter = 0;
 	}
-	
+
 	/**
 	 * Checks whether there are more questions left in the survey.
 	 * @return True if there are more questions left in the survey.

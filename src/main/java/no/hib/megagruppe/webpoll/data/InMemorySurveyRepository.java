@@ -1,11 +1,17 @@
 package no.hib.megagruppe.webpoll.data;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import no.hib.megagruppe.webpoll.entities.OptionEntity;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
 
-import java.util.*;
+
 
 // TEMPORARY!!!!!!
 public class InMemorySurveyRepository implements SurveyRepository {
