@@ -33,6 +33,10 @@ public class SurveyQuestionModel {
     public String getType(){
         return questionType.name();
     }
+    
+    public void setType(QuestionType questionType){
+    	this.questionType = questionType;
+    }
 
     /**
      * Method that returns the options from a question, if question 'text'
