@@ -53,6 +53,54 @@ public class SurveyAnsweringServiceImplTest {
 	@Before
 	public void setup() {
 		surveyRepository = new TestSurveyRepository();
+		survey = buildSurvey();
+		surveyRepository.add(survey);
+		service = buildService(surveyRepository);
+	}
+	
+	@Test
+	public void isValidSurveyReturnsFalseForNonExistantSurvey() {
+		assertFalse(service.isValidSurvey("I do not exit"));
+	}
+
+	@Test
+	public void isValidSurveyReturnsTrueForActiveSurvey() {
+		survey.setActive(true);
+		assertTrue(service.isValidSurvey("abc"));
+	}
+
+	@Test
+	public void isValidSurveyReturnsFalseForInactiveSurvey() {
+		survey.setActive(false);
+		assertFalse(service.isValidSurvey("abc"));
+	}
+	
+	@Test
+	public void startingSurveyGivesCorrectSurveyAnsweringModel() {
+		survey.setName("Favorite test");
+		survey.setDate(new Date(100000));
+		survey.setDeadline(new Date(120000));
+		
+		SurveyAnsweringModel sam = service.startSurveyAnswering("abc");
+		assertEquals(survey.getName(), sam.getSurveyName());
+		assertEquals(survey.getDate(), sam.getSurveyDate());
+		assertEquals(survey.getDeadline(), sam.getSurveyDeadline());
+	}
+	
+	@Test
+	public void commitSurveyAnsweringSavesTheAnswersInRepository(){
+		// TODO
+		SurveyAnsweringModel sam = service.startSurveyAnswering("abc");
+		
+		service.commitSurveyAnswering(sam);
+	}
+
+	private static SurveyAnsweringService buildService(SurveyRepository surveyRepository) {
+		return new SurveyAnsweringServiceImpl(new FakeRepositoryFactory(null, surveyRepository));
+	}
+	
+	private static SurveyEntity buildSurvey(){
+		SurveyEntity survey;
 		
 		UserEntity user = new UserEntity();
         user.setEmail("test@testesen.no");
@@ -107,54 +155,7 @@ public class SurveyAnsweringServiceImplTest {
 
         survey.setQuestions(questions);
         
-        
-        
-		
-		
-		
-		surveyRepository.add(survey);
-		service = buildService(surveyRepository);
-	}
-	
-	@Test
-	public void isValidSurveyReturnsFalseForNonExistantSurvey() {
-		assertFalse(service.isValidSurvey("I do not exit"));
-	}
-
-	@Test
-	public void isValidSurveyReturnsTrueForActiveSurvey() {
-		survey.setActive(true);
-		assertTrue(service.isValidSurvey("abc"));
-	}
-
-	@Test
-	public void isValidSurveyReturnsFalseForInactiveSurvey() {
-		survey.setActive(false);
-		assertFalse(service.isValidSurvey("abc"));
-	}
-	
-	@Test
-	public void startingSurveyGivesCorrectSurveyAnsweringModel() {
-		survey.setName("Favorite test");
-		survey.setDate(new Date(100000));
-		survey.setDeadline(new Date(120000));
-		
-		SurveyAnsweringModel sam = service.startSurveyAnswering("abc");
-		assertEquals(survey.getName(), sam.getSurveyName());
-		assertEquals(survey.getDate(), sam.getSurveyDate());
-		assertEquals(survey.getDeadline(), sam.getSurveyDeadline());
-	}
-	
-	@Test
-	public void commitSurveyAnsweringSavesTheAnswersInRepository(){
-		// TODO
-		SurveyAnsweringModel sam = service.startSurveyAnswering("abc");
-		
-		service.commitSurveyAnswering(sam);
-	}
-
-	private static SurveyAnsweringService buildService(SurveyRepository surveyRepository) {
-		return new SurveyAnsweringServiceImpl(new FakeRepositoryFactory(null, surveyRepository));
+        return survey;
 	}
 
 }
