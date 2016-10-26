@@ -25,6 +25,7 @@ public class SurveyAnsweringModel {
 	public SurveyAnsweringModel(List<QuestionEntity> questions, String surveyName, Date surveyDate, Date surveyDeadline, String creator){
 		
 		this.questions = new QuestionModel[questions.size()];
+		// TODO create questionModels.
 		
 		this.surveyName = surveyName;
 		this.surveyDate = surveyDate;
@@ -59,7 +60,7 @@ public class SurveyAnsweringModel {
 		
 		Duration p = Duration.between(surveyDate.toLocalDate(), surveyDeadline.toLocalDate());
 		
-		return p.toString(); // TODO
+		return p.toString(); // TODO Change the way the string is represented.
 	}
 	
 	/**
