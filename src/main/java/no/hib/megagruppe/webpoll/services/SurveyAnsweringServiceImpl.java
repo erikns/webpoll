@@ -4,9 +4,12 @@ import no.hib.megagruppe.webpoll.data.RepositoryFactory;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.models.AnswerModel;
 import no.hib.megagruppe.webpoll.models.QuestionModel;
+import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+@Stateless
 public class SurveyAnsweringServiceImpl implements SurveyAnsweringService {
     private final RepositoryFactory repositoryFactory;
 
@@ -22,22 +25,22 @@ public class SurveyAnsweringServiceImpl implements SurveyAnsweringService {
     }
 
     @Override
-    public SurveyResponseContext startSurveyAnswering(String code) {
+    public SurveyAnsweringModel startSurveyAnswering(String code) {
         return null;
     }
 
     @Override
-    public QuestionModel getNextQuestion(SurveyResponseContext context) {
+    public QuestionModel getNextQuestion(SurveyAnsweringModel context) {
         return null;
     }
 
     @Override
-    public void answerCurrentQuestion(SurveyResponseContext context, AnswerModel answer) {
+    public void answerCurrentQuestion(SurveyAnsweringModel context, AnswerModel answer) {
 
     }
 
     @Override
-    public void commitSurveyAnswering(SurveyResponseContext context) {
+    public void commitSurveyAnswering(SurveyAnsweringModel context) {
 
     }
 }

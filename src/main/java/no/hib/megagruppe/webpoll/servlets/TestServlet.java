@@ -1,6 +1,7 @@
 package no.hib.megagruppe.webpoll.servlets;
 
 import no.hib.megagruppe.webpoll.services.SecurityService;
+import no.hib.megagruppe.webpoll.services.SurveyAnsweringService;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -16,6 +17,9 @@ public class TestServlet extends HttpServlet {
     @EJB
     SecurityService securityService;
 
+    @EJB
+    SurveyAnsweringService surveyAnsweringService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
@@ -24,6 +28,12 @@ public class TestServlet extends HttpServlet {
 
         if (securityService.isLoggedIn()) {
             resp.getWriter().println("Logged in!!!");
+
+            if (surveyAnsweringService.isValidSurvey("testabc")) {
+                resp.getWriter().println("Survey is active!");
+            } else {
+                resp.getWriter().println("Survey is NOT active!");
+            }
         } else {
             resp.getWriter().println("Not logged in!");
             resp.getWriter().println("<form method=\"post\">");
