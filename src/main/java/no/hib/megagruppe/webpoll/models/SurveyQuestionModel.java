@@ -4,7 +4,8 @@ public class SurveyQuestionModel {
     private String[] options;
     private String text;
     private String answer[];
-    private QuestionType questionType; //HVOR og hvordan skal denne settes?
+    private QuestionType questionType; //HVOR og hvordan skal denne settes? 
+    								   //XXX Hei! Instansene av denne klassen opprettes i SurveyAnsweringModel, som har all nødvendig informasjon!
 
     private int counter; //er dette greit til bruk i submitAnswer?
 
