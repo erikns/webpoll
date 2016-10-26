@@ -71,6 +71,9 @@ public class SurveyAnsweringModel {
 		currentQuestionCounter = 0;
 	}
 
+	
+	
+	
 	public String getSurveyName() {
 		return surveyName;
 	}

@@ -89,7 +89,7 @@ public class SurveyAnsweringServiceImplTest {
 	
 	@Test
 	public void commitSurveyAnsweringSavesTheAnswersInRepository(){
-		// TODO
+		// TODO Sjekk om det blir lagret i repo.
 		SurveyAnsweringModel sam = service.startSurveyAnswering("abc");
 		
 		service.commitSurveyAnswering(sam);
