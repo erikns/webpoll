@@ -14,11 +14,14 @@
 				<form class="form-signin" method="post" action="login">
 					<h2 class="form-signin-heading">Vennligst logg inn</h2>
 					<label for="inputUsername" class="sr-only">Brukernavn</label>
-					<input type="text" id="inputUsername" class="form-control" placeholder="Brukernavn" required autofocus>
+					<input type="text" id="inputUsername" name="username" class="form-control" placeholder="Brukernavn" required autofocus>
+
 					<label for="inputPassword" class="sr-only">Passord</label>
-					<input type="password" id="inputPassword" class="form-control" placeholder="Passord" required>
+					<input type="password" id="inputPassword" name="password" class="form-control" placeholder="Passord" required>
+					
 					<p class="errormsg">${errormsg}</p>
-					<button class="btn btn-lg btn-primary btn-block" type="submit">Logg inn</button>
+					
+					<input class="btn btn-lg btn-primary btn-block" type="submit" value="Logg inn">
 				</form>
 			</div>
 		</div>
