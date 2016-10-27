@@ -64,8 +64,7 @@ public class SurveyAnsweringServiceImplTest {
 	}
 	
 	@Test
-	public void commitSurveyAnsweringSavesTheAnswersInRepository(){
-		// TODO Sjekk om det blir lagret i repo.
+	public void commitSurveyDoesNotCrash(){
 		SurveyAnsweringModel sam = service.startSurveyAnswering("abc");
 		
 		service.commitSurveyAnswering(sam);

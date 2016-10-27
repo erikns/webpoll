@@ -13,8 +13,7 @@ import no.hib.megagruppe.webpoll.entities.QuestionEntity.QuestionType;
  *         This class represents a single question in a survey. It is supposed to be used when filling in information about the
  *         forms in the JSPs for answering questions.
  * 
- *         The QuestionType is either MULTIPLE_CHOICE_CHECKBOX, MULTIPLE_CHOICE_RADIO, or FREE_TEXT - all corresponding to the
- *         type of
+ *         The QuestionType is either MULTIPLE_CHOICE_CHECKBOX, MULTIPLE_CHOICE_RADIO, or FREE_TEXT.
  *
  */
 public class SurveyQuestionModel {

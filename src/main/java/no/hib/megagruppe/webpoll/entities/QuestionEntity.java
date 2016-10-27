@@ -4,7 +4,7 @@ import java.util.List;
 
 public class QuestionEntity {
     public enum QuestionType {
-        MULTIPLE_CHOICE_CHECKBOX, MULTIPLE_CHOICE_RADIO, FREE_TEXT; // XXX OK?
+        MULTIPLE_CHOICE_CHECKBOX, MULTIPLE_CHOICE_RADIO, FREE_TEXT;
     	
         public boolean isMultipleChoice(){
         	return (this == MULTIPLE_CHOICE_CHECKBOX || this == MULTIPLE_CHOICE_RADIO);
