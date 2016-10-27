@@ -20,7 +20,7 @@
 				
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="<c:url value="login.jsp"/>">Logg inn</a></li>
+				<li><a href="<c:url value="login"/>">Logg inn</a></li>
 			</ul>
 		</div>
 	</div>
