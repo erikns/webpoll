@@ -8,7 +8,7 @@ import no.hib.megagruppe.webpoll.services.SurveyAnsweringService;
 public class DummyService_Example {
 
 	/*
-	 * Lager en enkel undersøkelse med to spørsmål:
+	 * Innholder en enkel undersøkelse med to spørsmål:
 	 * - Har du noen gang programmert javaEE? (MULTIPLE_CHOICE_RADIO)
 	 * 	- Ja
 	 * 	- Nei
