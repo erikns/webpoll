@@ -17,7 +17,7 @@ public class DummyService_Example {
 	 */
 	public static void main(String[] args) {
 		
-		// Beregnt til å foregår inni servlet.
+		// Beregnet til å foregår inni en servlet.
 
 		
 		SurveyAnsweringService service = DummySurveyAnsweringServiceFactory.getServiceInstance();
@@ -36,7 +36,7 @@ public class DummyService_Example {
 			
 			// Har funnet en survey. Starter den fra en ny servlet, derfor trenger man koden hver gang (stateless)-
 			SurveyAnsweringModel survey = service.startSurveyAnswering(surveyCode);
-			System.out.println("Starter survey...");
+			System.out.println("Starter undersøkelse...\n");
 
 			
 			
@@ -82,9 +82,9 @@ public class DummyService_Example {
 				i++;
 
 			}
-
+			
+			System.out.println("Undersøkelse ferdig.");
 		}
-
 	}
 
 	/**

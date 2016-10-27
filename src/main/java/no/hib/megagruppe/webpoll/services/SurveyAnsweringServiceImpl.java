@@ -32,6 +32,6 @@ public class SurveyAnsweringServiceImpl implements SurveyAnsweringService {
 
     @Override
     public void commitSurveyAnswering(SurveyAnsweringModel answeringModel) {
-    	
+    	// TODO
     }
 }
