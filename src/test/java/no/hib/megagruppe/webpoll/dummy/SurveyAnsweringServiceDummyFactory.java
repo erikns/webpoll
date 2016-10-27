@@ -1,15 +1,8 @@
-package no.hib.megagruppe.webpoll.services;
-
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+package no.hib.megagruppe.webpoll.dummy;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
 
 import no.hib.megagruppe.webpoll.data.SurveyRepository;
 import no.hib.megagruppe.webpoll.entities.OptionEntity;
@@ -19,63 +12,35 @@ import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.fakes.FakeRepositoryFactory;
 import no.hib.megagruppe.webpoll.fakes.TestSurveyRepository;
 import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
+import no.hib.megagruppe.webpoll.services.SurveyAnsweringService;
+import no.hib.megagruppe.webpoll.services.SurveyAnsweringServiceImpl;
 
-public class SurveyAnsweringServiceImplTest {
+public class SurveyAnsweringServiceDummyFactory {
 
+	private SurveyAnsweringService service;
 	private SurveyRepository surveyRepository;
 	private SurveyEntity survey;
-	private SurveyAnsweringService service;
 	
-	@Before
-	public void setup() {
+	private String surveycode = "abc";
+	
+	public SurveyAnsweringServiceDummyFactory(){
 		surveyRepository = new TestSurveyRepository();
 		survey = buildSurvey();
 		surveyRepository.add(survey);
 		service = buildService(surveyRepository);
 	}
 	
-	@Test
-	public void isValidSurveyReturnsFalseForNonExistantSurvey() {
-		assertFalse(service.isValidSurvey("I do not exit"));
-	}
-
-	@Test
-	public void isValidSurveyReturnsTrueForActiveSurvey() {
-		survey.setActive(true);
-		assertTrue(service.isValidSurvey("abc"));
-	}
-
-	@Test
-	public void isValidSurveyReturnsFalseForInactiveSurvey() {
-		survey.setActive(false);
-		assertFalse(service.isValidSurvey("abc"));
-	}
-	
-	@Test
-	public void startingSurveyGivesCorrectSurveyAnsweringModel() {
-		survey.setName("Favorite test");
-		survey.setDate(new Date(100000));
-		survey.setDeadline(new Date(120000));
-		
-		SurveyAnsweringModel sam = service.startSurveyAnswering("abc");
-		assertEquals(survey.getName(), sam.getSurveyName());
-		assertEquals(survey.getDate(), sam.getSurveyDate());
-		assertEquals(survey.getDeadline(), sam.getSurveyDeadline());
-	}
-	
-	@Test
-	public void commitSurveyAnsweringSavesTheAnswersInRepository(){
-		// TODO Sjekk om det blir lagret i repo.
-		SurveyAnsweringModel sam = service.startSurveyAnswering("abc");
-		
-		service.commitSurveyAnswering(sam);
-	}
-
-	private static SurveyAnsweringService buildService(SurveyRepository surveyRepository) {
-		return new SurveyAnsweringServiceImpl(new FakeRepositoryFactory(null, surveyRepository));
-	}
-	
-	private static SurveyEntity buildSurvey(){
+	/**
+	 * A simple survey consisting of two questions.
+	 * 	- Har du noen gang programmert javaEE? (MULTIPLE_CHOICE_RADIO)
+	 * 		- Ja
+	 * 		- Nei
+	 * 
+	 * 	- Hva synes du om WebPoll? (FREE_TEXT)
+	 * 
+	 * @return A survey consisting of two questions.
+	 */
+	private SurveyEntity buildSurvey(){
 		SurveyEntity survey;
 		
 		UserEntity user = new UserEntity();
@@ -116,11 +81,11 @@ public class SurveyAnsweringServiceImplTest {
         survey = new SurveyEntity();
         survey.setId(1);
         survey.setName("Testundersøkelse");
-        survey.setDate(new Date(System.currentTimeMillis() - 3600));
-        survey.setDeadline(new Date(System.currentTimeMillis() + 36000));
+        survey.setDate(new Date(System.currentTimeMillis()));
+        survey.setDeadline(new Date(System.currentTimeMillis() + 3600000));
         survey.setOwner(user);
         survey.setActive(true);
-        survey.setCode("abc");
+        survey.setCode(surveycode);
 
         List<QuestionEntity> questions = new ArrayList<>();
         question1.setSurvey(survey);
@@ -132,5 +97,23 @@ public class SurveyAnsweringServiceImplTest {
         
         return survey;
 	}
-
+	
+	private SurveyAnsweringService buildService(SurveyRepository surveyRepository) {
+		return new SurveyAnsweringServiceImpl(new FakeRepositoryFactory(null, surveyRepository));
+	}
+	
+	/**
+	 * Starts the survey which returns a SurveyAnsweringModel-object.
+	 * The SAM (SurveyAnsweringModel) can act as an iterator with methods as:
+	 * 	+ hasNextQuestion() : boolean
+	 * 	+ getNextQuestion() : SurveyQuestionModel
+	 * 
+	 * To 
+	 * 
+	 * @return the SurveyAnsweringModel-object.
+	 */
+	public SurveyAnsweringModel startSurvey(){
+		return service.startSurveyAnswering(surveycode);
+	}
+	
 }

@@ -34,18 +34,17 @@ public class SurveyAnsweringModelTest {
         user.setLastName("Testesen");
         user.setId(1);
 
-		OptionEntity option1 = option1 = new OptionEntity();
+		OptionEntity option1 = new OptionEntity();
 		option1.setId(1);
 		option1.setText("Ja");
-		OptionEntity option2 = option2 = new OptionEntity();
+		OptionEntity option2 = new OptionEntity();
 		option2.setId(2);
 		option2.setText("Nei");
 
 		question1 = new QuestionEntity();
 		question1.setId(1);
 		question1.setText("Har du noen gang programmert JavaEE?");
-		question1.setType(QuestionEntity.QuestionType.MULTIPLE_CHOICE);
-		question1.setMultiple(false);
+		question1.setType(QuestionEntity.QuestionType.MULTIPLE_CHOICE_RADIO);
 
 		List<OptionEntity> options = new ArrayList<>();
 		options.add(option1);
@@ -97,6 +96,21 @@ public class SurveyAnsweringModelTest {
 	public void QuestionsAreInOrder(){
 		assertEquals(sam.getNextQuestion().getText(), question1.getText());
 		assertEquals(sam.getNextQuestion().getText(), question2.getText());
+	}
+	
+	@Test
+	public void ResetResets(){
+		assertEquals(sam.getNextQuestion().getText(), question1.getText());
+		assertEquals(sam.getNextQuestion().getText(), question2.getText());
+		sam.reset();
+		assertEquals(sam.getNextQuestion().getText(), question1.getText());
+		assertEquals(sam.getNextQuestion().getText(), question2.getText());
+	}
+	
+	@Test
+	public void TimeRemainingReturnsFormattedString(){
+		// FIXME Krasjer programmet. Gå til metoden getTimeRemaining for å se hvorfor.
+		//assertEquals(sam.getTimeRemaining(), "Test: 10h 4m 23s");
 	}
 }
 

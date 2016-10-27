@@ -4,14 +4,21 @@ import java.util.List;
 
 public class QuestionEntity {
     public enum QuestionType {
-        MULTIPLE_CHOICE, FREE_TEXT
+        MULTIPLE_CHOICE_CHECKBOX, MULTIPLE_CHOICE_RADIO, FREE_TEXT; // XXX OK?
+    	
+        public boolean isMultipleChoice(){
+        	return (this == MULTIPLE_CHOICE_CHECKBOX || this == MULTIPLE_CHOICE_RADIO);
+        }
+        
+        public boolean canHaveMultipleAnswers(){
+        	return this == MULTIPLE_CHOICE_CHECKBOX;
+        }
     }
 
     private Integer id;
     private SurveyEntity survey;
     private String text;
     private QuestionType type;
-    private Boolean multiple;
     private List<OptionEntity> options;
 
     public Integer getId() {
@@ -44,14 +51,6 @@ public class QuestionEntity {
 
     public void setType(QuestionType type) {
         this.type = type;
-    }
-
-    public Boolean getMultiple() {
-        return multiple;
-    }
-
-    public void setMultiple(Boolean multiple) {
-        this.multiple = multiple;
     }
 
     public List<OptionEntity> getOptions() {

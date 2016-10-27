@@ -6,61 +6,79 @@ import java.util.List;
 import no.hib.megagruppe.webpoll.entities.OptionEntity;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity.QuestionType;
 
+/**
+ * 
+ * @author Thomas and Magnus
+ * 
+ *         This class represents a single question in a survey. It is supposed to be used when filling in information about the
+ *         forms in the JSPs for answering questions.
+ * 
+ *         The QuestionType is either MULTIPLE_CHOICE_CHECKBOX, MULTIPLE_CHOICE_RADIO, or FREE_TEXT - all corresponding to the
+ *         type of
+ *
+ */
 public class SurveyQuestionModel {
+	
 	private String text;
-	private List<String> options;
 	private QuestionType questionType;
+	private List<String> options;
 	private String[] answers;
+
+	private int answersCounter;
+
 	
-	
-	
-	public SurveyQuestionModel(String text, QuestionType questionType, List<OptionEntity> optionEntities){
+	// Constructor
+	public SurveyQuestionModel(String text, QuestionType questionType, List<OptionEntity> optionEntities) {
 		this.text = text;
 		this.questionType = questionType;
-		
+
 		this.options = new ArrayList<String>();
-		if(questionType == QuestionType.MULTIPLE_CHOICE){
-			for(OptionEntity oe : optionEntities){
+		if (questionType.isMultipleChoice()) {
+			for (OptionEntity oe : optionEntities) {
 				this.options.add(oe.getText());
 			}
 		}
-		
+
+		// Instantiate answers array.
+		if (questionType.canHaveMultipleAnswers()) {
+			answers = new String[options.size()];
+		} else {
+			answers = new String[1];
+		}
+
+		answersCounter = 0;
+
 	}
 
 	/**
-	 * Method to submit a single answer to an Open- or Mulitple-ChoiceQuestion Used if multiple answers are not allowed
-	 * 
-	 * @param s
+	 * Submits a single answer for this question. 
+	 * Use this method only when the questionType is MULTIPLE_CHOICE_RADIO or FREE_TEXT.
+	 *
+	 * @param answer
+	 *            The answer for this question.
 	 */
-	public void submitAnswer(String s) {
-		//FIXME
+	public void submitAnswer(String answer) {
+		answers[0] = answer;
 	}
 
 	/**
-	 * Method to submit more than one answer if the question allows it
+	 * Submits multiple answers for this question. 
+	 * Use this method only when the questionType is MULTIPLE_CHOICE_CHECKBOX.
 	 * 
-	 * @param s
-	 *            an array of Strings, each representing an answer
+	 * @param answers
+	 *            The list of answers for this question.
 	 */
-	public void submitAnswer(String[] s) {
-		//FIXME
+	public void submitAnswer(String[] answers) {
+		for (String answer : answers) {
+			this.answers[answersCounter] = answer;
+			answersCounter++;
+		}
 	}
 
 	/**
-	 * @return String from enum, representing question type
-	 */
-	public String getType() {
-		return questionType.name();
-	}
-
-	public void setType(QuestionType questionType) {
-		this.questionType = questionType;
-	}
-
-	/**
-	 * Method that returns the options from a question, if question 'text' this method will return an empty array
+	 * The list of options on this question. If there are no options in this question it returns an empty list.
 	 * 
-	 * @return an array of strings for each option in the question
+	 * @return The list of options on this question.
 	 */
 	public List<String> getOptions() {
 		return options;
@@ -74,4 +92,11 @@ public class SurveyQuestionModel {
 		return answers;
 	}
 
+	public QuestionType getQuestionType() {
+		return questionType;
+	}
+
+	public void setType(QuestionType questionType) {
+		this.questionType = questionType;
+	}
 }

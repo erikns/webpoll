@@ -38,8 +38,7 @@ public class InMemorySurveyRepository implements SurveyRepository {
         QuestionEntity question1 = new QuestionEntity();
         question1.setId(1);
         question1.setText("Har du noen gang programmert JavaEE?");
-        question1.setMultiple(false);
-        question1.setType(QuestionEntity.QuestionType.MULTIPLE_CHOICE);
+        question1.setType(QuestionEntity.QuestionType.MULTIPLE_CHOICE_RADIO);
 
         List<OptionEntity> options = new ArrayList<>();
         options.add(optionA);
