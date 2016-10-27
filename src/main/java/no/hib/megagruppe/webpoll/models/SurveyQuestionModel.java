@@ -17,18 +17,21 @@ import no.hib.megagruppe.webpoll.entities.QuestionEntity.QuestionType;
  *
  */
 public class SurveyQuestionModel {
-	
+
 	private String text;
 	private QuestionType questionType;
 	private List<String> options;
 	private String[] answers;
 
-
 	/**
 	 * Constructor
-	 * @param text which makes up the question
-	 * @param questionType enum - MULTIPLE_CHOICE_CHECKBOX, MULTIPLE_CHOICE_RADIO or FREE_TEXT
-	 * @param optionEntities specifies the options for the question from 'text'
+	 * 
+	 * @param text
+	 *            which makes up the question
+	 * @param questionType
+	 *            enum - MULTIPLE_CHOICE_CHECKBOX, MULTIPLE_CHOICE_RADIO or FREE_TEXT
+	 * @param optionEntities
+	 *            specifies the options for the question from 'text'
 	 */
 	public SurveyQuestionModel(String text, QuestionType questionType, List<OptionEntity> optionEntities) {
 		this.text = text;
@@ -40,50 +43,50 @@ public class SurveyQuestionModel {
 				this.options.add(oe.getText());
 			}
 		}
-
-		// Instantiate answers array.
-		if (questionType.canHaveMultipleAnswers()) {
-			answers = new String[options.size()];
-		} else {
-			answers = new String[1];
-		}
-
 	}
-	
+
 	/**
-	 * Helper method to check whether this question is of certain type.
-	 * Cleaner version of question.getQuestionType.equals(questionType);
+	 * Helper method to check whether this question is of certain type. Cleaner version of
+	 * question.getQuestionType.equals(questionType);
 	 * 
-	 * @param questionType The type it is checking.
+	 * @param questionType
+	 *            The type it is checking.
 	 * @return Whether it is of that type.
 	 */
-	public boolean isOfType(QuestionType questionType){
+	public boolean isOfType(QuestionType questionType) {
 		return this.questionType.equals(questionType);
 	}
 
 	/**
-	 * Submits a single answer for this question. 
-	 * Use this method only when the questionType is MULTIPLE_CHOICE_RADIO or FREE_TEXT.
+	 * Submits a single answer for this question. Use this method only when the questionType is MULTIPLE_CHOICE_RADIO or
+	 * FREE_TEXT.
 	 *
 	 * @param answer
 	 *            The answer for this question.
 	 */
 	public void submitAnswer(String answer) {
-		answers[0] = answer;
+		answers = new String[1];
+		if(answer != null){
+			answers[0] = answer;
+		} else {
+			answers[0] = "";
+		}
 	}
 
 	/**
-	 * Submits multiple answers for this question. 
-	 * Use this method only when the questionType is MULTIPLE_CHOICE_CHECKBOX.
+	 * Submits multiple answers for this question. Use this method only when the questionType is MULTIPLE_CHOICE_CHECKBOX.
 	 * 
 	 * @param answers
 	 *            The list of answers for this question.
 	 */
 	public void submitAnswer(String[] answers) {
-		int answersCounter = 0;
-		for (String answer : answers) {
-			this.answers[answersCounter] = answer;
-			answersCounter++;
+		if (answers != null) {
+			this.answers = new String[answers.length];
+			for (int i = 0; i < answers.length; i++) {
+				this.answers[i] = answers[i];
+			}
+		} else {
+			this.answers = new String[0];
 		}
 	}
 
