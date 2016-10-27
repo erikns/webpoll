@@ -26,13 +26,18 @@ public class SurveyQuestionModel {
 
 	private int answersCounter;
 
-	
-	// Constructor
+
+	/**
+	 * Constructor
+	 * @param text wich makes up the question
+	 * @param questionType enum - MULTIPLE_CHOICE_CHECKBOX, MULTIPLE_CHOICE_RADIO or FREE_TEXT
+	 * @param optionEntities specifies the options for the question from 'text'
+	 */
 	public SurveyQuestionModel(String text, QuestionType questionType, List<OptionEntity> optionEntities) {
 		this.text = text;
 		this.questionType = questionType;
 
-		this.options = new ArrayList<String>();
+		this.options = new ArrayList<>();
 		if (questionType.isMultipleChoice()) {
 			for (OptionEntity oe : optionEntities) {
 				this.options.add(oe.getText());
