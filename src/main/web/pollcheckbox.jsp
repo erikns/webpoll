@@ -18,10 +18,8 @@
                         	</div>
                         	<c:set var="count" value="${count + 1}" scope="page"/>
     		</c:forEach>
-    		<div class="panel-footer">
-                		<input class="btn btn-default" type="submit" value="Avbryt">
-                		<input class="btn btn-primary" type="submit" value="Neste">
-        		</div>
+                      <input class="btn btn-default" type="submit" value="Avbryt">
+                      <input class="btn btn-primary" type="submit" value="Neste">
                 </form>
         </div>
 </div>
