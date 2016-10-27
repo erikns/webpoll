@@ -24,12 +24,10 @@ public class SurveyQuestionModel {
 	private List<String> options;
 	private String[] answers;
 
-	private int answersCounter;
-
 
 	/**
 	 * Constructor
-	 * @param text wich makes up the question
+	 * @param text which makes up the question
 	 * @param questionType enum - MULTIPLE_CHOICE_CHECKBOX, MULTIPLE_CHOICE_RADIO or FREE_TEXT
 	 * @param optionEntities specifies the options for the question from 'text'
 	 */
@@ -50,8 +48,6 @@ public class SurveyQuestionModel {
 		} else {
 			answers = new String[1];
 		}
-
-		answersCounter = 0;
 
 	}
 	
@@ -85,6 +81,7 @@ public class SurveyQuestionModel {
 	 *            The list of answers for this question.
 	 */
 	public void submitAnswer(String[] answers) {
+		int answersCounter = 0;
 		for (String answer : answers) {
 			this.answers[answersCounter] = answer;
 			answersCounter++;
