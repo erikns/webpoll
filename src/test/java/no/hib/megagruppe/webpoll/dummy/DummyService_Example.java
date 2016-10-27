@@ -16,6 +16,8 @@ public class DummyService_Example {
 	 * - Hva synes du om WebPoll? (FREE_TEXT)
 	 */
 	public static void main(String[] args) {
+		
+		// Beregnt til å foregår inni servlet.
 
 		
 		SurveyAnsweringService service = DummySurveyAnsweringServiceFactory.getServiceInstance();
@@ -65,15 +67,15 @@ public class DummyService_Example {
 				QuestionType type = question.getQuestionType();
 				if (type.equals(QuestionType.FREE_TEXT)) {
 
-					friTekstJSP(question);
+					friTekstJSP(question); // forward
 
 				} else if (type.equals(QuestionType.MULTIPLE_CHOICE_CHECKBOX)) {
 
-					multChoiceCheckJSP(question);
+					multChoiceCheckJSP(question); // forward
 
 				} else if (type.equals(QuestionType.MULTIPLE_CHOICE_RADIO)) {
 
-					multChoiceRadioJSP(question);
+					multChoiceRadioJSP(question); // forward
 
 				}
 
