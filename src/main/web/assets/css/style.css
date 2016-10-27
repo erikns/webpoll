@@ -165,7 +165,9 @@ a:hover {
     font-weight: bold;
 }
 
-
+.errormsg {
+    color: #ff0000;
+}
 /*
  * Affix and center
  */

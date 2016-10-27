@@ -12,57 +12,22 @@
 		<div class="site-wrapper">
       			<div class="site-wrapper-inner">
       				<div class="cover-container">
+      					<h3>${poll.surveyName} <small>av ${poll.creator}, ${poll.surveyDate}</small></h3>
+      					<p>Deadline: ${poll.surveyDeadline}</p>
+      					 <jsp:useBean id="now" class="java.util.Date"/>
       					<c:choose>
-      						<c:when test="${question.type eq 'multipleradio'}">
-      							<jsp:include page="pollradio.jsp"/>
-      						</c:when>
-      						<c:when test="${question.type eq 'multiplecheckbox'}">
-      							<jsp:include page="pollcheckbox.jsp"/>
-      						</c:when>
-      						<c:when test="${question.type eq 'textarea'}">
-      							<jsp:include page="polltextarea.jsp"/>
+      						<c:when test="${poll.surveyDeadline lt now}">
+      							<p>Tiden er ute!</p>
+      							<a class="btn btn-primary disabled" href="#" role="button" >Start</a>
       						</c:when>
       						<c:otherwise>
-      							
+      							<a class="btn btn-primary" href="/pollquestion" role="button" >Start</a>
       						</c:otherwise>
       					</c:choose>
-      					<jsp:include page="pollradio.jsp"/>
-      					<jsp:include page="pollcheckbox.jsp"/>
-      					<jsp:include page="polltextarea.jsp"/>
 				</div>
         			</div>
         		</div>
-		<!-- <div class="container">
-			<div class="question-panel-outer">
-			<div class="question-panel-inner">
-				<div class="panel-heading">
-					<h3 class="panel-title">Spørsmål 1</h3>
-				</div>
-				<div class="panel-body">
-					<p>bla bla bla</p>
-					<form action="" method="">
-					<div class="radio">
-						<label>
-						<input type="radio" name="pollanswer" id="optionsRadios1" value="1" >
-						Option one is this and that&mdash;be sure to include why it's great
-						</label>
-					</div>
-					<div class="radio">
-						<label>
-						<input type="radio" name="pollanswer" id="optionsRadios2" value="2">Option two can be something else and selecting it will deselect option one
-						 </label>
-					</div>
-					<div class="radio">
-						<label>
-						<input type="radio" name="pollanswer" id="optionsRadios3" value="3">
-						Option 3
-						</label>
-					</div>
-					</form>
-				</div>
-			</div>
-			</div>
-		</div> -->
+		
 		<jsp:include page="pages/footer.jsp"/>
 		<jsp:include page="pages/js.jsp"/>
 		<script>$.backstretch("<c:url value="assets/img/maclecture.jpg"/>");</script>
