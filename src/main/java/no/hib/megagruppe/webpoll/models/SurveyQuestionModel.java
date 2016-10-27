@@ -54,6 +54,17 @@ public class SurveyQuestionModel {
 		answersCounter = 0;
 
 	}
+	
+	/**
+	 * Helper method to check whether this question is of certain type.
+	 * Cleaner version of question.getQuestionType.equals(questionType);
+	 * 
+	 * @param questionType The type it is checking.
+	 * @return Whether it is of that type.
+	 */
+	public boolean isOfType(QuestionType questionType){
+		return this.questionType.equals(questionType);
+	}
 
 	/**
 	 * Submits a single answer for this question. 

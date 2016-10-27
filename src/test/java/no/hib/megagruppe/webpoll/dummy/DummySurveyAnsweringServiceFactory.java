@@ -11,24 +11,20 @@ import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.fakes.FakeRepositoryFactory;
 import no.hib.megagruppe.webpoll.fakes.TestSurveyRepository;
-import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
 import no.hib.megagruppe.webpoll.services.SurveyAnsweringService;
 import no.hib.megagruppe.webpoll.services.SurveyAnsweringServiceImpl;
 
-public class SurveyAnsweringServiceDummyFactory {
+public class DummySurveyAnsweringServiceFactory {
 
-	private SurveyAnsweringService service;
-	private SurveyRepository surveyRepository;
-	private SurveyEntity survey;
+	private static SurveyAnsweringService service;
+	private static SurveyRepository surveyRepository;
+	private static SurveyEntity survey;
 	
-	private String surveycode = "abc";
-	
-	public SurveyAnsweringServiceDummyFactory(){
-		surveyRepository = new TestSurveyRepository();
-		survey = buildSurvey();
-		surveyRepository.add(survey);
-		service = buildService(surveyRepository);
+	private static String surveycode = "abc";
+	public static String getSurveyCode(){
+		return DummySurveyAnsweringServiceFactory.surveycode;
 	}
+
 	
 	/**
 	 * A simple survey consisting of two questions.
@@ -40,7 +36,7 @@ public class SurveyAnsweringServiceDummyFactory {
 	 * 
 	 * @return A survey consisting of two questions.
 	 */
-	private SurveyEntity buildSurvey(){
+	private static SurveyEntity buildSurvey(){
 		SurveyEntity survey;
 		
 		UserEntity user = new UserEntity();
@@ -98,22 +94,21 @@ public class SurveyAnsweringServiceDummyFactory {
         return survey;
 	}
 	
-	private SurveyAnsweringService buildService(SurveyRepository surveyRepository) {
+	private static SurveyAnsweringService buildService(SurveyRepository surveyRepository) {
 		return new SurveyAnsweringServiceImpl(new FakeRepositoryFactory(null, surveyRepository));
 	}
 	
 	/**
-	 * Starts the survey which returns a SurveyAnsweringModel-object.
-	 * The SAM (SurveyAnsweringModel) can act as an iterator with methods as:
-	 * 	+ hasNextQuestion() : boolean
-	 * 	+ getNextQuestion() : SurveyQuestionModel
+	 * Creates a new instance of SurveyAnsweringService that includes the survey built inside this class.
 	 * 
-	 * To 
-	 * 
-	 * @return the SurveyAnsweringModel-object.
+	 * @return The SurveyAnsweringService
 	 */
-	public SurveyAnsweringModel startSurvey(){
-		return service.startSurveyAnswering(surveycode);
+	public static SurveyAnsweringService getServiceInstance(){
+		surveyRepository = new TestSurveyRepository();
+		survey = DummySurveyAnsweringServiceFactory.buildSurvey();
+		surveyRepository.add(survey);
+		service = DummySurveyAnsweringServiceFactory.buildService(surveyRepository);
+		return service;
 	}
 	
 }
