@@ -23,6 +23,8 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public boolean logIn(String username, String password) {
+        securityAdapter.logOut(); // Log out to invalidate current login, if any
+
         UserEntity user = repositoryFactory.getUserRepository().findByEmail(username);
         if (user == null) return false;
 

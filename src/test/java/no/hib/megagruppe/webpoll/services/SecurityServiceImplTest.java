@@ -113,6 +113,17 @@ public class SecurityServiceImplTest {
     }
 
     @Test
+    public void loginLogsOutBeforeItLogsIn() {
+        TestSecurityAdapter securityAdapter = new TestSecurityAdapter();
+        SecurityService securityService = buildService(securityAdapter, new TestPasswordHasher(),
+                new TestUserRepository());
+
+        securityService.logIn("test", "test");
+
+        assertEquals(1, securityAdapter.logOutCalled);
+    }
+
+    @Test
     public void backendHasherThrowsExceptionLoginReturnsFalse() {
         TestSecurityAdapter securityAdapter = new TestSecurityAdapter();
         TestUserRepository userRepository = new TestUserRepository();
