@@ -7,27 +7,42 @@ import no.hib.megagruppe.webpoll.services.SurveyAnsweringService;
 
 public class DummyService_Example {
 
+	/*
+	 * Lager en enkel undersøkelse med to spørsmål:
+	 * - Har du noen gang programmert javaEE? (MULTIPLE_CHOICE_RADIO)
+	 * 	- Ja
+	 * 	- Nei
+	 * 
+	 * - Hva synes du om WebPoll? (FREE_TEXT)
+	 */
 	public static void main(String[] args) {
 
-		/*
-		 * Lager en enkel undersøkelse med to spørsmål:
-		 * - Har du noen gang programmert javaEE? (MULTIPLE_CHOICE_RADIO)
-		 * 	- Ja
-		 * 	- Nei
-		 * 
-		 * - Hva synes du om WebPoll? (FREE_TEXT)
-		 */
-		SurveyAnsweringService sas = DummySurveyAnsweringServiceFactory.getServiceInstance();
+		
+		SurveyAnsweringService service = DummySurveyAnsweringServiceFactory.getServiceInstance();
 		String surveyCode = DummySurveyAnsweringServiceFactory.getSurveyCode();
 
-		if (sas.isValidSurvey(surveyCode)) { // Søker etter en survey ved kode.
+		
+		
+		
+		
+		if (service.isValidSurvey(surveyCode)) { // Søker etter en survey ved kode.
 
+			
+			
+			
+			
+			
 			// Har funnet en survey. Starter den fra en ny servlet, derfor trenger man koden hver gang (stateless)-
-			SurveyAnsweringModel survey = sas.startSurveyAnswering(surveyCode);
+			SurveyAnsweringModel survey = service.startSurveyAnswering(surveyCode);
 			System.out.println("Starter survey...");
 
+			
+			
+			
+			
+			
 			/*
-			 * SAM (SurveyAnsweringModel) oppfører seg som en iterator og har i hovedsak to metoder.
+			 * survey oppfører seg som en iterator og har i hovedsak to metoder.
 			 * 	+ hasNextQuestion() : boolean
 			 * 	+ getNextQuestion() : SurveyQuestionModel
 			 * 
@@ -35,17 +50,21 @@ public class DummyService_Example {
 			 * Den inneholder informasjon om spørsmåls-type, alternativer, osv.
 			 * 
 			 */
+			
+			
+			
+			
 			int i = 1;
 			while (survey.hasNextQuestion()) {
 				System.out.println("Spørsmål " + i + ":");
-				
+
 				// Henter neste spørsmål.
 				SurveyQuestionModel question = survey.getNextQuestion();
 
-				// Sjekker hvilken type det er.
+				// Sjekker hvilken type spørsmål det er.
 				QuestionType type = question.getQuestionType();
 				if (type.equals(QuestionType.FREE_TEXT)) {
-					
+
 					friTekstJSP(question);
 
 				} else if (type.equals(QuestionType.MULTIPLE_CHOICE_CHECKBOX)) {
@@ -57,7 +76,7 @@ public class DummyService_Example {
 					multChoiceRadioJSP(question);
 
 				}
-				
+
 				i++;
 
 			}
@@ -76,9 +95,15 @@ public class DummyService_Example {
 		String questionTitle = q.getText();
 		System.out.println("Fritekst spørsmål: " + questionTitle + "\n");
 
+		
+		
+		
 		// Når studenten svarer på et spørsmål.
 		String studentAnswer = "Min favoritt ting er å skrive, takk for at du spør!";
 
+		
+		
+		
 		// Lagrer svaret i SurveyQuestionModel q.
 		q.submitAnswer(studentAnswer);
 
@@ -94,16 +119,22 @@ public class DummyService_Example {
 		String questionTitle = q.getText();
 		System.out.println("Multiple choice (kan velge flere) spørsmål: " + questionTitle);
 
+		
+		
 		System.out.println("Svaralternativ: ");
-		for (String o : q.getOptions()) {
+		for (String o : q.getOptions()) { // Svaralternativ
 			String option = o;
 			System.out.println(option);
 		}
 		System.out.println();
 
+		
+		
 		// Studenten svarer på en eller flere svaralternativ.
 		String[] studentAnswer = { "Taco", "Saltsprengt torsk", "Eple" }; // request.getParameterValues();
 
+		
+		
 		// Lagrer svaret i SurveyQuestionModel q.
 		// NP! Det finnes to metoder inni SurveyQuestionModel for å submitte:
 		//	- submit(String)
@@ -123,18 +154,26 @@ public class DummyService_Example {
 		String questionTitle = q.getText();
 		System.out.println("Multiple choice (kan kun velge ett) spørsmål: " + questionTitle);
 
+		
+		
+		
 		System.out.println("Svaralternativ: ");
-		for (String o : q.getOptions()) {
+		for (String o : q.getOptions()) { // Svaralternativ
 			String option = o;
 			System.out.println(option);
 		}
 		System.out.println();
+
+		
 		
 		// Studenten svarer på ett svaralternativ.
 		String studentAnswer = "Nei";
+
+		
+		
 		
 		// Lagrer svaret i SurveyQuestionModel q.
-				q.submitAnswer(studentAnswer);
+		q.submitAnswer(studentAnswer);
 	}
 
 }
