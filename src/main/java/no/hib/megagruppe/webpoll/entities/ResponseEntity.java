@@ -6,6 +6,14 @@ public class ResponseEntity {
     private Integer id;
     private SurveyEntity survey;
     private List<AnswerEntity> answers;
+    
+    public ResponseEntity() { 	
+    }
+    
+    public ResponseEntity(SurveyEntity survey, List<AnswerEntity> answers) {
+    	this.survey = survey;
+    	this.answers = answers;
+    }
 
     public Integer getId() {
         return id;
