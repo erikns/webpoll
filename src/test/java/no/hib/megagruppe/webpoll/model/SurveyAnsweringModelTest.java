@@ -110,7 +110,6 @@ public class SurveyAnsweringModelTest {
 	
 	@Test
 	public void TimeRemainingReturnsFormattedString(){
-		System.out.println(sam.getTimeRemaining());
 		assertEquals(sam.getTimeRemaining(), "0d, 0t, 00m, 39s");
 	}
 }
