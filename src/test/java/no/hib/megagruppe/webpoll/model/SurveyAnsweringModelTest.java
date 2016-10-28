@@ -107,11 +107,7 @@ public class SurveyAnsweringModelTest {
 		assertEquals(sam.getNextQuestion().getText(), question1.getText());
 		assertEquals(sam.getNextQuestion().getText(), question2.getText());
 	}
-	
-	@Test
-	public void TimeRemainingReturnsFormattedString(){
-		assertEquals(sam.getTimeRemaining(), "0d, 0t, 00m, 39s");
-	}
+
 }
 
 
