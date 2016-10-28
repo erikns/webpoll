@@ -13,8 +13,8 @@
       			<div class="site-wrapper-inner">
       				<div class="cover-container">
                                       <div class="inner cover">
-                					<h3>${poll.surveyName} <small>av ${poll.creator}, ${poll.surveyDate}</small><h3>
-                					<p>Deadline: ${poll.surveyDeadline}</p>
+                					<h3><c:out value="${poll.surveyName}"/> <small>av <c:out value="${poll.creator}"/>, <c:out value="${poll.surveyDate}"/></small><h3>
+                					<p>Deadline: <c:out value="${poll.surveyDeadline}"/></p>
                 					 <jsp:useBean id="now" class="java.util.Date"/>
                 					<c:choose>
                 						<c:when test="${poll.surveyDeadline lt now}">
