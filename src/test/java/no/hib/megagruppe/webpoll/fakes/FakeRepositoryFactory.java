@@ -1,6 +1,7 @@
 package no.hib.megagruppe.webpoll.fakes;
 
 import no.hib.megagruppe.webpoll.data.RepositoryFactory;
+import no.hib.megagruppe.webpoll.data.ResponseRepository;
 import no.hib.megagruppe.webpoll.data.SurveyRepository;
 import no.hib.megagruppe.webpoll.data.UserRepository;
 
@@ -22,4 +23,10 @@ public class FakeRepositoryFactory implements RepositoryFactory {
     public UserRepository getUserRepository() {
         return userRepository;
     }
+
+	@Override
+	public ResponseRepository getResponseRepository() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

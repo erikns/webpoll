@@ -6,10 +6,12 @@ import javax.enterprise.context.ApplicationScoped;
 public class RepositoryFactoryImpl implements RepositoryFactory {
     private static SurveyRepository surveyRepository; // FIXME: temporary!
     private static UserRepository userRepository;
+    private static ResponseRepository responseRepository;
 
     public RepositoryFactoryImpl() {
         userRepository = new InMemoryUserRepository();
         surveyRepository = new InMemorySurveyRepository();
+        responseRepository = new InMemoryResponseRepository();
     }
 
     @Override
@@ -21,4 +23,11 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
     public UserRepository getUserRepository() {
         return userRepository;
     }
+
+	@Override
+	public ResponseRepository getResponseRepository() {
+		return responseRepository;
+	}
+    
+    
 }
