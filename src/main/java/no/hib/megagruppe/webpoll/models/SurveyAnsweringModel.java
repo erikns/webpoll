@@ -112,5 +112,9 @@ public class SurveyAnsweringModel {
 	public String getCreator() {
 		return creator;
 	}
+
+	public SurveyQuestionModel[] getQuestions() {
+		return questions;
+	}
 	
 }
