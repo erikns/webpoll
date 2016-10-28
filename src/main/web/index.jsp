@@ -15,12 +15,13 @@
 	          				<div class="inner cover text-center">
 	            				<h1 class="cover-heading">Project Webpoll</h1>
 	            				<p class="lead">Create &amp; answer  polls anywhere, anytime.</p>
-	            				<form class="form-inline">
+	            				<form class="form-inline" action="pollCheck" method="post">
 				  			<div class="form-group">
 				  				<label for="pollcode">Poll code</label>
-				  				<input type="text" class="form-control" id="pollcode" placeholder="123456">
-				  				<button type="submit" class="btn btn-primary btn-default">Go!</button>
+				  				<input type="text" class="form-control" id="pollcode" name="code" placeholder="123456" required autofocus>
+				  				<input type="submit" class="btn btn-primary btn-default" value="Go!">
 				  			</div>
+				  			<p class="errormsg">${errormsg}&nbsp;</p>
 		  				</form>
 	          				</div>
           				</div>
