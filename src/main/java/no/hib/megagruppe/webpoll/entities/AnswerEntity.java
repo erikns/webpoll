@@ -5,6 +5,16 @@ public class AnswerEntity {
     private QuestionEntity question;
     private OptionEntity option;
     private String freetext;
+    
+    public AnswerEntity() {
+    	
+    }
+    
+    public AnswerEntity(QuestionEntity question, OptionEntity option, String freetext) {
+    	this.question = question;
+    	this.option = option;
+    	this.freetext = freetext;
+    }
 
     public Integer getId() {
         return id;
