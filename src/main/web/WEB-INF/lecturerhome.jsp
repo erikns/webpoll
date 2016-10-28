@@ -10,7 +10,7 @@
 	<body>
 		<jsp:include page="/pages/navbar.jsp"/>
 		<div class="container">
-			<div class="panel panel-default">
+			<div class="panel panel-default margin-top">
 				<h1>Innlogget bruker: ${loggedinusr}</h1>
 			</div>
 		</div>
