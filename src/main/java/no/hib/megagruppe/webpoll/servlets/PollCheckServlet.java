@@ -34,7 +34,7 @@ public class PollCheckServlet extends HttpServlet {
 				if(sas.isValidSurvey(code)) {
 					SurveyAnsweringModel poll = sas.startSurveyAnswering(code);
 					request.setAttribute("poll", poll);
-					response.sendRedirect(getServletContext().getContextPath() + "/pollStart");
+					request.getRequestDispatcher(getServletContext().getContextPath() + "/pollStart").forward(request, response);
 				} else {
 					request.setAttribute("errormsg", "Ugyldig kode!");
 					request.getRequestDispatcher("/").forward(request, response);
