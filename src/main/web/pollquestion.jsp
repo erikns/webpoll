@@ -16,10 +16,10 @@
       						<c:when test="${question.questionType eq 'MULTIPLE_CHOICE_RADIO'}">
       							<jsp:include page="pollradio.jsp"/>
       						</c:when>
-      						<c:when test="${question.type eq 'MULTIPLE_CHOICE_CHECKBOX'}">
+      						<c:when test="${question.questionType eq 'MULTIPLE_CHOICE_CHECKBOX'}">
       							<jsp:include page="pollcheckbox.jsp"/>
       						</c:when>
-      						<c:when test="${question.type eq 'FREE_TEXT'}">
+      						<c:when test="${question.questionType eq 'FREE_TEXT'}">
       							<jsp:include page="polltextarea.jsp"/>
       						</c:when>
       						<c:otherwise>
