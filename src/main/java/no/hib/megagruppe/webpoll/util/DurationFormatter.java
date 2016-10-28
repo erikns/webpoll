@@ -2,8 +2,6 @@ package no.hib.megagruppe.webpoll.util;
 
 import java.time.Duration;
 
-import static jdk.nashorn.internal.objects.NativeDate.getSeconds;
-
 public class DurationFormatter {
 
 	final static long DAY_CONVERTION = 86400;
