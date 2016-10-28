@@ -12,19 +12,21 @@
 		<div class="site-wrapper">
       			<div class="site-wrapper-inner">
       				<div class="cover-container">
-      					<h3>${poll.surveyName} <small>av ${poll.creator}, ${poll.surveyDate}</small></h3>
-      					<p>Deadline: ${poll.surveyDeadline}</p>
-      					 <jsp:useBean id="now" class="java.util.Date"/>
-      					<c:choose>
-      						<c:when test="${poll.surveyDeadline lt now}">
-      							<p>Tiden er ute!</p>
-      							<a class="btn btn-primary disabled" href="#" role="button" >Start</a>
-      						</c:when>
-      						<c:otherwise>
-      							<a class="btn btn-primary" href="/pollquestion" role="button" >Start</a>
-      						</c:otherwise>
-      					</c:choose>
-				</div>
+                                      <div class="inner cover">
+                					<h3>${poll.surveyName} <small>av ${poll.creator}, ${poll.surveyDate}</small><h3>
+                					<p>Deadline: ${poll.surveyDeadline}</p>
+                					 <jsp:useBean id="now" class="java.util.Date"/>
+                					<c:choose>
+                						<c:when test="${poll.surveyDeadline lt now}">
+                							<p>Tiden er ute!</p>
+                							<a class="btn btn-primary disabled" href="#" role="button" >Start</a>
+                						</c:when>
+                						<c:otherwise>
+                							<a class="btn btn-primary" href="/pollquestion" role="button" >Start</a>
+                						</c:otherwise>
+                					</c:choose>
+                                    </div>
+				      </div>
         			</div>
         		</div>
 		
