@@ -64,6 +64,17 @@ public class SurveyAnsweringModel {
 	}
 	
 	/**
+	 * This method is for retrieving the answers from the previous question.
+	 * 
+	 * This method may throw an exception if called from PollQuestion servlet.
+	 * @return The previous question, containing the answers.
+	 */
+	public SurveyQuestionModel getPreviousQuestion(){
+		SurveyQuestionModel qm = questions[currentQuestionCounter-1];
+		return qm;
+	}
+	
+	/**
 	 * Retrieves the next question. Throws an ArrayIndexOutOfBoundsException if there are no more questions left.
 	 * Always call hasNextQuestion() before calling this method.
 	 * @return The next question.
