@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 
         if (securityService.logIn(username, password)) {
             // Login successful
-            response.sendRedirect(getServletContext().getContextPath() + "/lecturerhome.jsp");
+            response.sendRedirect(getServletContext().getContextPath() + "/lecturer");
         } else {
             // Login failed
             request.getSession().setAttribute("loginError", "Feil brukernavn eller passord");
