@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,8 +64,8 @@ public class SurveyAnsweringModelTest {
 		survey = new SurveyEntity();
 		survey.setId(1);
 		survey.setName("Testundersøkelse");
-		survey.setDate(new Date(System.currentTimeMillis() - 3600));
-		survey.setDeadline(new Date(System.currentTimeMillis() + 36000));
+		survey.setDate(new Time(System.currentTimeMillis() - 3600));
+		survey.setDeadline(new Time(System.currentTimeMillis() + 36000));
 
 		List<QuestionEntity> questions = new ArrayList<>();
 		question1.setSurvey(survey);
@@ -109,8 +110,8 @@ public class SurveyAnsweringModelTest {
 	
 	@Test
 	public void TimeRemainingReturnsFormattedString(){
-		// FIXME Krasjer programmet. Gå til metoden getTimeRemaining for å se hvorfor.
-		//assertEquals(sam.getTimeRemaining(), "Test: 10h 4m 23s");
+		System.out.println(sam.getTimeRemaining());
+		assertEquals(sam.getTimeRemaining(), "0d, 0t, 00m, 39s");
 	}
 }
 

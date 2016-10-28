@@ -1,13 +1,13 @@
 package no.hib.megagruppe.webpoll.entities;
 
-import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 public class SurveyEntity {
     private Integer id;
     private String name;
-    private Date date;
-    private Date deadline;
+    private Time date;
+    private Time deadline;
     private UserEntity owner;
     private String code;
     private Boolean active;
@@ -30,19 +30,19 @@ public class SurveyEntity {
         this.name = name;
     }
 
-    public Date getDate() {
+    public Time getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Time date) {
         this.date = date;
     }
 
-    public Date getDeadline() {
+    public Time getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Date deadline) {
+    public void setDeadline(Time deadline) {
         this.deadline = deadline;
     }
 

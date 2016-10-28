@@ -1,6 +1,6 @@
 package no.hib.megagruppe.webpoll.dummy;
 
-import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,8 +77,8 @@ public class DummySurveyAnsweringServiceFactory {
         survey = new SurveyEntity();
         survey.setId(1);
         survey.setName("Testundersøkelse");
-        survey.setDate(new Date(System.currentTimeMillis()));
-        survey.setDeadline(new Date(System.currentTimeMillis() + 3600000));
+        survey.setDate(new Time(System.currentTimeMillis()));
+        survey.setDeadline(new Time(System.currentTimeMillis() + 3600000));
         survey.setOwner(user);
         survey.setActive(true);
         survey.setCode(surveycode);

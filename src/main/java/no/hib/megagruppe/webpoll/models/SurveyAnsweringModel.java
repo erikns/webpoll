@@ -1,10 +1,11 @@
 package no.hib.megagruppe.webpoll.models;
 
-import java.sql.Date;
+import java.sql.Time;
 import java.time.Duration;
 import java.util.List;
 
 import no.hib.megagruppe.webpoll.entities.QuestionEntity;
+import no.hib.megagruppe.webpoll.util.DurationFormatter;
 
 /**
  * 
@@ -29,14 +30,14 @@ public class SurveyAnsweringModel {
 	
 	private SurveyQuestionModel[] questions;
 	private String surveyName;
-	private Date surveyDate;
-	private Date surveyDeadline;
+	private Time surveyDate;
+	private Time surveyDeadline;
 	private String creator;
 	
 	private int currentQuestionCounter;
 	
 	
-	public SurveyAnsweringModel(List<QuestionEntity> questions, String surveyName, Date surveyDate, Date surveyDeadline, String creator){
+	public SurveyAnsweringModel(List<QuestionEntity> questions, String surveyName, Time surveyDate, Time surveyDeadline, String creator){
 		
 		this.questions = new SurveyQuestionModel[questions.size()];
 		int i = 0; // XXX Finnes det en finere måte å gjøre dette på?
@@ -78,11 +79,10 @@ public class SurveyAnsweringModel {
 	 * @return The remaining time.
 	 */
 	public String getTimeRemaining(){
+		long remainingMillis = surveyDeadline.getTime() - surveyDate.getTime();
+		Duration timeRemaining = Duration.ofMillis(remainingMillis);
 		
-		Duration p = Duration.between(surveyDate.toLocalDate(), surveyDeadline.toLocalDate());
-		// FIXME Kan ikke bruke Date for å finne ut sekund of minutt etc! Må endre til Time (DateTime).
-		
-		return p.toString(); // TODO Change the way the string is represented.
+		return DurationFormatter.formatDuration(timeRemaining);
 	}
 	
 	/**
@@ -101,11 +101,11 @@ public class SurveyAnsweringModel {
 		return surveyName;
 	}
 
-	public Date getSurveyDate() {
+	public Time getSurveyDate() {
 		return surveyDate;
 	}
 
-	public Date getSurveyDeadline() {
+	public Time getSurveyDeadline() {
 		return surveyDeadline;
 	}
 

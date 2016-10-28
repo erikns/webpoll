@@ -1,6 +1,6 @@
 package no.hib.megagruppe.webpoll.data;
 
-import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,8 +58,8 @@ public class InMemorySurveyRepository implements SurveyRepository {
         SurveyEntity survey = new SurveyEntity();
         survey.setId(1);
         survey.setName("Testundersøkelse");
-        survey.setDate(new Date(System.currentTimeMillis() - 3600));
-        survey.setDeadline(new Date(System.currentTimeMillis() + 36000));
+        survey.setDate(new Time(System.currentTimeMillis() - 3600));
+        survey.setDeadline(new Time(System.currentTimeMillis() + 36000));
         survey.setOwner(user);
         survey.setActive(true);
         survey.setCode("testabc");
