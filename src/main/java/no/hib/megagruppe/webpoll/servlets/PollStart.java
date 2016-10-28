@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
+
 /**
  * Servlet implementation class PollStart
  */
@@ -16,7 +18,7 @@ public class PollStart extends HttpServlet {
        
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	request.setAttribute("poll", request.getAttribute("poll"));
+    	request.setAttribute("poll", (SurveyAnsweringModel) request.getAttribute("poll"));
     	request.getRequestDispatcher("/poll.jsp").forward(request, response);
 	}
 

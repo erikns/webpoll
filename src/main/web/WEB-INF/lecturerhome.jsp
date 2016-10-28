@@ -10,7 +10,9 @@
 	<body>
 		<jsp:include page="/pages/navbar.jsp"/>
 		<div class="container">
-			<h1>Innlogget bruker: ${loggedinusr}</h1>
+			<div class="panel panel-default">
+				<h1>Innlogget bruker: ${loggedinusr}</h1>
+			</div>
 		</div>
 		<jsp:include page="/pages/footer.jsp"/>
 		<jsp:include page="/pages/js.jsp"/>

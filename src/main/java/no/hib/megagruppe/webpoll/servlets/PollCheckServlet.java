@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
 import no.hib.megagruppe.webpoll.services.SurveyAnsweringService;
 
 /**
@@ -31,7 +32,7 @@ public class PollCheckServlet extends HttpServlet {
 			String code = request.getParameter("code");
 			if(!("".equals(code)) || !(code == null)){
 				if(sas.isValidSurvey(code)) {
-					request.setAttribute("poll", sas.startSurveyAnswering(code));
+					request.setAttribute("poll", (SurveyAnsweringModel) sas.startSurveyAnswering(code));
 					response.sendRedirect(getServletContext().getContextPath() + "/pollStart");
 				} else {
 					request.setAttribute("errormsg", "Ugyldig kode!");
