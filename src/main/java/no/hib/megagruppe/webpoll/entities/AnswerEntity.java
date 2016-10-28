@@ -2,7 +2,6 @@ package no.hib.megagruppe.webpoll.entities;
 
 public class AnswerEntity {
     private Integer id;
-    private ResponseEntity response;
     private QuestionEntity question;
     private OptionEntity option;
     private String freetext;
@@ -13,14 +12,6 @@ public class AnswerEntity {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public ResponseEntity getResponse() {
-        return response;
-    }
-
-    public void setResponse(ResponseEntity response) {
-        this.response = response;
     }
 
     public QuestionEntity getQuestion() {
