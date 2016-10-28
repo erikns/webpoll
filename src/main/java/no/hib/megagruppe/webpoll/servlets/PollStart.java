@@ -16,7 +16,7 @@ public class PollStart extends HttpServlet {
        
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	request.getRequestDispatcher("/pollstart.jsp").forward(request, response);
+    	request.getRequestDispatcher("/poll.jsp").forward(request, response);
 	}
 
 	@Override
