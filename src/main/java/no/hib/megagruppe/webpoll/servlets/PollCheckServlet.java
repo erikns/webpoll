@@ -29,7 +29,6 @@ public class PollCheckServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			String code = request.getParameter("code");
-			//System.out.println(code);
 			if(!("".equals(code)) || !(code == null)){
 				if(sas.isValidSurvey(code)) {
 					request.setAttribute("poll", sas.startSurveyAnswering(code));
