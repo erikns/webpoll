@@ -31,14 +31,14 @@ public class PollQuestionServlet extends HttpServlet {
 		SurveyAnsweringSessionManager session = new SurveyAnsweringSessionManager(request);
 
 		if (session.hasSurvey()) {
-			response.sendRedirect("/");
-		} else {
 			SurveyAnsweringModel surveyModel = session.getSurveyAnsweringModel();
 
 			request.setAttribute("question", surveyModel.getNextQuestion());
 			request.setAttribute("hasNextQuestion", surveyModel.hasNextQuestion());
-
 			request.getRequestDispatcher("pollquestion.jsp").forward(request, response);
+			
+		} else {
+			response.sendRedirect("index");
 		}
 	}
 

@@ -40,6 +40,7 @@ public class PollCheckServlet extends HttpServlet {
 			
 		} else {
 			session.setErrorMessage(codeValidator.getErrorMessage());
+			response.sendRedirect("index");
 		}
 	}
 }

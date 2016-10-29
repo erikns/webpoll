@@ -14,7 +14,7 @@ import no.hib.megagruppe.webpoll.util.SurveyAnsweringSessionManager;
  * Shows information about the survey. From here the user can start the survey.
  * 
  */
-@WebServlet("/pollStart")
+@WebServlet("/pollstart")
 public class PollStart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -24,9 +24,9 @@ public class PollStart extends HttpServlet {
     	SurveyAnsweringSessionManager session = new SurveyAnsweringSessionManager(request);
     	
     	if(session.hasSurvey()){
-    		request.getRequestDispatcher("/poll.jsp").forward(request, response);
+    		request.getRequestDispatcher("poll.jsp").forward(request, response);
     	} else {
-    		response.sendRedirect("/");
+    		response.sendRedirect("index");
     	}
 	}
 }

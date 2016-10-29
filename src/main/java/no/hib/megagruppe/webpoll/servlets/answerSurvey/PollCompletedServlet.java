@@ -25,9 +25,10 @@ public class PollCompletedServlet extends HttpServlet {
 		SurveyAnsweringSessionManager session = new SurveyAnsweringSessionManager(request);
 
 		if (session.hasSurvey()) {
-			response.sendRedirect("/");
+			request.getRequestDispatcher("studentdone.jsp").forward(request, response);
+			
 		} else {
-			request.getRequestDispatcher("/studentdone.jsp").forward(request, response);
+			response.sendRedirect("index");
 		}
 
 	}

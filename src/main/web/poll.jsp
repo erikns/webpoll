@@ -22,7 +22,7 @@
                 							<a class="btn btn-primary disabled" href="#" role="button" >Start</a>
                 						</c:when>
                 						<c:otherwise>
-                							<a class="btn btn-primary" href="/pollquestion" role="button" >Start</a>
+                							<a class="btn btn-primary" href="pollquestion" role="button" >Start</a>
                 						</c:otherwise>
                 					</c:choose>
                                     </div>
