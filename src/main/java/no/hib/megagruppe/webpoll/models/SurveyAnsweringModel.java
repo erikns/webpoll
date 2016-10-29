@@ -1,11 +1,14 @@
 package no.hib.megagruppe.webpoll.models;
 
-import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import no.hib.megagruppe.webpoll.entities.QuestionEntity;
+import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.util.DurationFormatter;
 
 /**
@@ -31,14 +34,14 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 	
 	private SurveyQuestionModel[] questions;
 	private String surveyName;
-	private Time surveyDate;
-	private Time surveyDeadline;
+	private Timestamp surveyDate;
+	private Timestamp surveyDeadline;
 	private String creator;
 	
 	private int currentQuestionIndex;
 	
 	
-	public SurveyAnsweringModel(List<QuestionEntity> questions, String surveyName, Time surveyDate, Time surveyDeadline, String creator){
+	public SurveyAnsweringModel(List<QuestionEntity> questions, String surveyName, Timestamp surveyDate, Timestamp surveyDeadline, String creator){
 		
 		this.questions = new SurveyQuestionModel[questions.size()];
 		int i = 0; // XXX Finnes det en finere måte å gjøre dette på?
@@ -54,6 +57,10 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 		this.surveyDeadline = surveyDeadline;
 		this.creator = creator;
 		currentQuestionIndex = 0;
+	}
+	
+	public SurveyAnsweringModel(SurveyEntity surveyEntity){
+		this(surveyEntity.getQuestions(), surveyEntity.getName(), surveyEntity.getDate(), surveyEntity.getDeadline(), surveyEntity.getOwner().toString());
 	}
 
 	/**
@@ -106,7 +113,8 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 	 * @return The remaining time.
 	 */
 	public String getTimeRemaining(){
-		long remainingMillis = surveyDeadline.getTime() - surveyDate.getTime();
+		Date now = new Date();
+		long remainingMillis = surveyDeadline.getTime() - now.getTime();
 		Duration timeRemaining = Duration.ofMillis(remainingMillis);
 		
 		return DurationFormatter.formatDuration(timeRemaining);
@@ -129,11 +137,16 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 		return surveyName;
 	}
 
-	public Time getSurveyDate() {
+	public Timestamp getSurveyDate() {
 		return surveyDate;
 	}
+	
+	public String getFormattedSurveyDate(){
+		String formattedSurveyDate = new SimpleDateFormat("dd/MM/yyyy").format(surveyDate);
+		return formattedSurveyDate;
+	}
 
-	public Time getSurveyDeadline() {
+	public Timestamp getSurveyDeadline() {
 		return surveyDeadline;
 	}
 

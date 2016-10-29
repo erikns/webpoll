@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,8 +55,8 @@ public class SurveyAnsweringServiceImplTest {
 	@Test
 	public void startingSurveyGivesCorrectSurveyAnsweringModel() {
 		survey.setName("Favorite test");
-		survey.setDate(new Time(100000));
-		survey.setDeadline(new Time(120000));
+		survey.setDate(new Timestamp(100000));
+		survey.setDeadline(new Timestamp(120000));
 		
 		SurveyAnsweringModel sam = service.startSurveyAnswering("abc");
 		assertEquals(survey.getName(), sam.getSurveyName());
@@ -115,8 +116,8 @@ public class SurveyAnsweringServiceImplTest {
         survey = new SurveyEntity();
         survey.setId(1);
         survey.setName("Testundersøkelse");
-        survey.setDate(new Time(System.currentTimeMillis() - 3600));
-        survey.setDeadline(new Time(System.currentTimeMillis() + 36000));
+        survey.setDate(new Timestamp(System.currentTimeMillis() - 3600));
+        survey.setDeadline(new Timestamp(System.currentTimeMillis() + 36000));
         survey.setOwner(user);
         survey.setActive(true);
         survey.setCode("abc");

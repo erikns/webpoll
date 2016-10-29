@@ -1,6 +1,6 @@
 package no.hib.megagruppe.webpoll.data;
 
-import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +17,8 @@ import no.hib.megagruppe.webpoll.entities.UserEntity;
 public class InMemorySurveyRepository implements SurveyRepository {
     private Map<Integer, SurveyEntity> surveys;
 
+    QuestionEntity question1; public String getQuestion1Text(){return question1.getText();}
+    QuestionEntity question2; public String getQuestion2Text(){return question2.getText();}
     public InMemorySurveyRepository() {
         surveys = new HashMap<>();
 
@@ -35,7 +37,7 @@ public class InMemorySurveyRepository implements SurveyRepository {
         optionB.setId(2);
         optionB.setText("Nei");
 
-        QuestionEntity question1 = new QuestionEntity();
+        question1 = new QuestionEntity();
         question1.setId(1);
         question1.setText("Har du noen gang programmert JavaEE?");
         question1.setType(QuestionEntity.QuestionType.MULTIPLE_CHOICE_RADIO);
@@ -49,7 +51,7 @@ public class InMemorySurveyRepository implements SurveyRepository {
         optionB.setQuestion(question1);
         //////
         //////
-        QuestionEntity question2 = new QuestionEntity();
+        question2 = new QuestionEntity();
         question2.setId(2);
         question2.setText("Hva synes du om WebPoll?");
         question2.setType(QuestionEntity.QuestionType.FREE_TEXT);
@@ -58,8 +60,8 @@ public class InMemorySurveyRepository implements SurveyRepository {
         SurveyEntity survey = new SurveyEntity();
         survey.setId(1);
         survey.setName("Testundersøkelse");
-        survey.setDate(new Time(System.currentTimeMillis() - 3600));
-        survey.setDeadline(new Time(System.currentTimeMillis() + 36000));
+        survey.setDate(new Timestamp(System.currentTimeMillis() - 3600));
+        survey.setDeadline(new Timestamp(System.currentTimeMillis() + 36000000));
         survey.setOwner(user);
         survey.setActive(true);
         survey.setCode("testabc");
