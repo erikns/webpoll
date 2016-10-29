@@ -21,12 +21,18 @@
 				<c:set var="count" value="${count + 1}" scope="page" />
 			</c:forEach>
 			
+			
+			
+			
+			<%-- De forskjellige knappene: Forrige, Avbryt, Neste, og Fullfør --%>
 			<c:choose>
 				<c:when test="${hasPreviousQuestion}">
 					<input class="btn btn-primary" type="submit" name="action" value="Forrige">
 				</c:when>
 			</c:choose>
+			
 			<input class="btn btn-default" type="submit" name="action" value="Avbryt">
+			
 			<c:choose>
 				<c:when test="${hasNextQuestion}">
 					<input class="btn btn-primary" type="submit" name="action" value="Neste">
@@ -35,6 +41,10 @@
 					<input class="btn btn-primary" type="submit" name="action" value="Finish">
 				</c:otherwise>
 			</c:choose>
+			
+			
+			
+			
 		</form>
 	</div>
 </div>
