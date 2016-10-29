@@ -27,14 +27,18 @@ public class PollQuestionServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
-		SurveyAnsweringModel surveyModel = (SurveyAnsweringModel) session.getAttribute("SurveyAnsweringModel");
+		HttpSession session = request.getSession(false);
 		
-		request.setAttribute("question", surveyModel.getNextQuestion());
-		request.setAttribute("hasNextQuestion", surveyModel.hasNextQuestion());
-		
-		request.getRequestDispatcher("pollquestion.jsp").forward(request, response);
-		
+		if (session == null || session.getAttribute("poll") == null){
+			response.sendRedirect("/");
+		} else {
+			SurveyAnsweringModel surveyModel = (SurveyAnsweringModel) session.getAttribute("poll");
+			
+			request.setAttribute("question", surveyModel.getNextQuestion());
+			request.setAttribute("hasNextQuestion", surveyModel.hasNextQuestion());
+			
+			request.getRequestDispatcher("pollquestion.jsp").forward(request, response);
+		}
 	}
 
 	@Override
