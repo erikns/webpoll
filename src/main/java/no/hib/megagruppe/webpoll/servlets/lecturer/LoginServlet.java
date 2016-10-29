@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.hib.megagruppe.webpoll.services.SecurityService;
-import no.hib.megagruppe.webpoll.util.sessionmanager.LoginSessionManager;
+import no.hib.megagruppe.webpoll.util.sessionmanager.LecturerSessionManager;
 
 /**
  * Servlet implementation class LoginServlet
@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		LoginSessionManager session = new LoginSessionManager(request);
+		LecturerSessionManager session = new LecturerSessionManager(request);
 		request.setAttribute("username", session.getPreviouslyTypedUsername());
 
 		request.getRequestDispatcher("/WEB-INF/lecturer/login.jsp").forward(request, response);
@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("lecturer");
 		} else {
 			// Login failed
-			LoginSessionManager session = new LoginSessionManager(request);
+			LecturerSessionManager session = new LecturerSessionManager(request);
 			session.setErrorMessage("Feil brukernavn eller passord");
 			session.setTypedUsername(username);
 			
