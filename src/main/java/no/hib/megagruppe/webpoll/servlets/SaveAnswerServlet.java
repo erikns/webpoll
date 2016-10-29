@@ -38,7 +38,7 @@ public class SaveAnswerServlet extends HttpServlet {
 		poll = (SurveyAnsweringModel) request.getAttribute("poll");
 		request.getSession().setAttribute("poll", poll);
 
-		if(poll.getPreviousQuestion().getQuestionType().canHaveMultipleAnswers()){ 
+		if(poll.getPreviouslyAnsweredQuestion().getQuestionType().canHaveMultipleAnswers()){ 
 			String[] answers = request.getParameterValues("answer"); //array
 			question.submitAnswer(answers);
 		} else {
