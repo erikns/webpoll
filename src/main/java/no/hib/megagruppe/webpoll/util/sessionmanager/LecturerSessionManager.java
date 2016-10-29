@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 public class LecturerSessionManager extends SessionManager{
 
 	private final String USERNAME_ATTRIBUTE_NAME = "typedusername";
-	private final String IS_LOGGED_IN_ATTRIBUTE_NAME = "isLoggesIn";
 	
 	public LecturerSessionManager(HttpServletRequest request) {
 		super(request);
@@ -37,24 +36,5 @@ public class LecturerSessionManager extends SessionManager{
 		session.setAttribute(USERNAME_ATTRIBUTE_NAME, username);
 	}
 	
-	
-	public boolean isLoggedIn(){
-		boolean isLoggedIn = true;
-		
-		return isLoggedIn;
-	}
-	
-	public void logIn(){
-		// XXX Er dette sikkert nok?
-		HttpSession session = request.getSession();
-		
-		session.setAttribute(IS_LOGGED_IN_ATTRIBUTE_NAME, true);
-	}
-	
-	public void logOut(){
-		HttpSession session = request.getSession();
-		
-		session.setAttribute(IS_LOGGED_IN_ATTRIBUTE_NAME, false);
-	}
 
 }

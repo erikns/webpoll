@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import no.hib.megagruppe.webpoll.util.sessionmanager.LecturerSessionManager;
-
 /**
  * Servlet implementation class LogoutServlet
  */
@@ -22,10 +20,7 @@ public class LogoutServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// FIXME Skal dette være i get eller post?
-		LecturerSessionManager session = new LecturerSessionManager(request);
-		session.logOut();
-		
+		// TODO
 		request.getRequestDispatcher("/WEB-INF/lecturer/signedout.jsp").forward(request, response);;
 		
 	}

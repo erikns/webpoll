@@ -40,7 +40,6 @@ public class LoginServlet extends HttpServlet {
 
 		if (securityService.logIn(username, password)) {
 			// Login successful
-			session.logIn(); // XXX Er denne metoden sikker nok? Se implementasjon.
 			response.sendRedirect("lecturer");
 		} else {
 			// Login failed
