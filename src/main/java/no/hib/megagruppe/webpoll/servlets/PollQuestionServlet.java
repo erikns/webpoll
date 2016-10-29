@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
 import no.hib.megagruppe.webpoll.models.SurveyQuestionModel;
@@ -14,7 +15,7 @@ import no.hib.megagruppe.webpoll.models.SurveyQuestionModel;
 /*
  * @author Vegard
  * 
- * Checks if poll has more questions - sends questions to "pollquestion.jsp" - and redirects to "SaveAnswerServlet"
+ * Forwards current question to pollquestion.jsp, and saves the answers afterwards.
  */
 @WebServlet("/pollquestion")
 public class PollQuestionServlet extends HttpServlet {
@@ -25,8 +26,12 @@ public class PollQuestionServlet extends HttpServlet {
        
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		poll = (SurveyAnsweringModel) request.getAttribute("poll");
-		request.getSession().setAttribute("poll", poll);
+		
+		HttpSession session = request.getSession();
+		SurveyAnsweringModel surveyModel = (SurveyAnsweringModel) session.getAttribute("SurveyAnsweringModel");
+		
+		request.setAttribute("question", surveyModel.getNextQuestion());
+		request.setAttribute("hasNextQuestion", surveyModel.hasNextQuestion());
 		
 		request.getRequestDispatcher("pollquestion.jsp").forward(request, response);
 		

@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
 
 /**
- * Servlet implementation class PollStart
+ * Shows information about the survey. From here the user can start the survey.
+ * 
  */
 @WebServlet("/pollStart")
 public class PollStart extends HttpServlet {
