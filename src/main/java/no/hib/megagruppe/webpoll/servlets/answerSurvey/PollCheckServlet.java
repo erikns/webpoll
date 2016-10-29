@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
 import no.hib.megagruppe.webpoll.services.SurveyAnsweringService;
+import no.hib.megagruppe.webpoll.util.SurveyAnsweringSessionManager;
 
 /**
  * Servlet implementation class pollStartServlet
@@ -30,12 +31,16 @@ public class PollCheckServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		SurveyAnsweringSessionManager session = new SurveyAnsweringSessionManager(request);
 		String code = request.getParameter("code");
+		
 		if (!(code == null) && !(code.equals(""))) {
 			if (sas.isValidSurvey(code)) {
 
-				HttpSession session = request.getSession(true);
-				session.setAttribute("poll", (SurveyAnsweringModel) sas.startSurveyAnswering(code));
+				SurveyAnsweringModel surveyAnsweringModel = sas.startSurveyAnswering(code);
+				session.setSurveyAnsweringModel(surveyAnsweringModel);
+				
 				response.sendRedirect("pollstart");
 
 			} else {

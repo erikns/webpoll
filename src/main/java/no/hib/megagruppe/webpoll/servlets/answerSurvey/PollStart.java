@@ -7,7 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import no.hib.megagruppe.webpoll.util.SurveyAnsweringSessionManager;
 
 /**
  * Shows information about the survey. From here the user can start the survey.
@@ -20,12 +21,12 @@ public class PollStart extends HttpServlet {
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
-    	HttpSession session = request.getSession();
+    	SurveyAnsweringSessionManager session = new SurveyAnsweringSessionManager(request);
     	
-    	if(session == null || session.getAttribute("poll") == null){
-    		response.sendRedirect("/");
-    	} else {
+    	if(session.hasSurvey()){
     		request.getRequestDispatcher("/poll.jsp").forward(request, response);
+    	} else {
+    		response.sendRedirect("/");
     	}
 	}
 }

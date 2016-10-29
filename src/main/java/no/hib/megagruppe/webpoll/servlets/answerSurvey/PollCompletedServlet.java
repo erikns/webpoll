@@ -1,12 +1,14 @@
 package no.hib.megagruppe.webpoll.servlets.answerSurvey;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import no.hib.megagruppe.webpoll.util.SurveyAnsweringSessionManager;
 
 /**
  * The student is done answering the poll.
@@ -20,9 +22,9 @@ public class PollCompletedServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		HttpSession session = request.getSession(false);
+		SurveyAnsweringSessionManager session = new SurveyAnsweringSessionManager(request);
 
-		if (session == null || session.getAttribute("poll") == null) {
+		if (session.hasSurvey()) {
 			response.sendRedirect("/");
 		} else {
 			request.getRequestDispatcher("/studentdone.jsp").forward(request, response);

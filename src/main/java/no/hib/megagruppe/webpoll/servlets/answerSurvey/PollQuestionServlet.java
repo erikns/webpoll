@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
 import no.hib.megagruppe.webpoll.models.SurveyQuestionModel;
+import no.hib.megagruppe.webpoll.util.SurveyAnsweringSessionManager;
 
 /*
  * @author Vegard
@@ -20,40 +21,40 @@ import no.hib.megagruppe.webpoll.models.SurveyQuestionModel;
 @WebServlet("/pollquestion")
 public class PollQuestionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	private SurveyQuestionModel question;
 	private SurveyAnsweringModel poll;
-       
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		HttpSession session = request.getSession(false);
-		
-		if (session == null || session.getAttribute("poll") == null){
+
+		SurveyAnsweringSessionManager session = new SurveyAnsweringSessionManager(request);
+
+		if (session.hasSurvey()) {
 			response.sendRedirect("/");
 		} else {
-			SurveyAnsweringModel surveyModel = (SurveyAnsweringModel) session.getAttribute("poll");
-			
+			SurveyAnsweringModel surveyModel = session.getSurveyAnsweringModel();
+
 			request.setAttribute("question", surveyModel.getNextQuestion());
 			request.setAttribute("hasNextQuestion", surveyModel.hasNextQuestion());
-			
+
 			request.getRequestDispatcher("pollquestion.jsp").forward(request, response);
 		}
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		poll = (SurveyAnsweringModel) request.getAttribute("poll");
 		request.getSession().setAttribute("poll", poll);
-		
-			if (poll.hasNextQuestion()) {
-				//More questions in poll, gets next question and sets attribute
-				poll.getNextQuestion();
-				request.getParameter("question");
-				request.getSession().setAttribute("question", question);
-			}
-				//redirects to SaveAnswerServlet to save current current answer to database
-				response.sendRedirect("saveanswerservlet"); 
+
+		if (poll.hasNextQuestion()) {
+			//More questions in poll, gets next question and sets attribute
+			poll.getNextQuestion();
+			request.getParameter("question");
+			request.getSession().setAttribute("question", question);
 		}
+		//redirects to SaveAnswerServlet to save current current answer to database
+		response.sendRedirect("saveanswerservlet");
+	}
 }
