@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
 		LoginSessionManager session = new LoginSessionManager(request);
 		request.setAttribute("username", session.getPreviouslyTypedUsername());
 
-		request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/lecturer/login.jsp").forward(request, response);
 		session.clearErrorMessages();
 	}
 

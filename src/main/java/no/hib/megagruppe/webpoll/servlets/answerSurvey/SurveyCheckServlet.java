@@ -17,8 +17,8 @@ import no.hib.megagruppe.webpoll.util.sessionmanager.SurveyAnsweringSessionManag
 /**
  * Servlet implementation class pollStartServlet
  */
-@WebServlet("/pollCheck")
-public class PollCheckServlet extends HttpServlet {
+@WebServlet("/surveycheck")
+public class SurveyCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
@@ -36,7 +36,7 @@ public class PollCheckServlet extends HttpServlet {
 		if(codeValidator.isValidCode()){
 			SurveyAnsweringModel surveyAnsweringModel = sas.startSurveyAnswering(code);
 			session.setSurveyAnsweringModel(surveyAnsweringModel);
-			response.sendRedirect("pollstart");
+			response.sendRedirect("surveystart");
 			
 		} else {
 			session.setErrorMessage(codeValidator.getErrorMessage());

@@ -17,8 +17,8 @@ import no.hib.megagruppe.webpoll.util.sessionmanager.SurveyAnsweringSessionManag
  * 
  * Forwards current question to pollquestion.jsp, and saves the answers afterwards.
  */
-@WebServlet("/pollquestion")
-public class PollQuestionServlet extends HttpServlet {
+@WebServlet("/surveyquestion")
+public class SurveyQuestionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Override
@@ -33,7 +33,7 @@ public class PollQuestionServlet extends HttpServlet {
 			request.setAttribute("questionNumber", surveyModel.currentQuestionNumber());
 			request.setAttribute("hasNextQuestion", surveyModel.hasNextQuestion());
 			request.setAttribute("hasPreviousQuestion", surveyModel.hasPreviousQuestion());
-			request.getRequestDispatcher("pollquestion.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/survey/surveyquestion.jsp").forward(request, response);
 			
 		} else {
 			response.sendRedirect("index");
@@ -57,17 +57,17 @@ public class PollQuestionServlet extends HttpServlet {
 			switch(action){
 				case "Neste":
 					surveyModel.nextQuestion();
-					response.sendRedirect("pollquestion");
+					response.sendRedirect("surveyquestion");
 					break;
 					
 				case "Forrige":
 					surveyModel.previousQuestion();
-					response.sendRedirect("pollquestion");
+					response.sendRedirect("surveyquestion");
 					break;
 					
-				case "Finish":
+				case "Ferdig":
 					// TODO Save to database.
-					response.sendRedirect("pollcompleted");
+					response.sendRedirect("surveycompleted");
 					break;
 					
 				case "Avbryt":

@@ -25,7 +25,7 @@ public class LecturerSerlvet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(securityService.isLoggedIn()) {
 			request.setAttribute("loggedinusr", securityService.getLoggedInUserName());
-			request.getRequestDispatcher("WEB-INF/lecturerhome.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/lecturer/lecturerhome.jsp").forward(request, response);
 		} else {
 			response.sendRedirect("login");
 		}	
