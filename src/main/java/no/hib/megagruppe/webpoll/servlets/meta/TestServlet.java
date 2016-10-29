@@ -1,16 +1,16 @@
-package no.hib.megagruppe.webpoll.servlets;
+package no.hib.megagruppe.webpoll.servlets.meta;
 
-import no.hib.megagruppe.webpoll.services.SecurityService;
-import no.hib.megagruppe.webpoll.services.SurveyAnsweringService;
+import java.io.IOException;
 
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+
+import no.hib.megagruppe.webpoll.services.SecurityService;
+import no.hib.megagruppe.webpoll.services.SurveyAnsweringService;
 
 @WebServlet("/test")
 public class TestServlet extends HttpServlet {

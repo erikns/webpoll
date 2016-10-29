@@ -1,4 +1,4 @@
-package no.hib.megagruppe.webpoll.servlets;
+package no.hib.megagruppe.webpoll.servlets.answerSurvey;
 
 import java.io.IOException;
 
@@ -19,32 +19,32 @@ import no.hib.megagruppe.webpoll.services.SurveyAnsweringService;
 @WebServlet("/pollCheck")
 public class PollCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	@EJB
 	private SurveyAnsweringService sas;
-	
-//	@Override
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//	
-//	}
+
+	//	@Override
+	//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	//	
+	//	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			String code = request.getParameter("code");
-			if(!(code.equals("")) || !(code == null)){
-				if(sas.isValidSurvey(code)) {
-					
-					HttpSession session = request.getSession(true);
-					session.setAttribute("poll", (SurveyAnsweringModel) sas.startSurveyAnswering(code));
-					response.sendRedirect("pollstart");
-					
-				} else {
-					request.setAttribute("errormsg", "Ugyldig kode!");
-					request.getRequestDispatcher("/").forward(request, response);
-				}
+		String code = request.getParameter("code");
+		if (!(code == null) && !(code.equals(""))) {
+			if (sas.isValidSurvey(code)) {
+
+				HttpSession session = request.getSession(true);
+				session.setAttribute("poll", (SurveyAnsweringModel) sas.startSurveyAnswering(code));
+				response.sendRedirect("pollstart");
+
 			} else {
-				request.setAttribute("errormsg", "Du må skrive inn en kode.");
+				request.setAttribute("errormsg", "Ugyldig kode!");
 				request.getRequestDispatcher("/").forward(request, response);
+			}
+		} else {
+			request.setAttribute("errormsg", "Du må skrive inn en kode.");
+			request.getRequestDispatcher("/").forward(request, response);
 		}
 	}
 }

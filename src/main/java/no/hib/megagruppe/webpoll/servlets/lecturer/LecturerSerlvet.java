@@ -1,4 +1,4 @@
-package no.hib.megagruppe.webpoll.servlets;
+package no.hib.megagruppe.webpoll.servlets.lecturer;
 
 import java.io.IOException;
 
