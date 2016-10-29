@@ -36,13 +36,14 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		LecturerSessionManager session = new LecturerSessionManager(request);
 
 		if (securityService.logIn(username, password)) {
 			// Login successful
+			session.logIn(); // XXX Er denne metoden sikker nok? Se implementasjon.
 			response.sendRedirect("lecturer");
 		} else {
 			// Login failed
-			LecturerSessionManager session = new LecturerSessionManager(request);
 			session.setErrorMessage("Feil brukernavn eller passord");
 			session.setTypedUsername(username);
 			
