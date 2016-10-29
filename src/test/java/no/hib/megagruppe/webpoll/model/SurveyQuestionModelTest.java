@@ -156,5 +156,31 @@ public class SurveyQuestionModelTest {
 			assertEquals(s1, s2);
 		}
 	}
+	
+	@Test
+	public void successfullyStoresAnswers(){
+		buildCheckboxQuestion();
+		
+		String[] answers = {options.get(0).getText(), options.get(4).getText()};
+		question.submitAnswer(answers);
+		
+		for(String answer : question.getAnswers()){
+			boolean containsAnswer = false;
+			for(String answer2 : answers){
+				if(answer.equals(answer2)){
+					containsAnswer = true;
+				}
+			}
+			assertTrue(containsAnswer);
+		}
+		
+		
+		buildFreetextQuestion();
+		question.submitAnswer(options.get(0).getText());
+		
+		for(String answer : question.getAnswers()){
+			assertTrue(answer.equals(options.get(0).getText()));
+		}
+	}
 
 }

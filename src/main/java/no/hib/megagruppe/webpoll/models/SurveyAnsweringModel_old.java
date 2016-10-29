@@ -2,7 +2,6 @@ package no.hib.megagruppe.webpoll.models;
 
 import java.sql.Time;
 import java.time.Duration;
-import java.util.Iterator;
 import java.util.List;
 
 import no.hib.megagruppe.webpoll.entities.QuestionEntity;
@@ -27,7 +26,7 @@ import no.hib.megagruppe.webpoll.util.DurationFormatter;
  * When a student finishes the survey all the answer-data will be committed to the database.
  *
  */
-public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
+public class SurveyAnsweringModel_old {
 	
 	private SurveyQuestionModel[] questions;
 	private String surveyName;
@@ -35,10 +34,10 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 	private Time surveyDeadline;
 	private String creator;
 	
-	private int currentQuestionIndex;
+	private int currentQuestionCounter;
 	
 	
-	public SurveyAnsweringModel(List<QuestionEntity> questions, String surveyName, Time surveyDate, Time surveyDeadline, String creator){
+	public SurveyAnsweringModel_old(List<QuestionEntity> questions, String surveyName, Time surveyDate, Time surveyDeadline, String creator){
 		
 		this.questions = new SurveyQuestionModel[questions.size()];
 		int i = 0; // XXX Finnes det en finere måte å gjøre dette på?
@@ -53,51 +52,36 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 		this.surveyDate = surveyDate;
 		this.surveyDeadline = surveyDeadline;
 		this.creator = creator;
-		currentQuestionIndex = 0;
+		currentQuestionCounter = 0;
 	}
 
 	/**
-	 * Checks whether there is a next question in the survey.
-	 * @return True if there is a next question in the survey.
+	 * Checks whether there are more questions left in the survey.
+	 * @return True if there are more questions left in the survey.
 	 */
 	public boolean hasNextQuestion(){
-		return currentQuestionIndex+1 < questions.length;
+		return currentQuestionCounter < questions.length;
 	}
 	
 	/**
-	 * Checks whether there is a previous question in the survey.
-	 * @return True if there is a previous question in the survey.
+	 * Retrieves the next question. Throws an ArrayIndexOutOfBoundsException if there are no more questions left.
+	 * Always call hasNextQuestion() before calling this method.
+	 * @return The next question.
 	 */
-	public boolean hasPreviousQuestion(){
-		return currentQuestionIndex > 0;
-	}
-	
-	/**
-	 * Returns the current question in the survey.
-	 * @return The current question in the survey.
-	 */
-	public SurveyQuestionModel currentQuestion(){
-		SurveyQuestionModel qm = questions[currentQuestionIndex];
+	public SurveyQuestionModel getNextQuestion(){
+		SurveyQuestionModel qm = questions[currentQuestionCounter];
+		currentQuestionCounter++;
 		return qm;
 	}
 	
 	/**
-	 * Moves the questionIndex up by one and returns the new current question.
-	 * @return The new current question.
+	 * This method is for retrieving the answers from the previous question.
+	 * 
+	 * This method may throw an exception if called from PollQuestion servlet.
+	 * @return The previous question, containing the answers.
 	 */
-	public SurveyQuestionModel nextQuestion(){
-		currentQuestionIndex++;
-		SurveyQuestionModel qm = questions[currentQuestionIndex];
-		return qm;
-	}
-	
-	/**
-	 * Moves the questionIndex down by one and returns the new current question.
-	 * @return The new current question.
-	 */
-	public SurveyQuestionModel previousQuestion(){
-		currentQuestionIndex--;
-		SurveyQuestionModel qm = questions[currentQuestionIndex];
+	public SurveyQuestionModel getPreviouslyAnsweredQuestion(){
+		SurveyQuestionModel qm = questions[currentQuestionCounter-1];
 		return qm;
 	}
 	
@@ -113,17 +97,16 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 	}
 	
 	/**
-	 * The questions number. The current index + 1.
-	 * @return The question number.
+	 * Resets the iterator. The next question will be the first question in the array.
+	 * 
+	 * This method is useful when you want to iterate through the questions when this survey has been answered.
 	 */
-	public int currentQuestionNumber(){
-		return currentQuestionIndex + 1;
+	public void reset(){
+		currentQuestionCounter = 0;
 	}
+
 	
-	@Override
-	public Iterator<SurveyQuestionModel> iterator() {
-		return new SurveyQuestionModelIterator(questions);
-	}
+	
 	
 	public String getSurveyName() {
 		return surveyName;
@@ -144,6 +127,5 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 	public SurveyQuestionModel[] getQuestions() {
 		return questions;
 	}
-
 	
 }

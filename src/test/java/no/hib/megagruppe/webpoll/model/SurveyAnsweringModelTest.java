@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +16,7 @@ import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
+import no.hib.megagruppe.webpoll.models.SurveyQuestionModel;
 
 public class SurveyAnsweringModelTest {
 
@@ -86,26 +86,24 @@ public class SurveyAnsweringModelTest {
 	
 	@Test
 	public void SAMHasTwoQuestions(){
-		assertTrue(sam.hasNextQuestion());
-		sam.getNextQuestion();
-		assertTrue(sam.hasNextQuestion());
-		sam.getNextQuestion();
+		assertTrue(sam.currentQuestion() != null);
+		assertTrue(sam.nextQuestion() != null);
 		assertFalse(sam.hasNextQuestion());
 	}
 	
 	@Test
 	public void QuestionsAreInOrder(){
-		assertEquals(sam.getNextQuestion().getText(), question1.getText());
-		assertEquals(sam.getNextQuestion().getText(), question2.getText());
+		assertEquals(sam.currentQuestion().getText(), question1.getText());
+		assertEquals(sam.nextQuestion().getText(), question2.getText());
 	}
 	
 	@Test
-	public void ResetResets(){
-		assertEquals(sam.getNextQuestion().getText(), question1.getText());
-		assertEquals(sam.getNextQuestion().getText(), question2.getText());
-		sam.reset();
-		assertEquals(sam.getNextQuestion().getText(), question1.getText());
-		assertEquals(sam.getNextQuestion().getText(), question2.getText());
+	public void IteratorWorks(){
+		assertEquals(sam.currentQuestion().getText(), question1.getText());
+		assertEquals(sam.nextQuestion().getText(), question2.getText());
+		for(SurveyQuestionModel question : sam){
+			assertTrue(question.getText().equals(question1.getText()) || question.getText().equals(question2.getText()));
+		}
 	}
 
 }

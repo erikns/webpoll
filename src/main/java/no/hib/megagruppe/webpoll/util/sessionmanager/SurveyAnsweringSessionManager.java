@@ -74,5 +74,11 @@ public class SurveyAnsweringSessionManager extends SessionManager {
 		}
 	}
 	
+	public void cancel(){
+		HttpSession session = request.getSession();
+		
+		session.setAttribute(SURVEY_ATTRIBUTE_NAME, null);
+	}
+	
 	
 }

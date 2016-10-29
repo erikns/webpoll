@@ -35,5 +35,12 @@ public class LoginSessionManager extends SessionManager{
 		
 		session.setAttribute(USERNAME_ATTRIBUTE_NAME, username);
 	}
+	
+	
+	public boolean isLoggedIn(){
+		boolean isLoggedIn = true;
+		
+		return isLoggedIn;
+	}
 
 }
