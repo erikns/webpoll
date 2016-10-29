@@ -30,6 +30,7 @@ public class PollQuestionServlet extends HttpServlet {
 			SurveyAnsweringModel surveyModel = session.getSurveyAnsweringModel();
 
 			request.setAttribute("question", surveyModel.currentQuestion());
+			request.setAttribute("questionNumber", surveyModel.currentQuestionNumber());
 			request.setAttribute("hasNextQuestion", surveyModel.hasNextQuestion());
 			request.setAttribute("hasPreviousQuestion", surveyModel.hasPreviousQuestion());
 			request.getRequestDispatcher("pollquestion.jsp").forward(request, response);
@@ -50,6 +51,7 @@ public class PollQuestionServlet extends HttpServlet {
 			session.submitAnswerInAnsweredQuestion(answeredQuestion);
 			
 			String action = request.getParameter("action");
+			System.out.println(action);
 			switch(action){
 				case "Neste":
 					surveyModel.nextQuestion();
@@ -61,7 +63,7 @@ public class PollQuestionServlet extends HttpServlet {
 					response.sendRedirect("pollquestion");
 					break;
 					
-				case "Fullfør":
+				case "Finish":
 					// Save to database.
 					response.sendRedirect("pollcompleted");
 					break;

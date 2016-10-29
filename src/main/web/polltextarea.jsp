@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">Spørsmål ${poll.currentQuestionCounte}</h3>
+		<h3 class="panel-title">Spørsmål ${questionNumber}</h3>
 	</div>
 	<div class="panel-body">
 		<p>
@@ -27,7 +27,7 @@
 				</c:when>
 				<c:otherwise>
 					<input class="btn btn-primary" type="submit" name="action"
-						value="Fullfør">
+						value="Finish">
 				</c:otherwise>
 			</c:choose>
 		</form>
