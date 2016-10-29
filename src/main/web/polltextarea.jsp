@@ -6,8 +6,8 @@
         </div>
         <div class="panel-body">
                 <p><strong>${question.text}</strong></p>
-                <form action="/pollanswer" method="post" id="answerform">
-    	           <textarea class="form-control" name="freetext" form="answerform" rows="5"></textarea>
+                <form action="pollquestion" method="post" id="answerform">
+    	           <textarea class="form-control" name="answer" form="answerform" rows="5"></textarea>
                 	<input class="btn btn-default" type="submit" value="Avbryt">
                 	<input class="btn btn-primary" type="submit" value="Neste">
                 </form>

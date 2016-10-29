@@ -13,7 +13,7 @@ import no.hib.megagruppe.webpoll.util.SurveyAnsweringSessionManager;
 /**
  * The student is done answering the poll.
  */
-@WebServlet("/PollCompleted")
+@WebServlet("/pollcompleted")
 public class PollCompletedServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

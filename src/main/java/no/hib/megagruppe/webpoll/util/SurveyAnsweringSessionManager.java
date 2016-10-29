@@ -4,10 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
+import no.hib.megagruppe.webpoll.models.SurveyQuestionModel;
 
 /**
- * A class for working with survey answering sessions.
- * In reality it is a wrapper for HttpServletRequest, but only getSession() is called.
+ * A class for working with survey-answering sessions.
+ * In reality it is a wrapper for HttpServletRequest.
  */
 public class SurveyAnsweringSessionManager {
 	
@@ -79,6 +80,18 @@ public class SurveyAnsweringSessionManager {
 		HttpSession session = request.getSession();
 		
 		return session != null;
+	}
+	
+	public void submitAnswerInAnsweredQuestion(SurveyQuestionModel answeredQuestion){
+		
+		if(answeredQuestion.getQuestionType().canHaveMultipleAnswers()){
+			String[] answers = request.getParameterValues("answer");
+			answeredQuestion.submitAnswer(answers);
+			
+		} else {
+			String answer = request.getParameter("answer");
+			answeredQuestion.submitAnswer(answer);
+		}
 	}
 	
 	

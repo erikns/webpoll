@@ -6,13 +6,13 @@
         </div>
         <div class="panel-body">
                 <p><strong>${question.text}</strong></p>
-                <form action="/pollanswer" method="post">
+                <form action="pollquestion" method="post">
                 	<c:set var="count" value="1" scope="page" />
                 	<%-- Antar at man får inn et question object, som har en liste over alternativer --%>
                 	<c:forEach var="o" items="${question.options}"> <%-- o = option --%>	
     			 <div class="checkbox">
                                 		<label>
-                                        		<input type="checkbox" value="${o}">
+                                        		<input type="checkbox" name="answer" value="${o}">
                                         		${o}
                                 		</label>
                         	</div>
