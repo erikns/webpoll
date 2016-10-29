@@ -24,6 +24,7 @@ public class PollStart extends HttpServlet {
     	SurveyAnsweringSessionManager session = new SurveyAnsweringSessionManager(request);
     	
     	if(session.hasSurvey()){
+			request.setAttribute("poll", session.getSurveyAnsweringModel());
     		request.getRequestDispatcher("poll.jsp").forward(request, response);
     	} else {
     		response.sendRedirect("index");
