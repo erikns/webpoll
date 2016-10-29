@@ -20,7 +20,7 @@ import no.hib.megagruppe.webpoll.util.sessionmanager.SurveyAnsweringSessionManag
 @WebServlet("/pollquestion")
 public class PollQuestionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -50,8 +50,10 @@ public class PollQuestionServlet extends HttpServlet {
 			SurveyQuestionModel answeredQuestion = surveyModel.currentQuestion();
 			session.submitAnswerInAnsweredQuestion(answeredQuestion);
 			
+			// TODO Er det mulig å bruke enum i jsp filene?
+			// Her sjekker vi hvilken knapp brukeren trykket på, og utfører en handling utifra det:
+			// Neste spørsmål, Forrige spørsmål, Avbryt besvarelse, Fullfør besvarelse.
 			String action = request.getParameter("action");
-			System.out.println(action);
 			switch(action){
 				case "Neste":
 					surveyModel.nextQuestion();
@@ -64,7 +66,7 @@ public class PollQuestionServlet extends HttpServlet {
 					break;
 					
 				case "Finish":
-					// Save to database.
+					// TODO Save to database.
 					response.sendRedirect("pollcompleted");
 					break;
 					
