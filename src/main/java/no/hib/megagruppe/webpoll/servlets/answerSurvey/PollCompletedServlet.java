@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import no.hib.megagruppe.webpoll.util.SurveyAnsweringSessionManager;
+import no.hib.megagruppe.webpoll.util.sessionmanager.SurveyAnsweringSessionManager;
 
 /**
  * The student is done answering the poll.

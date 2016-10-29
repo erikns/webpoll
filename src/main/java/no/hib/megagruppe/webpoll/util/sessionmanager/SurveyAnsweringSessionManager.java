@@ -1,4 +1,4 @@
-package no.hib.megagruppe.webpoll.util;
+package no.hib.megagruppe.webpoll.util.sessionmanager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,17 +8,13 @@ import no.hib.megagruppe.webpoll.models.SurveyQuestionModel;
 
 /**
  * A class for working with survey-answering sessions.
- * In reality it is a wrapper for HttpServletRequest.
  */
-public class SurveyAnsweringSessionManager {
+public class SurveyAnsweringSessionManager extends SessionManager {
 	
 	private final String SURVEY_ATTRIBUTE_NAME = "survey";
-	private final String ERROR_MESSAGE_ATTRIBUTE_NAME = "errormsg";
-	
-	private HttpServletRequest request;
 	
 	public SurveyAnsweringSessionManager(HttpServletRequest request){
-		this.request = request;
+		super(request);
 	}
 	
 	/**
@@ -63,25 +59,9 @@ public class SurveyAnsweringSessionManager {
 	}
 	
 	/**
-	 * Stores an error message in this session.
-	 * @param errorMessage The error message.
+	 * Stores the answer in the SurveyQuestionModel object. Checks the type in case of multiple answers.
+	 * @param answeredQuestion The SurveyQuestionModel object.
 	 */
-	public void setErrorMessage(String errorMessage){
-		HttpSession session = request.getSession();
-		
-		session.setAttribute(ERROR_MESSAGE_ATTRIBUTE_NAME, errorMessage);
-	}
-	
-	/**
-	 * Checks if this session is not null. Checks if this session exists.
-	 * @return True if this session is not null;
-	 */
-	public boolean isNotNullSession(){
-		HttpSession session = request.getSession();
-		
-		return session != null;
-	}
-	
 	public void submitAnswerInAnsweredQuestion(SurveyQuestionModel answeredQuestion){
 		
 		if(answeredQuestion.getQuestionType().canHaveMultipleAnswers()){

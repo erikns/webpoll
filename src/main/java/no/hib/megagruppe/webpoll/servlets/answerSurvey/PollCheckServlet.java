@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
 import no.hib.megagruppe.webpoll.services.SurveyAnsweringService;
-import no.hib.megagruppe.webpoll.util.SurveyAnsweringSessionManager;
 import no.hib.megagruppe.webpoll.util.SurveyCodeValidator;
+import no.hib.megagruppe.webpoll.util.sessionmanager.SurveyAnsweringSessionManager;
 
 /**
  * Servlet implementation class pollStartServlet

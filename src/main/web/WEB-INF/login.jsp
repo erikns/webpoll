@@ -15,7 +15,7 @@
 					<h2 class="form-signin-heading">Vennligst logg inn</h2>
 					<label for="inputUsername" class="sr-only">Brukernavn</label>
 					<input type="text" id="inputUsername" name="username" class="form-control"
-                           placeholder="Brukernavn" value="${not empty username ? username : ''}"
+                           placeholder="Brukernavn" value="${not empty typedusername ? typedusername : ''}"
                            required autofocus>
 					<label for="inputPassword" class="sr-only">Passord</label>
 					<input type="password" id="inputPassword" name="password" class="form-control"

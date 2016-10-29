@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
 import no.hib.megagruppe.webpoll.models.SurveyQuestionModel;
-import no.hib.megagruppe.webpoll.util.SurveyAnsweringSessionManager;
+import no.hib.megagruppe.webpoll.util.sessionmanager.SurveyAnsweringSessionManager;
 
 /*
  * @author Vegard
