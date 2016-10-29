@@ -11,6 +11,9 @@ import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
  */
 public class SurveyAnsweringSessionManager {
 	
+	private final String SURVEY_ATTRIBUTE_NAME = "survey";
+	private final String ERROR_MESSAGE_ATTRIBUTE_NAME = "errormsg";
+	
 	private HttpServletRequest request;
 	
 	public SurveyAnsweringSessionManager(HttpServletRequest request){
@@ -26,7 +29,7 @@ public class SurveyAnsweringSessionManager {
 		
 		HttpSession session = request.getSession();
 		
-		if(session != null && session.getAttribute("survey") != null){
+		if(session != null && session.getAttribute(SURVEY_ATTRIBUTE_NAME) != null){
 			hasAttribute = true;
 		} else {
 			hasAttribute = false;
@@ -43,7 +46,7 @@ public class SurveyAnsweringSessionManager {
 	public SurveyAnsweringModel getSurveyAnsweringModel(){
 		
 		HttpSession session = request.getSession();
-		SurveyAnsweringModel surveyAnsweringModel = (SurveyAnsweringModel) session.getAttribute("survey");
+		SurveyAnsweringModel surveyAnsweringModel = (SurveyAnsweringModel) session.getAttribute(SURVEY_ATTRIBUTE_NAME);
 		
 		return surveyAnsweringModel;
 	}
@@ -55,7 +58,17 @@ public class SurveyAnsweringSessionManager {
 	public void setSurveyAnsweringModel(SurveyAnsweringModel surveyAnsweringModel){
 		HttpSession session = request.getSession();
 		
-		session.setAttribute("survey", surveyAnsweringModel);
+		session.setAttribute(SURVEY_ATTRIBUTE_NAME, surveyAnsweringModel);
+	}
+	
+	/**
+	 * Stores an error message in this session.
+	 * @param errorMessage The error message.
+	 */
+	public void setErrorMessage(String errorMessage){
+		HttpSession session = request.getSession();
+		
+		session.setAttribute(ERROR_MESSAGE_ATTRIBUTE_NAME, errorMessage);
 	}
 	
 	/**

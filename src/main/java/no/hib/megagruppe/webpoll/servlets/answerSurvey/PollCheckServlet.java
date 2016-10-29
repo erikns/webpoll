@@ -8,11 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
 import no.hib.megagruppe.webpoll.services.SurveyAnsweringService;
 import no.hib.megagruppe.webpoll.util.SurveyAnsweringSessionManager;
+import no.hib.megagruppe.webpoll.util.SurveyCodeValidator;
 
 /**
  * Servlet implementation class pollStartServlet
@@ -24,32 +24,22 @@ public class PollCheckServlet extends HttpServlet {
 	@EJB
 	private SurveyAnsweringService sas;
 
-	//	@Override
-	//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	//	
-	//	}
-
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		SurveyAnsweringSessionManager session = new SurveyAnsweringSessionManager(request);
 		String code = request.getParameter("code");
 		
-		if (!(code == null) && !(code.equals(""))) {
-			if (sas.isValidSurvey(code)) {
-
-				SurveyAnsweringModel surveyAnsweringModel = sas.startSurveyAnswering(code);
-				session.setSurveyAnsweringModel(surveyAnsweringModel);
-				
-				response.sendRedirect("pollstart");
-
-			} else {
-				request.setAttribute("errormsg", "Ugyldig kode!");
-				request.getRequestDispatcher("/").forward(request, response);
-			}
+		SurveyCodeValidator codeValidator = new SurveyCodeValidator(code, sas);
+		codeValidator.validate();
+		
+		if(codeValidator.isValidCode()){
+			SurveyAnsweringModel surveyAnsweringModel = sas.startSurveyAnswering(code);
+			session.setSurveyAnsweringModel(surveyAnsweringModel);
+			response.sendRedirect("pollstart");
+			
 		} else {
-			request.setAttribute("errormsg", "Du må skrive inn en kode.");
-			request.getRequestDispatcher("/").forward(request, response);
+			session.setErrorMessage(codeValidator.getErrorMessage());
 		}
 	}
 }
