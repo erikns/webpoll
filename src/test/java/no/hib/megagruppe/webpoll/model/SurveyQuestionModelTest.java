@@ -74,7 +74,21 @@ public class SurveyQuestionModelTest {
 		assertEquals(question.getQuestionType(), QuestionType.MULTIPLE_CHOICE_CHECKBOX);
 		buildFreetextQuestion();
 		assertEquals(question.getQuestionType(), QuestionType.FREE_TEXT);
+	}
+
+	@Test
+	public void isNotOfTheTwoOtherTypes() {
+		buildRadioQuestion(); //Radio
 		assertFalse(question.getQuestionType().equals(QuestionType.MULTIPLE_CHOICE_CHECKBOX));
+		assertFalse(question.getQuestionType().equals(QuestionType.FREE_TEXT));
+
+		buildCheckboxQuestion(); //Checkbox
+		assertFalse(question.getQuestionType().equals(QuestionType.MULTIPLE_CHOICE_RADIO));
+		assertFalse(question.getQuestionType().equals(QuestionType.FREE_TEXT));
+
+		buildFreetextQuestion(); //Freetext
+		assertFalse(question.getQuestionType().equals(QuestionType.MULTIPLE_CHOICE_CHECKBOX));
+		assertFalse(question.getQuestionType().equals(QuestionType.MULTIPLE_CHOICE_RADIO));
 	}
 	
 	@Test
