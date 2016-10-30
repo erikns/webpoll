@@ -11,10 +11,18 @@
 		<jsp:include page="/pages/navbar.jsp"/>
 		<div class="container">
 			<div class="panel panel-default margin-top">
-				<h1>Innlogget bruker: ${loggedinusr}</h1>
+				<div class="panel-body">
+					<h1>Innlogget bruker: <c:out value="${loggedinusr}"/></h1>
+				</div>
+				<div class="panel-footer">
+					<a href="logout" class="btn btn-default" role="button">Logg ut</a>
+				</div>
 			</div>
+
+			<jsp:include page="listsurveys.jsp"/>
 		</div>
 		<jsp:include page="/pages/footer.jsp"/>
 		<jsp:include page="/pages/js.jsp"/>
+		<script>$.backstretch("<c:url value="/assets/img/people.jpg"/>");</script>
 	</body>
 </html>
