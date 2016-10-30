@@ -14,13 +14,14 @@
   				<div class="cover-container">
           				<div class="inner cover text-center">
             				<h1 class="cover-heading">Project Webpoll</h1>
-            				<p class="lead">Create &amp; answer  polls anywhere, anytime.</p>
+            				<p class="lead">Create &amp; answer polls anywhere, anytime.</p>
             				<form class="form-inline" action="surveycheck" method="post">
 			  			<div class="form-group">
-			  				<label for="pollcode">Poll code</label>
+			  				<p><label for="pollcode">Poll code</label>
 			  				<input type="text" class="form-control" id="pollcode" name="code" placeholder="123456" required autofocus>
-			  				<input type="submit" class="btn btn-primary btn-default" value="Go!">
+			  				<input type="submit" class="btn btn-primary" value="Go!"></p>
 			  			</div>
+			  			<!-- WTF -->
 			  			<p class="errormsg"><c:out value="${errormsg}"/>&nbsp;</p>
 	  				</form>
           				</div>
