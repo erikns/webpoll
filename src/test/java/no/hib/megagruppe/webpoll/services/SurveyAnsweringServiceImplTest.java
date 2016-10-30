@@ -55,12 +55,12 @@ public class SurveyAnsweringServiceImplTest {
 	@Test
 	public void startingSurveyGivesCorrectSurveyAnsweringModel() {
 		survey.setName("Favorite test");
-		survey.setDate(new Timestamp(100000));
+		survey.setDateCreated(new Timestamp(100000));
 		survey.setDeadline(new Timestamp(120000));
 		
 		SurveyAnsweringModel sam = service.startSurveyAnswering("abc");
 		assertEquals(survey.getName(), sam.getSurveyName());
-		assertEquals(survey.getDate(), sam.getSurveyDate());
+		assertEquals(survey.getDateCreated(), sam.getSurveyCreated());
 		assertEquals(survey.getDeadline(), sam.getSurveyDeadline());
 	}
 	
@@ -116,7 +116,7 @@ public class SurveyAnsweringServiceImplTest {
         survey = new SurveyEntity();
         survey.setId(1);
         survey.setName("Testundersøkelse");
-        survey.setDate(new Timestamp(System.currentTimeMillis() - 3600));
+        survey.setDateCreated(new Timestamp(System.currentTimeMillis() - 3600));
         survey.setDeadline(new Timestamp(System.currentTimeMillis() + 36000));
         survey.setOwner(user);
         survey.setActive(true);

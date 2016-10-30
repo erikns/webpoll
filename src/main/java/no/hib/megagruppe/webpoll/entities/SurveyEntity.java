@@ -6,7 +6,7 @@ import java.util.List;
 public class SurveyEntity {
     private Integer id;
     private String name;
-    private Timestamp date;
+    private Timestamp dateCreated;
     private Timestamp deadline;
     private UserEntity owner;
     private String code;
@@ -30,12 +30,12 @@ public class SurveyEntity {
         this.name = name;
     }
 
-    public Timestamp getDate() {
-        return date;
+    public Timestamp getDateCreated() {
+        return dateCreated;
     }
 
-    public void setDate(Timestamp date) {
-        this.date = date;
+    public void setDateCreated(Timestamp dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public Timestamp getDeadline() {

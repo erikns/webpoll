@@ -34,14 +34,14 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 	
 	private SurveyQuestionModel[] questions;
 	private String surveyName;
-	private Timestamp surveyDate;
+	private Timestamp surveyCreated;
 	private Timestamp surveyDeadline;
 	private String creator;
 	
 	private int currentQuestionIndex;
 	
 	
-	public SurveyAnsweringModel(List<QuestionEntity> questions, String surveyName, Timestamp surveyDate, Timestamp surveyDeadline, String creator){
+	public SurveyAnsweringModel(List<QuestionEntity> questions, String surveyName, Timestamp surveyCreated, Timestamp surveyDeadline, String creator){
 		
 		this.questions = new SurveyQuestionModel[questions.size()];
 		int i = 0; // XXX Finnes det en finere måte å gjøre dette på?
@@ -53,14 +53,14 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 		}
 		
 		this.surveyName = surveyName;
-		this.surveyDate = surveyDate;
+		this.surveyCreated = surveyCreated;
 		this.surveyDeadline = surveyDeadline;
 		this.creator = creator;
 		currentQuestionIndex = 0;
 	}
 	
 	public SurveyAnsweringModel(SurveyEntity surveyEntity){
-		this(surveyEntity.getQuestions(), surveyEntity.getName(), surveyEntity.getDate(), surveyEntity.getDeadline(), surveyEntity.getOwner().toString());
+		this(surveyEntity.getQuestions(), surveyEntity.getName(), surveyEntity.getDateCreated(), surveyEntity.getDeadline(), surveyEntity.getOwner().toString());
 	}
 
 	/**
@@ -137,12 +137,12 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 		return surveyName;
 	}
 
-	public Timestamp getSurveyDate() {
-		return surveyDate;
+	public Timestamp getSurveyCreated() {
+		return surveyCreated;
 	}
 	
 	public String getFormattedSurveyDate(){
-		String formattedSurveyDate = new SimpleDateFormat("dd/MM/yyyy").format(surveyDate);
+		String formattedSurveyDate = new SimpleDateFormat("dd/MM/yyyy").format(surveyCreated);
 		return formattedSurveyDate;
 	}
 

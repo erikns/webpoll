@@ -60,7 +60,7 @@ public class InMemorySurveyRepository implements SurveyRepository {
         SurveyEntity survey = new SurveyEntity();
         survey.setId(1);
         survey.setName("Testundersøkelse");
-        survey.setDate(new Timestamp(System.currentTimeMillis() - 3600));
+        survey.setDateCreated(new Timestamp(System.currentTimeMillis() - 3600));
         survey.setDeadline(new Timestamp(System.currentTimeMillis() + 36000000));
         survey.setOwner(user);
         survey.setActive(true);

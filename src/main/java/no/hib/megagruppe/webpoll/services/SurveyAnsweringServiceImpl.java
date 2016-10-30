@@ -26,7 +26,7 @@ public class SurveyAnsweringServiceImpl implements SurveyAnsweringService {
     public SurveyAnsweringModel startSurveyAnswering(String code) {
     	SurveyEntity survey = repositoryFactory.getSurveyRepository().findByCode(code);
     	String username = survey.getOwner().getFirstName() + " " + survey.getOwner().getLastName();
-    	SurveyAnsweringModel surveyAnsweringModel = new SurveyAnsweringModel(survey.getQuestions(), survey.getName(), survey.getDate(), survey.getDeadline(), username);
+    	SurveyAnsweringModel surveyAnsweringModel = new SurveyAnsweringModel(survey.getQuestions(), survey.getName(), survey.getDateCreated(), survey.getDeadline(), username);
         return surveyAnsweringModel;
     }
 

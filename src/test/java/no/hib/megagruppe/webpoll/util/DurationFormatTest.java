@@ -24,7 +24,7 @@ public class DurationFormatTest {
     public void setup() {
         InMemorySurveyRepository imsr = new InMemorySurveyRepository();
         SurveyEntity se = imsr.findByCode("testabc");
-        sam = new SurveyAnsweringModel(se.getQuestions(),se.getName(),se.getDate(),se.getDeadline(),se.getOwner().toString());
+        sam = new SurveyAnsweringModel(se.getQuestions(),se.getName(),se.getDateCreated(),se.getDeadline(),se.getOwner().toString());
     }
 
     @Test
