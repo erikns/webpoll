@@ -72,7 +72,7 @@ public class SurveyAnsweringServiceImplTest {
 	}
 
 	private static SurveyAnsweringService buildService(SurveyRepository surveyRepository) {
-		return new SurveyAnsweringServiceImpl(new FakeRepositoryFactory(null, surveyRepository));
+		return new SurveyAnsweringServiceImpl(new FakeRepositoryFactory(null, surveyRepository, null));
 	}
 	
 	private static SurveyEntity buildSurvey(){

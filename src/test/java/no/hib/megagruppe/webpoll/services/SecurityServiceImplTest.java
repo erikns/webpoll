@@ -198,7 +198,7 @@ public class SecurityServiceImplTest {
     private static SecurityService buildService(SecurityAdapter securityAdapter, PasswordHasher passwordHasher,
                                                 UserRepository userRepository) {
         return new SecurityServiceImpl(securityAdapter, passwordHasher,
-                new FakeRepositoryFactory(userRepository, null));
+                new FakeRepositoryFactory(userRepository, null, null));
     }
 
 }

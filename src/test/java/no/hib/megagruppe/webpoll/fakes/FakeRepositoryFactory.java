@@ -8,10 +8,12 @@ import no.hib.megagruppe.webpoll.data.UserRepository;
 public class FakeRepositoryFactory implements RepositoryFactory {
     private UserRepository userRepository = null;
     private SurveyRepository surveyRepository = null;
+    private ResponseRepository responseRepository = null;
 
-    public FakeRepositoryFactory(UserRepository userRepository, SurveyRepository surveyRepository) {
+    public FakeRepositoryFactory(UserRepository userRepository, SurveyRepository surveyRepository, ResponseRepository responseRepository) {
         this.userRepository = userRepository;
         this.surveyRepository = surveyRepository;
+        this.responseRepository = responseRepository;
     }
 
     @Override
@@ -26,7 +28,6 @@ public class FakeRepositoryFactory implements RepositoryFactory {
 
 	@Override
 	public ResponseRepository getResponseRepository() {
-		// TODO Auto-generated method stub
-		return null;
+		return responseRepository;
 	}
 }
