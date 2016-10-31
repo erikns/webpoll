@@ -14,7 +14,6 @@ body {
 footer {
     position: absolute;
     bottom: 0;
-    /* height: 60px; */
     margin-top: 20px;
     width: 100%;
     color: #ffffff;
@@ -87,9 +86,6 @@ a:hover {
     border-top-right-radius: 0;
 }
 
-
-/* Extra markup and styles for table-esque vertical and horizontal centering */
-
 .site-wrapper {
     display: table;
     width: 100%;
@@ -116,18 +112,12 @@ a:hover {
 
 /* Cover */
 .cover {
-    /* width: 75%; */
     padding: 20px;
     padding-bottom: 30px;
     background-color: #ffffff;
     background-color: rgba(255, 255, 255, 0.90);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.19), 0 6px 12px rgba(0, 0, 0, 0.23);
     border-radius: 4px;
-}
-
-.cover .btn-lg {
-    padding: 10px 20px;
-    font-weight: bold;
 }
 
 .errormsg {
@@ -145,24 +135,22 @@ a:hover {
  * Affix and center
  */
 
-@media (min-width: 768px) {
-    /* Start the vertical centering */
+@media (min-width: 768px) {/
     .site-wrapper-inner {
         vertical-align: middle;
     }
-    /* Handle the widths */
+
     .cover-container {
         width: 100%;
-        /* Must be percentage or pixels for horizontal alignment */
     }
 }
 
 @media (max-width: 767px) /* @grid-float-breakpoint -1 */
 {
-    .navbar-fixed-top
-    {
-    position: relative;
-    top: auto;
+    .navbar-fixed-top {
+        position: relative;
+        display: block;
+        top: auto;
     }
 
     footer {
@@ -185,14 +173,29 @@ screen and (max-width:768px) {
          box-shadow: none;
     }
 
-    .site-wrapping {
+    .site-wrapper {
         -webkit-box-shadow: none;
         box-shadow: none;
+         max-width: 95%;
+         margin-left: 2.5%;
+         margin-right: 2.5%;
     }
 
     .form-signin {
          box-shadow: none;
         border-radius: 0;
+    }
+    
+    .panel {
+        max-width: 95%;
+        margin-left: 2.5%;
+        margin-right: 2.5%;
+    }
+
+    .form-signin-outer {
+        max-width: 95%;
+        margin-left: 2.5%;
+        margin-right: 2.5%;
     }
 
     .margin-top {
@@ -207,14 +210,28 @@ screen and (max-width:992px) {
          box-shadow: none;
     }
 
-    .site-wrapping {
+    .site-wrapper {
         -webkit-box-shadow: none;
         box-shadow: none;
+        max-width: 95%;
+       
     }
 
     .form-signin {
-         box-shadow: none;
+        box-shadow: none;
         border-radius: 0;
+    }
+
+    .panel {
+        max-width: 95%;
+        margin-left: 2.5%;
+        margin-right: 2.5%;
+    }
+
+    .form-signin-outer {
+        max-width: 95%;
+        margin-left: 2.5%;
+        margin-right: 2.5%;
     }
 
     .margin-top {
