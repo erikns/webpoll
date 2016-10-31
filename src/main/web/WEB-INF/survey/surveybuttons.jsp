@@ -3,17 +3,17 @@
 <%-- De forskjellige knappene: Forrige, Avbryt, Neste, og Fullfør --%>
 <p>
 <c:if test="${hasPreviousQuestion}">
-	<input class="btn btn-primary" type="submit" name="action" value="Forrige">&nbsp;
+	<button class="btn btn-primary" name="action" value="previous">Forrige</button>&nbsp;
 </c:if>
 
-<input class="btn btn-default" type="submit" name="action" value="Avbryt">&nbsp;
+<button class="btn btn-default" name="action" value="cancel">Avbryt</button>&nbsp;
 
 <c:choose>
 	<c:when test="${hasNextQuestion}">
-		<input class="btn btn-primary" type="submit" name="action" value="Neste">&nbsp;
+		<button class="btn btn-primary" name="action" value="next">Neste</button>&nbsp;
 	</c:when>
 	<c:otherwise>
-		<input class="btn btn-primary" type="submit" name="action" value="Ferdig">&nbsp;
+		<button class="btn btn-primary" name="action" value="submit">Ferdig</button>&nbsp;
 	</c:otherwise>
 </c:choose>
 </p>

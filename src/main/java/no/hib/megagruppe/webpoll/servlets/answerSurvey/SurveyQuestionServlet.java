@@ -61,22 +61,22 @@ public class SurveyQuestionServlet extends HttpServlet {
 			// Neste spørsmål, Forrige spørsmål, Avbryt besvarelse, Fullfør besvarelse.
 			String action = request.getParameter("action");
 			switch(action){
-				case "Neste":
+				case "next":
 					surveyModel.nextQuestion();
 					response.sendRedirect("surveyquestion");
 					break;
 					
-				case "Forrige":
+				case "previous":
 					surveyModel.previousQuestion();
 					response.sendRedirect("surveyquestion");
 					break;
 					
-				case "Ferdig":
+				case "submit":
 					sas.commitSurveyAnswering(surveyModel);
 					response.sendRedirect("surveycompleted");
 					break;
 					
-				case "Avbryt":
+				case "cancel":
 					session.cancel();
 					response.sendRedirect("index");
 					break;
