@@ -1,8 +1,17 @@
 package no.hib.megagruppe.webpoll.services;
 
 import no.hib.megagruppe.webpoll.data.RepositoryFactory;
+import no.hib.megagruppe.webpoll.entities.ResponseEntity;
+import no.hib.megagruppe.webpoll.entities.AnswerEntity;
+import no.hib.megagruppe.webpoll.entities.OptionEntity;
+import no.hib.megagruppe.webpoll.entities.QuestionEntity;
+import no.hib.megagruppe.webpoll.entities.QuestionEntity.QuestionType;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
+import no.hib.megagruppe.webpoll.models.SurveyQuestionModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -25,13 +34,53 @@ public class SurveyAnsweringServiceImpl implements SurveyAnsweringService {
     @Override
     public SurveyAnsweringModel startSurveyAnswering(String code) {
     	SurveyEntity survey = repositoryFactory.getSurveyRepository().findByCode(code);
-    	String username = survey.getOwner().getFirstName() + " " + survey.getOwner().getLastName();
-    	SurveyAnsweringModel surveyAnsweringModel = new SurveyAnsweringModel(survey.getQuestions(), survey.getName(), survey.getDateCreated(), survey.getDeadline(), username);
+    	String username = survey.getOwner().toString();
+    	SurveyAnsweringModel surveyAnsweringModel = new SurveyAnsweringModel(survey);
         return surveyAnsweringModel;
     }
 
     @Override
     public void commitSurveyAnswering(SurveyAnsweringModel answeringModel) {
-    	// TODO
+    	
+    	SurveyEntity survey = repositoryFactory.getSurveyRepository().findByCode(answeringModel.getCode());
+    	List<AnswerEntity> answers = new ArrayList<>();
+    	SurveyQuestionModel[] questions = answeringModel.getQuestions();	
+		OptionEntity option;
+		String freetext;
+		QuestionEntity question;
+		
+		
+    	for (int i = 0; i < questions.length; i++) {
+    		
+    		option = null;
+    		freetext = null;
+    		question = survey.getQuestions().get(i);
+    		
+    		if (question.getType().isMultipleChoice()) {
+    			for (String answer : questions[i].getAnswers()) {
+    				option = findOption(question, answer);
+    				if (option != null) {
+    					answers.add(new AnswerEntity(question, option, freetext));	
+    				}
+    			}
+    		} else {
+    			freetext = questions[i].getAnswers()[0];		
+        		answers.add(new AnswerEntity(question, option, freetext));
+    		}
+    	}
+    	ResponseEntity response = new ResponseEntity(survey, answers);
+    	repositoryFactory.getResponseRepository().add(response);
+    }
+    
+    private OptionEntity findOption(QuestionEntity question, String answer) {
+    	OptionEntity option = null;
+    	boolean optionFound = false;
+		for (int j = 0; j < question.getOptions().size() && !optionFound; j++) {
+			if(answer.equals(question.getOptions().get(j).getText())) {
+				option = question.getOptions().get(j);
+				optionFound = true;
+			}
+		}
+		return option;
     }
 }

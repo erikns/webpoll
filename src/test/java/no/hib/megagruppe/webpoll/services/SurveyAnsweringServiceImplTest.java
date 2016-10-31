@@ -3,7 +3,9 @@ package no.hib.megagruppe.webpoll.services;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,27 +13,32 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import no.hib.megagruppe.webpoll.data.ResponseRepository;
 import no.hib.megagruppe.webpoll.data.SurveyRepository;
 import no.hib.megagruppe.webpoll.entities.OptionEntity;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity;
+import no.hib.megagruppe.webpoll.entities.ResponseEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.fakes.FakeRepositoryFactory;
+import no.hib.megagruppe.webpoll.fakes.TestResponseRepository;
 import no.hib.megagruppe.webpoll.fakes.TestSurveyRepository;
 import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
 
 public class SurveyAnsweringServiceImplTest {
 
 	private SurveyRepository surveyRepository;
+	private ResponseRepository responseRepository;
 	private SurveyEntity survey;
 	private SurveyAnsweringService service;
 	
 	@Before
 	public void setup() {
 		surveyRepository = new TestSurveyRepository();
+		responseRepository = new TestResponseRepository();
 		survey = buildSurvey();
 		surveyRepository.add(survey);
-		service = buildService(surveyRepository);
+		service = buildService(surveyRepository, responseRepository);
 	}
 	
 	@Test
@@ -66,12 +73,21 @@ public class SurveyAnsweringServiceImplTest {
 	@Test
 	public void commitSurveyDoesNotCrash(){
 		SurveyAnsweringModel sam = service.startSurveyAnswering("abc");
+		sam.getQuestions()[0].submitAnswer(new String[]{sam.getQuestions()[0].getOptions().get(1)});
+		sam.getQuestions()[1].submitAnswer(new String[]{"Veldig bra"});
 		
 		service.commitSurveyAnswering(sam);
+		
+		ResponseEntity response = responseRepository.findById(1);
+		assertNotNull(response);
+		assertEquals(survey, response.getSurvey());
+		assertEquals(survey.getQuestions().get(0).getOptions().get(1), response.getAnswers().get(0).getOption());
+		assertEquals("Veldig bra", response.getAnswers().get(1).getFreetext());
+		
 	}
 
-	private static SurveyAnsweringService buildService(SurveyRepository surveyRepository) {
-		return new SurveyAnsweringServiceImpl(new FakeRepositoryFactory(null, surveyRepository, null));
+	private static SurveyAnsweringService buildService(SurveyRepository surveyRepository, ResponseRepository responseRepository) {
+		return new SurveyAnsweringServiceImpl(new FakeRepositoryFactory(null, surveyRepository, responseRepository));
 	}
 	
 	private static SurveyEntity buildSurvey(){
