@@ -21,12 +21,11 @@ create table "survey" (
     active boolean not null
 );
 
-create type q_type as enum ('multiple_choice', 'free_text');
 create table "question" (
     id serial primary key,
     survey_id integer not null references "survey" (id),
     question_text text not null,
-    question_type q_type not null,
+    question_type varchar(30) not null,
     multiple boolean not null
 );
 
