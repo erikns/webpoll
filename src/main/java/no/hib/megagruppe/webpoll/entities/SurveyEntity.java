@@ -1,17 +1,34 @@
 package no.hib.megagruppe.webpoll.entities;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
+@Entity(name = "survey")
+@Table(schema = "webpoll", name = "survey")
 public class SurveyEntity {
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     private Integer id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "date")
     private Timestamp dateCreated;
+    @Column(name = "deadline")
     private Timestamp deadline;
+    @ManyToOne
+    @JoinColumn(name = "owner_id", nullable = false)
     private UserEntity owner;
+    @Column(name = "code")
     private String code;
+    @Column(name = "active")
     private Boolean active;
+
+    @OneToMany(targetEntity = QuestionEntity.class, cascade = CascadeType.ALL, mappedBy = "survey",
+            fetch = FetchType.EAGER)
     private List<QuestionEntity> questions;
+
     private List<ResponseEntity> responses;
 
     public Integer getId() {

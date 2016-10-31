@@ -1,13 +1,20 @@
 package no.hib.megagruppe.webpoll.entities;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity(name = "response")
+@Table(schema = "webpoll", name = "response")
 public class ResponseEntity {
+    @Id
+    @GeneratedValue
     private Integer id;
+    @ManyToOne
     private SurveyEntity survey;
+    @OneToMany
     private List<AnswerEntity> answers;
     
-    public ResponseEntity() { 	
+    public ResponseEntity() {
     }
     
     public ResponseEntity(SurveyEntity survey, List<AnswerEntity> answers) {

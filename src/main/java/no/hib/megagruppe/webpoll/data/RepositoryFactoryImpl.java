@@ -1,17 +1,20 @@
 package no.hib.megagruppe.webpoll.data;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
-@ApplicationScoped
+@Singleton
 public class RepositoryFactoryImpl implements RepositoryFactory {
-    private static SurveyRepository surveyRepository; // FIXME: temporary!
-    private static UserRepository userRepository;
-    private static ResponseRepository responseRepository;
+    private ResponseRepository responseRepository;
+    private SurveyRepository surveyRepository;
+    private UserRepository userRepository;
 
-    public RepositoryFactoryImpl() {
-        userRepository = new InMemoryUserRepository();
-        surveyRepository = new InMemorySurveyRepository();
-        responseRepository = new InMemoryResponseRepository();
+    @Inject
+    public RepositoryFactoryImpl(SurveyRepository surveyRepository, UserRepository userRepository,
+                                 ResponseRepository responseRepository) {
+        this.surveyRepository = surveyRepository;
+        this.userRepository = userRepository;
+        this.responseRepository = responseRepository;
     }
 
     @Override

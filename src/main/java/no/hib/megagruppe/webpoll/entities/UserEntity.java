@@ -1,15 +1,22 @@
 package no.hib.megagruppe.webpoll.entities;
 
-import java.util.List;
+import javax.persistence.*;
 
+@Entity(name = "user")
+@Table(schema = "webpoll", name = "user")
 public class UserEntity {
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     private Integer id;
+    @Column(name = "fname")
     private String firstName;
+    @Column(name = "lname")
     private String lastName;
+    @Column(name = "email")
     private String email;
+    @Column(name = "password")
     private String password;
-    private List<SurveyEntity> surveys;
-    
     
     @Override
     public String toString(){
@@ -54,13 +61,5 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<SurveyEntity> getSurveys() {
-        return surveys;
-    }
-
-    public void setSurveys(List<SurveyEntity> surveys) {
-        this.surveys = surveys;
     }
 }

@@ -14,7 +14,7 @@ import no.hib.megagruppe.webpoll.util.sessionmanager.SurveyAnsweringSessionManag
  * Forwards to index.jsp
  */
 @WebServlet("/index")
-public class Index extends HttpServlet {
+public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override

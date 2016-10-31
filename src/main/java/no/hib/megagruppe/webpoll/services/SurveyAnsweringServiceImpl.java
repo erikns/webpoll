@@ -20,7 +20,7 @@ import javax.inject.Inject;
 public class SurveyAnsweringServiceImpl implements SurveyAnsweringService {
     private final RepositoryFactory repositoryFactory;
 
-    @Inject
+	@Inject
     public SurveyAnsweringServiceImpl(RepositoryFactory repositoryFactory) {
         this.repositoryFactory = repositoryFactory;
     }

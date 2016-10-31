@@ -1,8 +1,17 @@
 package no.hib.megagruppe.webpoll.entities;
 
+import javax.persistence.*;
+
+@Entity(name = "answer")
+@Table(schema = "webpoll", name = "answer")
 public class AnswerEntity {
+    @Id
+    @GeneratedValue
     private Integer id;
+
+    @OneToOne
     private QuestionEntity question;
+    @OneToOne
     private OptionEntity option;
     private String freetext;
     

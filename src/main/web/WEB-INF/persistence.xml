@@ -1,0 +1,14 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+    <persistence-unit name="webpollDb">
+        <jta-data-source>webpollDb</jta-data-source>
+        <class>no.hib.megagruppe.webpoll.entities.AnswerEntity</class>
+        <class>no.hib.megagruppe.webpoll.entities.OptionEntity</class>
+        <class>no.hib.megagruppe.webpoll.entities.QuestionEntity</class>
+        <class>no.hib.megagruppe.webpoll.entities.ResponseEntity</class>
+        <class>no.hib.megagruppe.webpoll.entities.SurveyEntity</class>
+        <class>no.hib.megagruppe.webpoll.entities.UserEntity</class>
+    </persistence-unit>
+</persistence>

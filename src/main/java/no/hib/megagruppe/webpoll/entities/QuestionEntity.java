@@ -1,7 +1,10 @@
 package no.hib.megagruppe.webpoll.entities;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity(name = "question")
+@Table(schema = "webpoll", name = "question")
 public class QuestionEntity {
     public enum QuestionType {
         MULTIPLE_CHOICE_CHECKBOX, MULTIPLE_CHOICE_RADIO, FREE_TEXT;
@@ -15,10 +18,20 @@ public class QuestionEntity {
         }
     }
 
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "survey_id", nullable = false)
     private SurveyEntity survey;
+    @Column(name = "question_text")
     private String text;
+    @Column(name = "question_type")
+    @Enumerated(EnumType.STRING)
     private QuestionType type;
+    @OneToMany(targetEntity = OptionEntity.class, cascade = CascadeType.ALL, mappedBy = "question",
+        fetch = FetchType.EAGER)
     private List<OptionEntity> options;
 
     public Integer getId() {

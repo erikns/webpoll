@@ -8,6 +8,9 @@ import java.util.Map;
 import no.hib.megagruppe.webpoll.entities.ResponseEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 
+import javax.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
 public class InMemoryResponseRepository implements ResponseRepository {
 	private Map<Integer, ResponseEntity> responses;
 	private Integer counter;
