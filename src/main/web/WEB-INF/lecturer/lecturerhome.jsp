@@ -12,10 +12,7 @@
 		<div class="container">
 			<div class="panel panel-default margin-top">
 				<div class="panel-body">
-					<h1>Innlogget bruker: <c:out value="${loggedinusr}"/></h1>
-				</div>
-				<div class="panel-footer">
-					<a href="logout" class="btn btn-default" role="button">Logg ut</a>
+					<h1>TODO</h1>
 				</div>
 			</div>
 

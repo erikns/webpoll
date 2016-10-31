@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<jsp:include page="pages/meta.jsp"/>
-		<title>Prosjekt WebPoll</title>
+		<title>P-Poll</title>
 	</head>
 
 	<body>
@@ -13,15 +13,14 @@
   			<div class="site-wrapper-inner">
   				<div class="cover-container">
           				<div class="inner cover text-center">
-            				<h1 class="cover-heading">Project Webpoll</h1>
-            				<p class="lead">Create &amp; answer polls anywhere, anytime.</p>
+            				<h1 class="cover-heading">P-Poll</h1>
+            				<p class="lead">Lag &amp; svar på undersøkelser hvor som helst, når som helst.</p>
             				<form class="form-inline" action="surveycheck" method="post">
 			  			<div class="form-group">
-			  				<p><label for="pollcode">Poll code</label>
-			  				<input type="text" class="form-control" id="pollcode" name="code" placeholder="123456" required autofocus>
-			  				<input type="submit" class="btn btn-primary" value="Go!"></p>
+			  				<p><label for="pollcode">Kode</label>
+			  				<input type="text" class="form-control" id="pollcode" name="code"  required autofocus>
+			  				<input type="submit" class="btn btn-primary" value="Ok"></p>
 			  			</div>
-			  			<!-- WTF -->
 			  			<p class="errormsg"><c:out value="${errormsg}"/>&nbsp;</p>
 	  				</form>
           				</div>
