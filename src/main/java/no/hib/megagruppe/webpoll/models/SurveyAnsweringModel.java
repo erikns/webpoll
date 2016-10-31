@@ -33,6 +33,7 @@ import no.hib.megagruppe.webpoll.util.DurationFormatter;
 public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 	
 	private SurveyQuestionModel[] questions;
+	private String code;
 	private String surveyName;
 	private Timestamp surveyCreated;
 	private Timestamp surveyDeadline;
@@ -41,7 +42,7 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 	private int currentQuestionIndex;
 	
 	
-	public SurveyAnsweringModel(List<QuestionEntity> questions, String surveyName, Timestamp surveyCreated, Timestamp surveyDeadline, String creator){
+	public SurveyAnsweringModel(List<QuestionEntity> questions, String code, String surveyName, Timestamp surveyCreated, Timestamp surveyDeadline, String creator){
 		
 		this.questions = new SurveyQuestionModel[questions.size()];
 		int i = 0; // XXX Finnes det en finere måte å gjøre dette på?
@@ -52,6 +53,7 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 			i++;
 		}
 		
+		this.code = code;
 		this.surveyName = surveyName;
 		this.surveyCreated = surveyCreated;
 		this.surveyDeadline = surveyDeadline;
@@ -60,7 +62,7 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 	}
 	
 	public SurveyAnsweringModel(SurveyEntity surveyEntity){
-		this(surveyEntity.getQuestions(), surveyEntity.getName(), surveyEntity.getDateCreated(), surveyEntity.getDeadline(), surveyEntity.getOwner().toString());
+		this(surveyEntity.getQuestions(), surveyEntity.getCode(), surveyEntity.getName(), surveyEntity.getDateCreated(), surveyEntity.getDeadline(), surveyEntity.getOwner().toString());
 	}
 
 	/**
@@ -156,6 +158,10 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 
 	public SurveyQuestionModel[] getQuestions() {
 		return questions;
+	}
+
+	public String getCode() {
+		return code;
 	}
 
 	

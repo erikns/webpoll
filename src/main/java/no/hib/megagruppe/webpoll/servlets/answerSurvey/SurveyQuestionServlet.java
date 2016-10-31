@@ -2,6 +2,8 @@ package no.hib.megagruppe.webpoll.servlets.answerSurvey;
 
 import java.io.IOException;
 
+import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
 import no.hib.megagruppe.webpoll.models.SurveyQuestionModel;
+import no.hib.megagruppe.webpoll.services.SurveyAnsweringService;
 import no.hib.megagruppe.webpoll.util.sessionmanager.SurveyAnsweringSessionManager;
 
 /*
@@ -20,6 +23,9 @@ import no.hib.megagruppe.webpoll.util.sessionmanager.SurveyAnsweringSessionManag
 @WebServlet("/surveyquestion")
 public class SurveyQuestionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	@EJB
+	private SurveyAnsweringService sas;
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -66,7 +72,7 @@ public class SurveyQuestionServlet extends HttpServlet {
 					break;
 					
 				case "Ferdig":
-					// TODO Save to database.
+					sas.commitSurveyAnswering(surveyModel);
 					response.sendRedirect("surveycompleted");
 					break;
 					
