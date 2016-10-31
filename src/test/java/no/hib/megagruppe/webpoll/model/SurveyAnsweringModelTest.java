@@ -10,8 +10,8 @@ import org.junit.Test;
 import no.hib.megagruppe.webpoll.data.InMemorySurveyRepository;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
-import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
-import no.hib.megagruppe.webpoll.models.SurveyQuestionModel;
+import no.hib.megagruppe.webpoll.models.answering.SurveyAnsweringModel;
+import no.hib.megagruppe.webpoll.models.answering.SurveyQuestionModel;
 
 public class SurveyAnsweringModelTest {
 

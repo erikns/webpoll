@@ -6,9 +6,9 @@ import no.hib.megagruppe.webpoll.entities.AnswerEntity;
 import no.hib.megagruppe.webpoll.entities.OptionEntity;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity.QuestionType;
+import no.hib.megagruppe.webpoll.models.answering.SurveyAnsweringModel;
+import no.hib.megagruppe.webpoll.models.answering.SurveyQuestionModel;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
-import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
-import no.hib.megagruppe.webpoll.models.SurveyQuestionModel;
 
 import java.util.ArrayList;
 import java.util.List;

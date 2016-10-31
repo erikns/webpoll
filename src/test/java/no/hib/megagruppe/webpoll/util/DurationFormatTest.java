@@ -6,7 +6,8 @@ import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.fakes.TestSurveyRepository;
-import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
+import no.hib.megagruppe.webpoll.models.answering.SurveyAnsweringModel;
+
 import org.junit.Before;
 import org.junit.Test;
 

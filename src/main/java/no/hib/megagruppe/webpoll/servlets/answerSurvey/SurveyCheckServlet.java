@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
+import no.hib.megagruppe.webpoll.models.answering.SurveyAnsweringModel;
 import no.hib.megagruppe.webpoll.services.SurveyAnsweringService;
 import no.hib.megagruppe.webpoll.util.SurveyCodeValidator;
 import no.hib.megagruppe.webpoll.util.sessionmanager.SurveyAnsweringSessionManager;

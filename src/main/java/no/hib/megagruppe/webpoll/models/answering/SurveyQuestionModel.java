@@ -1,4 +1,4 @@
-package no.hib.megagruppe.webpoll.models;
+package no.hib.megagruppe.webpoll.models.answering;
 
 import java.util.ArrayList;
 import java.util.List;

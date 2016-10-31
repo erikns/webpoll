@@ -1,6 +1,6 @@
 package no.hib.megagruppe.webpoll.services;
 
-import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
+import no.hib.megagruppe.webpoll.models.answering.SurveyAnsweringModel;
 
 /**
  * Service interface to support use cases concerning the answering of surveys by

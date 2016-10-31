@@ -3,8 +3,8 @@ package no.hib.megagruppe.webpoll.util.sessionmanager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
-import no.hib.megagruppe.webpoll.models.SurveyQuestionModel;
+import no.hib.megagruppe.webpoll.models.answering.SurveyAnsweringModel;
+import no.hib.megagruppe.webpoll.models.answering.SurveyQuestionModel;
 
 /**
  * A class for working with survey-answering sessions.

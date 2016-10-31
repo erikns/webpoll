@@ -1,8 +1,8 @@
 package no.hib.megagruppe.webpoll.services;
 
-import no.hib.megagruppe.webpoll.models.SurveyOverviewModel;
-
 import java.util.List;
+
+import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 
 /**
  * Interface to support the use cases of the lecturer editing / viewing surveys.

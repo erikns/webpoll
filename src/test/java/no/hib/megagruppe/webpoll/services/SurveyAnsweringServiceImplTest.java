@@ -23,7 +23,7 @@ import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.fakes.FakeRepositoryFactory;
 import no.hib.megagruppe.webpoll.fakes.TestResponseRepository;
 import no.hib.megagruppe.webpoll.fakes.TestSurveyRepository;
-import no.hib.megagruppe.webpoll.models.SurveyAnsweringModel;
+import no.hib.megagruppe.webpoll.models.answering.SurveyAnsweringModel;
 
 public class SurveyAnsweringServiceImplTest {
 

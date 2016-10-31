@@ -1,4 +1,4 @@
-package no.hib.megagruppe.webpoll.models;
+package no.hib.megagruppe.webpoll.models.answering;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
