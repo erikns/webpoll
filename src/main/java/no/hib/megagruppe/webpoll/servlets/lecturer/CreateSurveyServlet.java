@@ -15,7 +15,7 @@ import no.hib.megagruppe.webpoll.services.SecurityService;
  * Servlet implementation class CreateSurvey
  */
 @WebServlet("/createsurvey")
-public class CreateSurvey extends HttpServlet {
+public class CreateSurveyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
