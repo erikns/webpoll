@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hib.megagruppe.webpoll.data.JpaUserRepository;
+import no.hib.megagruppe.webpoll.data.RepositoryFactory;
 import no.hib.megagruppe.webpoll.data.UserRepository;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
@@ -24,9 +26,6 @@ public class CreateSurveyServlet extends HttpServlet {
 	@EJB
     SecurityService securityService;
 	
-	private UserRepository ur;
-
-	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -39,10 +38,10 @@ public class CreateSurveyServlet extends HttpServlet {
 		 */
 		
 		if(securityService.isLoggedIn()) {
-			UserEntity owner = ur.findByEmail(securityService.getLoggedInUserName());
-			SurveyCreationModel scm = new SurveyCreationModel(owner);
-			scm.setName("something unique");
-			request.getSession().setAttribute("survey", scm);
+			//TODO
+			//SurveyCreationModel scm = new SurveyCreationModel(owner);
+			//scm.setName("something unique");
+			//request.getSession().setAttribute("survey", scm);
 			request.getRequestDispatcher("WEB-INF/lecturer/createsurvey.jsp").forward(request, response);
 		} else {
 			response.sendRedirect("index");
