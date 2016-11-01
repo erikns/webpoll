@@ -1,4 +1,4 @@
-package no.hib.megagruppe.webpoll.data;
+package no.hib.megagruppe.webpoll.inmemory;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import no.hib.megagruppe.webpoll.data.SurveyRepository;
 import no.hib.megagruppe.webpoll.entities.OptionEntity;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;

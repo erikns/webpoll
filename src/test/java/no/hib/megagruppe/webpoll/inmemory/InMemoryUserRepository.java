@@ -1,5 +1,6 @@
-package no.hib.megagruppe.webpoll.data;
+package no.hib.megagruppe.webpoll.inmemory;
 
+import no.hib.megagruppe.webpoll.data.UserRepository;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.util.PasswordHasher;
 import no.hib.megagruppe.webpoll.util.SecurePasswordHasher;

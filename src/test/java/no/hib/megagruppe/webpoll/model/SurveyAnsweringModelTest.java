@@ -7,8 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import no.hib.megagruppe.webpoll.data.InMemorySurveyRepository;
-import no.hib.megagruppe.webpoll.entities.QuestionEntity;
+import no.hib.megagruppe.webpoll.inmemory.InMemorySurveyRepository;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.models.answering.SurveyAnsweringModel;
 import no.hib.megagruppe.webpoll.models.answering.SurveyQuestionModel;
