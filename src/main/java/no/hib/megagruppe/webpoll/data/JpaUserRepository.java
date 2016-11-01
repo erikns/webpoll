@@ -4,6 +4,7 @@ import no.hib.megagruppe.webpoll.entities.UserEntity;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
@@ -17,8 +18,13 @@ public class JpaUserRepository implements UserRepository {
     @Override
     public UserEntity findByEmail(String email) {
         Query query = em.createQuery("select u from user u where u.email = '" + email + "'");
-        Object queryResult = query.getSingleResult();
-        return (UserEntity) queryResult;
+
+        try {
+            Object queryResult = query.getSingleResult();
+            return (UserEntity) queryResult;
+        } catch (NoResultException e) {
+            return null; // TODO: maybe throw custom exception later
+        }
     }
 
     @Override
