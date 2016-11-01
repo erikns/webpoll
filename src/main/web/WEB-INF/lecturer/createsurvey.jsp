@@ -14,7 +14,7 @@
   				<div class="cover-container">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-            				<h3 class="panel-title">Ny undersøkelse<h3>
+            				<h3 class="panel-title">Ny undersøkelse</h3>
                         </div>
             			<div class="panel-body">
                             <form class="form-inline" action="createsurvey" method="post">

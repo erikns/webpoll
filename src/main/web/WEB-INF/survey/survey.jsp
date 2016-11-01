@@ -18,7 +18,7 @@
                             <c:out value="${survey.surveyName}"/>
                             <small>av<c:out value="${survey.creator}"/>, 
                             <c:out value="${survey.surveyCreated}"/></small>
-                            <h3>
+                            </h3>
                         </div>
             			<div class="panel-body">
                             <p>Deadline: <c:out value="${survey.surveyDeadline}"/></p>
