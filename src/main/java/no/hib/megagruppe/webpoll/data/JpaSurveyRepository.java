@@ -4,6 +4,7 @@ import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
@@ -17,7 +18,11 @@ public class JpaSurveyRepository implements SurveyRepository {
     public SurveyEntity findByCode(String code) {
         Query query = entityManager.createQuery("select s from survey s where s.code = '"
                 + code + "'");
-        return (SurveyEntity) query.getSingleResult();
+        try {
+            return (SurveyEntity) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Override
