@@ -8,7 +8,7 @@ import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity.QuestionType;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 
-public class SurveyQuestionCreationModel {
+public class QuestionCreationModel {
 
 	/*
 	 * Funksjoner:
@@ -25,7 +25,7 @@ public class SurveyQuestionCreationModel {
 	private String questionText;
 	private String[] options;
 	
-	public SurveyQuestionCreationModel(QuestionType questionType, String questionText) {
+	public QuestionCreationModel(QuestionType questionType, String questionText) {
 		this.questionType = questionType;
 		this.questionText = questionText;
 	}

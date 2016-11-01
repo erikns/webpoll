@@ -3,7 +3,6 @@ package no.hib.megagruppe.webpoll.servlets.answerSurvey;
 import java.io.IOException;
 
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +20,7 @@ import no.hib.megagruppe.webpoll.util.sessionmanager.SurveyAnsweringSessionManag
  * Forwards current question to pollquestion.jsp, and saves the answers afterwards.
  */
 @WebServlet("/surveyquestion")
-public class SurveyQuestionServlet extends HttpServlet {
+public class AnswerQuestionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB

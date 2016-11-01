@@ -24,7 +24,7 @@ public class SurveyCreationModel {
 	private String name;
 	private UserEntity owner;
 	
-	private List<SurveyQuestionCreationModel> questions;
+	private List<QuestionCreationModel> questions;
 	
 	public SurveyCreationModel(UserEntity owner){
 		survey = new SurveyEntity();
@@ -41,7 +41,7 @@ public class SurveyCreationModel {
 	 * Adds a question to the survey.
 	 * @param question The question to be added.
 	 */
-	public void addQuestionCreationModel(SurveyQuestionCreationModel question){
+	public void addQuestionCreationModel(QuestionCreationModel question){
 		questions.add(question);
 	}
 	
@@ -104,7 +104,7 @@ public class SurveyCreationModel {
 	private List<QuestionEntity> convertQuestionsToEntities(){
 		List<QuestionEntity> questionEntities = new ArrayList<>();
 		
-		for(SurveyQuestionCreationModel question : questions){
+		for(QuestionCreationModel question : questions){
 			QuestionEntity questionEntity = question.getQuestionEntity(survey);
 			questionEntities.add(questionEntity);
 		}
@@ -126,7 +126,7 @@ public class SurveyCreationModel {
 		return owner;
 	}
 
-	public List<SurveyQuestionCreationModel> getQuestions() {
+	public List<QuestionCreationModel> getQuestions() {
 		return questions;
 	}
 	
