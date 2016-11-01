@@ -22,7 +22,7 @@
 			<ul class="nav navbar-nav navbar-right">
 			<c:choose>
 				<c:when test="${!empty loggedinuser}">
-					<li><a href="#"><c:out value="${loggedinuser}"/></a></li>
+					<li><a href="<c:url value="lecturer"/>"><c:out value="${loggedinuser}"/></a></li>
 					<li><a href="<c:url value="logout"/>">Logg ut</a></li>
 				</c:when>
 				<c:otherwise>
