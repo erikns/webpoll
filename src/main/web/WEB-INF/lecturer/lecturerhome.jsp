@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<jsp:include page="/pages/meta.jsp"/>
-		<title>Prosjekt WebPoll</title>
+		<title>P-Poll Foreleser</title>
 	</head>
 
 	<body>
@@ -12,7 +12,7 @@
 		<div class="container">
 			<div class="panel panel-default margin-top">
 				<div class="panel-body">
-					<h1>TODO</h1>
+					<a class="btn btn-primary" href="createsurvey" role="button">Ny undersøkelse</a>
 				</div>
 			</div>
 

@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<jsp:include page="/pages/meta.jsp"/>
-		<title>Prosjekt WebPoll</title>
+		<title>P-Poll Logg inn</title>
 	</head>
 
 	<body>

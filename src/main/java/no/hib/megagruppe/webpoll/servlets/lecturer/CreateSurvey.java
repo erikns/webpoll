@@ -1,22 +1,28 @@
 package no.hib.megagruppe.webpoll.servlets.lecturer;
 
 import java.io.IOException;
+
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hib.megagruppe.webpoll.services.SecurityService;
+
 /**
  * Servlet implementation class CreateSurvey
  */
-@WebServlet("/CreateSurvey")
+@WebServlet("/createsurvey")
 public class CreateSurvey extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@EJB
+    SecurityService securityService;
+
+	
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		/*
@@ -27,6 +33,12 @@ public class CreateSurvey extends HttpServlet {
 		 *  
 		 */
 		
+		if(securityService.isLoggedIn()) {
+			request.getSession().setAttribute("surveyName", "Undersøkelse test");
+			request.getRequestDispatcher("WEB-INF/lecturer/createsurvey.jsp").forward(request, response);
+		} else {
+			response.sendRedirect("index");
+		}	
 	}
 
 	/**
