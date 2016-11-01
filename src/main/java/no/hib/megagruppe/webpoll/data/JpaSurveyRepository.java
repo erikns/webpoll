@@ -2,14 +2,14 @@ package no.hib.megagruppe.webpoll.data;
 
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
-@ApplicationScoped
+@RequestScoped
 public class JpaSurveyRepository implements SurveyRepository {
     @PersistenceContext(name = "webpollDb")
     private EntityManager entityManager;
