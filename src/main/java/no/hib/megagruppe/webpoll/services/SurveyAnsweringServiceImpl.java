@@ -1,20 +1,14 @@
 package no.hib.megagruppe.webpoll.services;
 
 import no.hib.megagruppe.webpoll.data.RepositoryFactory;
-import no.hib.megagruppe.webpoll.entities.ResponseEntity;
-import no.hib.megagruppe.webpoll.entities.AnswerEntity;
-import no.hib.megagruppe.webpoll.entities.OptionEntity;
-import no.hib.megagruppe.webpoll.entities.QuestionEntity;
-import no.hib.megagruppe.webpoll.entities.QuestionEntity.QuestionType;
+import no.hib.megagruppe.webpoll.entities.*;
 import no.hib.megagruppe.webpoll.models.answering.SurveyAnsweringModel;
 import no.hib.megagruppe.webpoll.models.answering.SurveyQuestionModel;
-import no.hib.megagruppe.webpoll.entities.SurveyEntity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 @Stateless
 public class SurveyAnsweringServiceImpl implements SurveyAnsweringService {

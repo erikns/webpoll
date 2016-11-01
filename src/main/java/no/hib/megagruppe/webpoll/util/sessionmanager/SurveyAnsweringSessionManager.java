@@ -25,12 +25,8 @@ public class SurveyAnsweringSessionManager extends SessionManager {
 		boolean hasAttribute;
 		
 		HttpSession session = request.getSession();
-		
-		if(session != null && session.getAttribute(SURVEY_ATTRIBUTE_NAME) != null){
-			hasAttribute = true;
-		} else {
-			hasAttribute = false;
-		}
+
+		hasAttribute = session != null && session.getAttribute(SURVEY_ATTRIBUTE_NAME) != null;
 		
 		return hasAttribute;
 	}
