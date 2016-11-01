@@ -175,6 +175,8 @@ screen and (max-width:768px) {
     .site-wrapper {
         -webkit-box-shadow: none;
         box-shadow: none;
+        height: auto;
+        min-height: 0;
          max-width: 95%;
          margin-left: 2.5%;
          margin-right: 2.5%;
@@ -212,6 +214,8 @@ screen and (max-width:992px) {
     .site-wrapper {
         -webkit-box-shadow: none;
         box-shadow: none;
+        height: auto;
+        min-height: 0;
         max-width: 95%;
        
     }
