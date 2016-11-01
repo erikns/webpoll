@@ -71,11 +71,11 @@ public class SurveyAnsweringServiceImplTest {
 	}
 	
 	@Test
-	public void commitSurveyDoesNotCrash(){
+	public void commitSurveyCommitsResponse(){
 		SurveyAnsweringModel sam = service.startSurveyAnswering("abc");
 		sam.getQuestions()[0].submitAnswer(new String[]{sam.getQuestions()[0].getOptions().get(1)});
 		sam.getQuestions()[1].submitAnswer(new String[]{"Veldig bra"});
-		
+
 		service.commitSurveyAnswering(sam);
 		
 		ResponseEntity response = responseRepository.findById(1);
@@ -83,7 +83,6 @@ public class SurveyAnsweringServiceImplTest {
 		assertEquals(survey, response.getSurvey());
 		assertEquals(survey.getQuestions().get(0).getOptions().get(1), response.getAnswers().get(0).getOption());
 		assertEquals("Veldig bra", response.getAnswers().get(1).getFreetext());
-		
 	}
 
 	private static SurveyAnsweringService buildService(SurveyRepository surveyRepository, ResponseRepository responseRepository) {
