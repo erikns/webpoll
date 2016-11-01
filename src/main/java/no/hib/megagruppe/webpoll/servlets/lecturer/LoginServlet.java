@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.hib.megagruppe.webpoll.services.SecurityService;
-import no.hib.megagruppe.webpoll.util.sessionmanager.LecturerSessionManager;
+import no.hib.megagruppe.webpoll.util.sessionmanager.LoginSessionManager;
 
 /**
  * Servlet implementation class LoginServlet
@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		LecturerSessionManager session = new LecturerSessionManager(request);
+		LoginSessionManager session = new LoginSessionManager(request);
 		request.setAttribute("username", session.getPreviouslyTypedUsername());
 
 		request.getRequestDispatcher("/WEB-INF/lecturer/login.jsp").forward(request, response);
@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		LecturerSessionManager session = new LecturerSessionManager(request);
+		LoginSessionManager session = new LoginSessionManager(request);
 
 		if (securityService.logIn(username, password)) {
 			// Login successful

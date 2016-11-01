@@ -3,11 +3,11 @@ package no.hib.megagruppe.webpoll.util.sessionmanager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class LecturerSessionManager extends SessionManager{
+public class LoginSessionManager extends SessionManager{
 
 	private final String USERNAME_ATTRIBUTE_NAME = "typedusername";
 	
-	public LecturerSessionManager(HttpServletRequest request) {
+	public LoginSessionManager(HttpServletRequest request) {
 		super(request);
 	}
 	

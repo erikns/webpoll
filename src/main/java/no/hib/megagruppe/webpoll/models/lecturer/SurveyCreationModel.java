@@ -9,6 +9,13 @@ import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
 
+
+/**
+ * Model for creating a new survey.
+ * Call createSurvey() when it is ready to be stored in the database.
+ * @author Magnus
+ *
+ */
 public class SurveyCreationModel {
 
 	/* Funksjoner:

@@ -8,6 +8,11 @@ import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity.QuestionType;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 
+/**
+ * Model for creating a new question for a survey.
+ * @author Magnus
+ *
+ */
 public class QuestionCreationModel {
 
 	/*
