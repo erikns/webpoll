@@ -20,13 +20,13 @@
                             <form class="form-inline" action="createsurvey" method="post">
                             	<div class="form-group">
                             		<label for="surveyName">Undersøkelsenavn: </label>
-									<input type="text" id="surveyName" name="surveyName" class="form-control" value="<c:out value="${surveyName}"/>">
+									<input type="text" id="surveyName" name="surveyName" class="form-control" value="<c:out value="${survey.name}"/>">
 									<input type="submit" id="submit-form" class="hidden">
 								</div>
 								<div class="form-group">
 									<c:set var="count" value="1" scope="page" />
-									<c:forEach var="question" items="${questions}">
-										<p><c:out value="{question}"/>&nbsp;
+									<c:forEach var="question" items="${survey.questions}">
+										<p><c:out value="{question.questionText}"/>&nbsp;
 										<button class="btn btn-default" name="delete" value="${count}">Slett</button></p>
 										<c:set var="count" value="${count + 1}" scope="page" />
 									</c:forEach>

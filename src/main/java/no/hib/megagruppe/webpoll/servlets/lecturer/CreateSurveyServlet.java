@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hib.megagruppe.webpoll.data.UserRepository;
+import no.hib.megagruppe.webpoll.entities.UserEntity;
+import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.services.SecurityService;
 
 /**
@@ -20,6 +23,8 @@ public class CreateSurveyServlet extends HttpServlet {
 
 	@EJB
     SecurityService securityService;
+	
+	private UserRepository ur;
 
 	
 	@Override
@@ -34,7 +39,10 @@ public class CreateSurveyServlet extends HttpServlet {
 		 */
 		
 		if(securityService.isLoggedIn()) {
-			request.getSession().setAttribute("surveyName", "Undersøkelse test");
+			UserEntity owner = ur.findByEmail(securityService.getLoggedInUserName());
+			SurveyCreationModel scm = new SurveyCreationModel(owner);
+			scm.setName("something unique");
+			request.getSession().setAttribute("survey", scm);
 			request.getRequestDispatcher("WEB-INF/lecturer/createsurvey.jsp").forward(request, response);
 		} else {
 			response.sendRedirect("index");
