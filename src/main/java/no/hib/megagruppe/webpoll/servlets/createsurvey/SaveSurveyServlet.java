@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class SaveSurveyServlet
+ * Lagrer undersøkelsen i databasen.
  */
 @WebServlet("/savesurvey")
 public class SaveSurveyServlet extends HttpServlet {

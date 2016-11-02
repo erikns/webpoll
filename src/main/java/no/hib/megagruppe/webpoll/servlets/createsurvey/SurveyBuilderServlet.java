@@ -14,7 +14,8 @@ import no.hib.megagruppe.webpoll.services.SecurityService;
 import no.hib.megagruppe.webpoll.util.sessionmanager.CreateSurveySessionManager;
 
 /**
- * Servlet implementation class SurveyBuilder
+ * Denne servleten forwarder til createsurvey.jsp som fungerer som en main-hub for oppretting av undersøkelser.
+ * Post-metoden kalles når et spørsmål slettes fra undersøkelsen.
  */
 @WebServlet("/surveybuilder")
 public class SurveyBuilderServlet extends HttpServlet {

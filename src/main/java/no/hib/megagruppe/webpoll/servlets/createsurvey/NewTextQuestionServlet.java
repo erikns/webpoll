@@ -16,7 +16,8 @@ import no.hib.megagruppe.webpoll.services.SecurityService;
 import no.hib.megagruppe.webpoll.util.sessionmanager.CreateSurveySessionManager;
 
 /**
- * Servlet implementation class NewTextQuestionServlet
+ * Oppretter et nytt tekst-spørsmål.
+ * Her er det en del logikk som bør flyttes ut av denne klassen.
  */
 @WebServlet("/newtextquestion")
 public class NewTextQuestionServlet extends HttpServlet {

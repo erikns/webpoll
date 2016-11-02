@@ -16,7 +16,8 @@ import no.hib.megagruppe.webpoll.services.SecurityService;
 import no.hib.megagruppe.webpoll.util.sessionmanager.CreateSurveySessionManager;
 
 /**
- * Servlet implementation class NewMultiplechoiceQuestion
+ * Oppretter et nytt multiplechoice-spørsmål.
+ * Her er det en del logikk som bør flyttes ut av denne klassen.
  */
 @WebServlet("/newmultiplechoicequestion")
 public class NewMultiplechoiceQuestionServlet extends HttpServlet {
@@ -30,7 +31,11 @@ public class NewMultiplechoiceQuestionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Forward to JSP.
+		if(securityService.isLoggedIn()) {
+			request.getRequestDispatcher("WEB-INF/lecturer/newmultiplechoicequestion.jsp").forward(request, response);
+		} else {
+			response.sendRedirect("index");
+		}
 	}
 
 	/**

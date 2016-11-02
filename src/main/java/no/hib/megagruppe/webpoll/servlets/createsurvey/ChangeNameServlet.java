@@ -14,7 +14,8 @@ import no.hib.megagruppe.webpoll.services.SecurityService;
 import no.hib.megagruppe.webpoll.util.sessionmanager.CreateSurveySessionManager;
 
 /**
- * Servlet implementation class ChangeNameServlet
+ * Endrer navnet til undersøkelsen.
+ * Her er det en del logikk som bør flyttes ut av denne klassen.
  */
 @WebServlet("/changename")
 public class ChangeNameServlet extends HttpServlet {
