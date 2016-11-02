@@ -36,6 +36,7 @@ public class SurveyCreationModel {
 	public SurveyCreationModel(UserEntity owner){
 		survey = new SurveyEntity();
 		survey.setOwner(owner);
+		questions = new ArrayList<>();
 	}
 	
 	

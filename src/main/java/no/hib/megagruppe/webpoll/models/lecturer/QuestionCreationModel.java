@@ -76,16 +76,18 @@ public class QuestionCreationModel {
 	 * @return A list of OptionEntity objects.
 	 */
 	private List<OptionEntity> convertOptionsToEntities(QuestionEntity questionEntity){
-		List<OptionEntity> optionEntities = new ArrayList<>();
-		
-		for(String option : options){
-			boolean optionNotEmpty = option != null && option != "";
-			
-			if(optionNotEmpty){
-				OptionEntity optionEntity = new OptionEntity();
-				optionEntity.setText(option);
-				optionEntity.setQuestion(questionEntity);
-				optionEntities.add(optionEntity);
+		List<OptionEntity> optionEntities = null;
+		if (questionEntity.getType().isMultipleChoice()) {
+			optionEntities = new ArrayList<>();
+			for(String option : options){
+				boolean optionNotEmpty = option != null && option != "";
+				
+				if(optionNotEmpty){
+					OptionEntity optionEntity = new OptionEntity();
+					optionEntity.setText(option);
+					optionEntity.setQuestion(questionEntity);
+					optionEntities.add(optionEntity);
+				}
 			}
 		}
 		
