@@ -29,7 +29,7 @@ public class ChangeNameServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(securityService.isLoggedIn()) {
-			request.getRequestDispatcher("WEB-INF/lecturer/changename.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/createsurvey/changename.jsp").forward(request, response);
 		} else {
 			response.sendRedirect("index");
 		}

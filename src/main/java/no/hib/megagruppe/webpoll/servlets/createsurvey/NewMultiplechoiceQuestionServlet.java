@@ -32,7 +32,7 @@ public class NewMultiplechoiceQuestionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(securityService.isLoggedIn()) {
-			request.getRequestDispatcher("WEB-INF/lecturer/newmultiplechoicequestion.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/createsurvey/createmultiplechoice.jsp").forward(request, response);
 		} else {
 			response.sendRedirect("index");
 		}
