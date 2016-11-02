@@ -134,6 +134,10 @@ public class SurveyCreationModel {
 		return owner;
 	}
 
+	public void setOwner(UserEntity owner) {
+		this.owner = owner;
+	}
+
 	public List<QuestionCreationModel> getQuestions() {
 		return questions;
 	}
