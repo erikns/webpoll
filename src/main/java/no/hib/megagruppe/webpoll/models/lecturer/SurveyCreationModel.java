@@ -54,9 +54,9 @@ public class SurveyCreationModel {
 	
 	/**
 	 * Removes a question from the survey in the specified position.
-	 * @param question The index of the question to be removed.
+	 * @param questionNumber The integer index of the question to be removed.
 	 */
-	public void removeQuestionCreationModel(int questionNumber){
+	public void removeQuestionAtIndex(int questionNumber){
 		questions.remove(questionNumber);
 	}
 	

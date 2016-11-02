@@ -46,4 +46,6 @@ public abstract class SessionManager {
 		return session != null;
 	}
 	
+	
+	
 }

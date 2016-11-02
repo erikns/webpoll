@@ -1,11 +1,17 @@
 package no.hib.megagruppe.webpoll.servlets.createsurvey;
 
 import java.io.IOException;
+
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
+import no.hib.megagruppe.webpoll.services.SecurityService;
+import no.hib.megagruppe.webpoll.util.sessionmanager.CreateSurveySessionManager;
 
 /**
  * Servlet implementation class ChangeNameServlet
@@ -14,11 +20,18 @@ import javax.servlet.http.HttpServletResponse;
 public class ChangeNameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@EJB
+    SecurityService securityService;
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Forward to JSP.
+		if(securityService.isLoggedIn()) {
+			request.getRequestDispatcher("WEB-INF/lecturer/changename.jsp").forward(request, response);
+		} else {
+			response.sendRedirect("index");
+		}
 	}
 
 	/**
@@ -26,6 +39,24 @@ public class ChangeNameServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Check for valid new name. valid ? redirect("/surveybuilder") : redirect("/changename")
+		
+		if(securityService.isLoggedIn()) {
+			CreateSurveySessionManager session = new CreateSurveySessionManager(request);
+			
+			String newName = request.getParameter("newname");
+			boolean valid = newName != null && !newName.equals(""); // TODO encapsulate logic? Må evt også sjekke at det ikke finnes en udnersøkelse med samme navn.
+			if(valid){
+				SurveyCreationModel surveyModel = session.getSurveyModel();
+				surveyModel.setName(newName);
+				response.sendRedirect("surveybuilder");
+			} else {
+				session.setErrorMessage("Navnet kan ikke være tomt.");
+				response.sendRedirect("changename");
+			}
+			
+		} else {
+			response.sendRedirect("index");
+		}
 	}
 
 }

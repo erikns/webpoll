@@ -2,11 +2,18 @@ package no.hib.megagruppe.webpoll.servlets.createsurvey;
 
 import java.io.IOException;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import no.hib.megagruppe.webpoll.entities.QuestionEntity.QuestionType;
+import no.hib.megagruppe.webpoll.models.lecturer.QuestionCreationModel;
+import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
+import no.hib.megagruppe.webpoll.services.SecurityService;
+import no.hib.megagruppe.webpoll.util.sessionmanager.CreateSurveySessionManager;
 
 /**
  * Servlet implementation class NewMultiplechoiceQuestion
@@ -16,6 +23,9 @@ public class NewMultiplechoiceQuestionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 
+	@EJB
+    SecurityService securityService;
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -28,6 +38,44 @@ public class NewMultiplechoiceQuestionServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Check for valid name. valid ? redirect("/surveybuilder") : redirect("/newmultiplechoicequestion")
+		
+		if(securityService.isLoggedIn()) {
+			CreateSurveySessionManager session = new CreateSurveySessionManager(request);
+			
+			String newName = request.getParameter("questionname");
+			boolean valid = newName != null && !newName.equals(""); // TODO encapsulate logic?
+			if(valid){
+				
+				// TODO Flytt kode ut av servlet. Muligens inn i CreateSurveySessionManager?
+				boolean canHaveMultipleAnswers = request.getParameter("canhavemultipleanswers") != null;
+				String[] options = request.getParameterValues("option");
+				
+				boolean hasAtleastOneOption = options.length > 1; // TODO Dette fungerer ikke! Må telle alle Strengene som ikke er null
+				if(hasAtleastOneOption){
+					QuestionType questionType = 
+							canHaveMultipleAnswers ? QuestionType.MULTIPLE_CHOICE_CHECKBOX : QuestionType.MULTIPLE_CHOICE_RADIO;
+					
+					QuestionCreationModel question = new QuestionCreationModel(questionType, newName);
+					question.setOptions(options);
+					
+					SurveyCreationModel surveyModel = session.getSurveyModel();
+					surveyModel.addQuestionCreationModel(question);
+					response.sendRedirect("surveybuilder");
+					
+				} else {
+					
+					session.setErrorMessage("Spørsmålet må ha minst ett alternativ.");
+					response.sendRedirect("newmultiplechoicequestion");
+				}
+
+			} else {
+				session.setErrorMessage("Spørsmålsnavnet kan ikke være tomt.");
+				response.sendRedirect("newmultiplechoicequestion");
+			}
+			
+		} else {
+			response.sendRedirect("index");
+		}
 	}
 	
 }
