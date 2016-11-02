@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+@SuppressWarnings("unused")
 @RequestScoped
 public class JpaResponseRepository implements ResponseRepository {
     @PersistenceContext(name = "webpollDb")

@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
+@SuppressWarnings("unused")
 @RequestScoped
 public class JpaUserRepository implements UserRepository {
 
