@@ -10,4 +10,10 @@ public interface SurveyCreationService {
 	 */
 	SurveyCreationModel instantiateNewSurvey();
 	
+	/**
+	 * Commit (finish) the creation of a new survey.
+	 * @param surveyCreationModel The completed SurveyCreationModel, ready to be commited.
+	 */
+	void commitSurveyCreation(SurveyCreationModel surveyCreationModel);
+	
 }

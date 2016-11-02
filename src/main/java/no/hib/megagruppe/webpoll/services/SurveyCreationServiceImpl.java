@@ -44,4 +44,10 @@ public class SurveyCreationServiceImpl implements SurveyCreationService {
 		return surveyName;
 	}
 
+	@Override
+	public void commitSurveyCreation(SurveyCreationModel surveyCreationModel) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
