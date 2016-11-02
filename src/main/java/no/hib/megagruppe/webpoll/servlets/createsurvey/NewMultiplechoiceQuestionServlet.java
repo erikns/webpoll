@@ -42,20 +42,20 @@ public class NewMultiplechoiceQuestionServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Check for valid name. valid ? redirect("/surveybuilder") : redirect("/newmultiplechoicequestion")
+		// Check for valid name. valid ? redirect("/surveybuilder") : redirect("/newmultiplechoicequestion")
+		// Check for atleast one option.
 		
 		if(securityService.isLoggedIn()) {
 			CreateSurveySessionManager session = new CreateSurveySessionManager(request);
 			
 			String newName = request.getParameter("questionname");
-			boolean valid = newName != null && !newName.equals(""); // TODO encapsulate logic?
+			boolean valid = newName != null && !newName.equals(""); // TODO Flytt all logikken for oppretting av spørsmål inn i metode i CreateSurveySessionManager.
 			if(valid){
 				
-				// TODO Flytt kode ut av servlet. Muligens inn i CreateSurveySessionManager?
 				boolean canHaveMultipleAnswers = request.getParameter("canhavemultipleanswers") != null;
 				String[] options = request.getParameterValues("option");
 				
-				boolean hasAtleastOneOption = options.length > 1; // TODO Dette fungerer ikke! Må telle alle Strengene som ikke er null
+				boolean hasAtleastOneOption = options.length > 1; // TODO Test at dette fungerer.
 				if(hasAtleastOneOption){
 					QuestionType questionType = 
 							canHaveMultipleAnswers ? QuestionType.MULTIPLE_CHOICE_CHECKBOX : QuestionType.MULTIPLE_CHOICE_RADIO;

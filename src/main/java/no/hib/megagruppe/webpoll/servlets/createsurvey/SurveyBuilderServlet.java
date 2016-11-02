@@ -39,7 +39,7 @@ public class SurveyBuilderServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Delete question found in request from SurveyModel. Redirect to self, /surveybuilder. 
+		// Delete question found in request from SurveyModel. Redirect to self, /surveybuilder. 
 		
 		if(securityService.isLoggedIn()) {
 			CreateSurveySessionManager session = new CreateSurveySessionManager(request);

@@ -39,13 +39,13 @@ public class ChangeNameServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Check for valid new name. valid ? redirect("/surveybuilder") : redirect("/changename")
+		// Check for valid new name. valid ? redirect("/surveybuilder") : redirect("/changename")
 		
 		if(securityService.isLoggedIn()) {
 			CreateSurveySessionManager session = new CreateSurveySessionManager(request);
 			
 			String newName = request.getParameter("newname");
-			boolean valid = newName != null && !newName.equals(""); // TODO encapsulate logic? Må evt også sjekke at det ikke finnes en udnersøkelse med samme navn.
+			boolean valid = newName != null && !newName.equals(""); // TODO Flytte logikk-koden ut til en hjelpeklasse. Må evt også sjekke at det ikke finnes en undersøkelse med samme navn.
 			if(valid){
 				SurveyCreationModel surveyModel = session.getSurveyModel();
 				surveyModel.setName(newName);

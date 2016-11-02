@@ -41,13 +41,13 @@ public class NewTextQuestionServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Check for valid name. valid ? redirect("/surveybuilder") : redirect("/newtextquestion")
+		// Check for valid name. valid ? redirect("/surveybuilder") : redirect("/newtextquestion")
 		
 		if(securityService.isLoggedIn()) {
 			CreateSurveySessionManager session = new CreateSurveySessionManager(request);
 			
 			String newName = request.getParameter("questionname");
-			boolean valid = newName != null && !newName.equals(""); // TODO encapsulate logic?
+			boolean valid = newName != null && !newName.equals(""); // TODO Flytt logikk-kode inn i hjelpeklasse.
 			if(valid){
 				SurveyCreationModel surveyModel = session.getSurveyModel();
 				QuestionCreationModel question = new QuestionCreationModel(QuestionType.FREE_TEXT, newName);
