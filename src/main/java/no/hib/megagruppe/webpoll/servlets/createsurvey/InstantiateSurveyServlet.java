@@ -32,8 +32,9 @@ public class InstantiateSurveyServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		if(securityService.isLoggedIn()) {
 			CreateSurveySessionManager session = new CreateSurveySessionManager(request);
 			

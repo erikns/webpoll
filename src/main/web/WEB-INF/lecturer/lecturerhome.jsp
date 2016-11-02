@@ -12,7 +12,7 @@
 		<div class="container">
 			<div class="panel panel-default margin-top">
 				<div class="panel-body">
-					<a class="btn btn-primary" href="instantiatesurvey" role="button">Ny undersøkelse</a>
+					<a class="btn btn-primary" href="<c:url value="instantiatesurvey"/>" role="button">Ny undersøkelse</a>
 				</div>
 			</div>
 

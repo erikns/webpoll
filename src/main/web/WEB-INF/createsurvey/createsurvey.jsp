@@ -21,7 +21,7 @@
                             	<div class="form-group">
                             		<p>
                             		Undersøkelsenavn: <c:out value="${surveymodel.name}"/>&nbsp;
-                            		<a class="btn btn-default" href="changename" role="button">Endre navn</a>
+                            		<a class="btn btn-default" href="<c:url value="changename"/>" role="button">Endre navn</a>
                             		</p>
 									<input type="submit" id="submit-form" class="hidden">
 								</div>
@@ -39,8 +39,8 @@
                         </div>
                         <div class="panel-footer">
                         		<p>
-                        		<a class="btn btn-default" href="newtextquestion" role="button">Nytt fritekstspørsmål</a>
-                        		<a class="btn btn-default" href="newtextquestion" role="button">Nytt flervalgspørsmål</a>
+                        		<a class="btn btn-default" href="<c:url value="newtextquestion"/>" role="button">Nytt fritekstspørsmål</a>
+                        		<a class="btn btn-default" href="<c:url value="newmultiplechoicequestion"/>" role="button">Nytt flervalgspørsmål</a>
             					<c:choose>
 								<c:when test="${count eq 0}">
 									<label for="submit-form" class="btn btn-primary disabled"
@@ -50,7 +50,7 @@
 									<label for="submit-form" class="btn btn-primary">Ferdig</label>
 									</c:otherwise>
 								</c:choose>
-								<a class="btn btn-default" href="lecturer" role="button">Avbryt</a>
+								<a class="btn btn-default" href="<c:url value="lecturer"/>" role="button">Avbryt</a>
 								</p>
             					</div>
             				</form>
