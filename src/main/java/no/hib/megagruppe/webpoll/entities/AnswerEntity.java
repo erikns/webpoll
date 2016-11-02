@@ -6,13 +6,17 @@ import javax.persistence.*;
 @Table(schema = "webpoll", name = "answer")
 public class AnswerEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @OneToOne
     private QuestionEntity question;
     @OneToOne
     private OptionEntity option;
+    @ManyToOne(cascade = CascadeType.PERSIST, optional = false)
+    @JoinColumn(name = "response_id")
+    private ResponseEntity response;
+    @Column(name = "free_text")
     private String freetext;
     
     public AnswerEntity() {
@@ -55,5 +59,13 @@ public class AnswerEntity {
 
     public void setFreetext(String freetext) {
         this.freetext = freetext;
+    }
+
+    public ResponseEntity getResponse() {
+        return response;
+    }
+
+    public void setResponse(ResponseEntity response) {
+        this.response = response;
     }
 }

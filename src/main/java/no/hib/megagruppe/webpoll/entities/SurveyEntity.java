@@ -8,7 +8,7 @@ import java.util.List;
 @Table(schema = "webpoll", name = "survey")
 public class SurveyEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
     @Column(name = "name")

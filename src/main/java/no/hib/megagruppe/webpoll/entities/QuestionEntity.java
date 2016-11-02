@@ -19,7 +19,7 @@ public class QuestionEntity {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
     @ManyToOne

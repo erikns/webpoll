@@ -7,11 +7,11 @@ import java.util.List;
 @Table(schema = "webpoll", name = "response")
 public class ResponseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
     private SurveyEntity survey;
-    @OneToMany
+    @OneToMany(targetEntity = AnswerEntity.class, cascade = CascadeType.PERSIST, mappedBy = "response")
     private List<AnswerEntity> answers;
     
     public ResponseEntity() {
@@ -20,6 +20,10 @@ public class ResponseEntity {
     public ResponseEntity(SurveyEntity survey, List<AnswerEntity> answers) {
     	this.survey = survey;
     	this.answers = answers;
+
+        for (AnswerEntity a : answers) {
+            a.setResponse(this);
+        }
     }
 
     public Integer getId() {

@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(schema = "webpoll", name = "option")
 public class OptionEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
     @ManyToOne
