@@ -3,7 +3,6 @@ package no.hib.megagruppe.webpoll.util.sessionmanager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 
 /**

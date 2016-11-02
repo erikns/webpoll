@@ -28,7 +28,6 @@ public class SurveyAnsweringServiceImpl implements SurveyAnsweringService {
     @Override
     public SurveyAnsweringModel startSurveyAnswering(String code) {
     	SurveyEntity survey = repositoryFactory.getSurveyRepository().findByCode(code);
-    	String username = survey.getOwner().toString();
     	SurveyAnsweringModel surveyAnsweringModel = new SurveyAnsweringModel(survey);
         return surveyAnsweringModel;
     }
