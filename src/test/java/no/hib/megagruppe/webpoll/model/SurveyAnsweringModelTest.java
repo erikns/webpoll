@@ -1,34 +1,19 @@
 package no.hib.megagruppe.webpoll.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import no.hib.megagruppe.webpoll.models.answering.SurveyAnsweringModel;
+import no.hib.megagruppe.webpoll.models.answering.SurveyQuestionModel;
+import no.hib.megagruppe.webpoll.testutil.SurveyAnsweringModelBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
-import no.hib.megagruppe.webpoll.inmemory.InMemorySurveyRepository;
-import no.hib.megagruppe.webpoll.entities.SurveyEntity;
-import no.hib.megagruppe.webpoll.models.answering.SurveyAnsweringModel;
-import no.hib.megagruppe.webpoll.models.answering.SurveyQuestionModel;
+import static org.junit.Assert.*;
 
 public class SurveyAnsweringModelTest {
-
-	String question1;
-	String question2;
-	
-	SurveyAnsweringModel sam; // sam = SurveyAnsweringModel
+	private SurveyAnsweringModel sam;
 
 	@Before
 	public void setup() {
-		
-		InMemorySurveyRepository inMemorySurveyRepo = new InMemorySurveyRepository();
-		SurveyEntity surveyEntity = inMemorySurveyRepo.findByCode("testabc");
-		sam = new SurveyAnsweringModel(surveyEntity);
-		
-		question1 = inMemorySurveyRepo.getQuestion1Text();
-		question2 = inMemorySurveyRepo.getQuestion2Text();
-		
+        sam = SurveyAnsweringModelBuilder.build();
 	}
 	
 	@Test
@@ -45,19 +30,19 @@ public class SurveyAnsweringModelTest {
 	
 	@Test
 	public void QuestionsAreInOrder(){
-		assertEquals(sam.currentQuestion().getText(), question1);
-		assertEquals(sam.nextQuestion().getText(), question2);
+		assertEquals(sam.currentQuestion().getText(), "Spørsmål 1?");
+		assertEquals(sam.nextQuestion().getText(), "Spørsmål 2?");
 	}
 	
 	@Test
 	public void IteratorWorks(){
-		assertEquals(sam.currentQuestion().getText(), question1);
-		assertEquals(sam.nextQuestion().getText(), question2);
+		assertEquals(sam.currentQuestion().getText(), "Spørsmål 1?");
+		assertEquals(sam.nextQuestion().getText(), "Spørsmål 2?");
+
 		for(SurveyQuestionModel question : sam){
-			assertTrue(question.getText().equals(question1) || question.getText().equals(question2));
+			assertTrue(question.getText().equals("Spørsmål 1?") || question.getText().equals("Spørsmål 2?"));
 		}
 	}
-
 }
 
 
