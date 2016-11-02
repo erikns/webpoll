@@ -28,16 +28,12 @@ public class CreateSurveySessionManager extends SessionManager{
 	
 	
 	/**
-	 * Creates and stores a new SurveyModel in the session.
-	 * @param owner The owner of the survey.
+	 * Sets the SurveyCreationModel for this session.
+	 * @param surveyModel The SurveyCreationModel for this session.
 	 */
-	public void instantiateNewSurveyModel(UserEntity owner){
+	public void setSurveyCrationModel(SurveyCreationModel surveyModel){
 		HttpSession session = request.getSession();
-		
-		SurveyCreationModel surveyModel = new SurveyCreationModel(owner);
-		surveyModel.setName("something unique"); // TODO
 		session.setAttribute(SURVEY_MODEL, surveyModel);
-		
 	}
 	
 	/**

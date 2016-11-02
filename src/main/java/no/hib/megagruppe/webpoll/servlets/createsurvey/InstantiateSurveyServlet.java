@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.hib.megagruppe.webpoll.data.UserRepository;
-import no.hib.megagruppe.webpoll.entities.UserEntity;
+import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.services.SecurityService;
+import no.hib.megagruppe.webpoll.services.SurveyCreationService;
 import no.hib.megagruppe.webpoll.util.sessionmanager.CreateSurveySessionManager;
 
 /**
@@ -26,8 +27,8 @@ public class InstantiateSurveyServlet extends HttpServlet {
 	
 	@EJB
     SecurityService securityService;
-	
-	private UserRepository ur;
+	@EJB
+	SurveyCreationService scs;
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -36,10 +37,9 @@ public class InstantiateSurveyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if(securityService.isLoggedIn()) {
+			SurveyCreationModel surveyModel = scs.instantiateNewSurvey();
 			CreateSurveySessionManager session = new CreateSurveySessionManager(request);
-			
-			UserEntity owner = ur.findByEmail(securityService.getLoggedInUserName());
-			session.instantiateNewSurveyModel(owner);
+			session.setSurveyCrationModel(surveyModel);
 			response.sendRedirect("surveybuilder");
 		} else {
 			response.sendRedirect("index");
