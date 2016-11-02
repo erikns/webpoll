@@ -29,7 +29,7 @@ public class SurveyLecturerServiceImpl implements SurveyLecturerService {
 		
 		for (SurveyEntity survey : allSurveys) {
 			if (survey.getOwner().getId().equals(userID)) {
-				SurveyOverviewModel surveyOverview = new SurveyOverviewModel(); // TODO Konvertere survey til surveyOverview
+				SurveyOverviewModel surveyOverview = convertSurvey(survey);
 				userSurveys.add(surveyOverview);
 			}
 		}
@@ -38,39 +38,53 @@ public class SurveyLecturerServiceImpl implements SurveyLecturerService {
 	}
 
 	@Override
-	public void cloneSurvey(Integer surveyID) {
+	public Boolean cloneSurvey(Integer surveyID,String name) {
 		
 		SurveyEntity survey = repositoryFactory.getSurveyRepository().findById(surveyID);
+		Boolean foundSurvey = false;
 		
-		SurveyCreationModel surveyCreation = new SurveyCreationModel(survey.getOwner());
-		surveyCreation.setName(survey.getName());
-		
-		copyQuestions(survey,surveyCreation);
-		
-		commitNewSurvey(surveyCreation);
-	}
-	
-	private void copyQuestions(SurveyEntity survey, SurveyCreationModel surveyCreation) {
-		for (QuestionEntity question : survey.getQuestions()) {
+		if (survey != null) {
+			foundSurvey = true;
 			
-			QuestionCreationModel questionCreation = new QuestionCreationModel(question.getType(), question.getText());
-			
-			List<OptionEntity> optionEntities = question.getOptions();			
-			String[] options = new String[optionEntities.size()];
-			
-			for (int i = 0; i < optionEntities.size(); i++) {
-				options[i] = optionEntities.get(i).getText();
-			}
-			
-			questionCreation.setOptions(options);
-			surveyCreation.addQuestionCreationModel(questionCreation);
+			SurveyCreationModel surveyCreation = new SurveyCreationModel(survey.getOwner());
+			surveyCreation.setName(name);
+			surveyCreation.setOwner(survey.getOwner());
+			copyQuestions(survey,surveyCreation);
+			commitNewSurvey(surveyCreation);
 		}
+		
+		return foundSurvey;
 	}
 
 	@Override
 	public void commitNewSurvey(SurveyCreationModel creationModel) {
 		SurveyEntity survey = creationModel.createSurvey();
 		repositoryFactory.getSurveyRepository().add(survey);
+	}
+	
+	private SurveyOverviewModel convertSurvey(SurveyEntity survey) {
+		 // TODO Konvertere survey til surveyOverview
+		return null;
+	}
+	
+	private void copyQuestions(SurveyEntity survey, SurveyCreationModel surveyCreation) {
+		for (QuestionEntity question : survey.getQuestions()) {
+			
+			QuestionCreationModel questionCreation = new QuestionCreationModel(question.getType(), question.getText());
+
+			if (question.getType().isMultipleChoice()) {
+				List<OptionEntity> optionEntities = question.getOptions();
+				String[] options = new String[optionEntities.size()];
+				
+				for (int i = 0; i < optionEntities.size(); i++) {
+					options[i] = optionEntities.get(i).getText();
+				}
+				
+				questionCreation.setOptions(options);
+			}
+			
+			surveyCreation.addQuestionCreationModel(questionCreation);
+		}
 	}
 
 }

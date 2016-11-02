@@ -26,8 +26,9 @@ public interface SurveyLecturerService {
     /**
      * Clones the survey with the provided survey ID as a new survey
      * @param surveyID The ID of the survey to be cloned
+     * @return Returns false if no survey with the provide surveyID exists
      */
-    void cloneSurvey(Integer surveyID);
+    Boolean cloneSurvey(Integer surveyID, String name);
     
     /**
      * Commit (finish) the creation of a survey
