@@ -1,23 +1,17 @@
 package no.hib.megagruppe.webpoll.util;
 
-import no.hib.megagruppe.webpoll.inmemory.InMemorySurveyRepository;
-import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.models.answering.SurveyAnsweringModel;
-
+import no.hib.megagruppe.webpoll.testutil.SurveyAnsweringModelBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
 public class DurationFormatTest {
 
-    SurveyAnsweringModel sam; // sam = SurveyAnsweringModel
+    private SurveyAnsweringModel sam;
 
     @Before
     public void setup() {
-        InMemorySurveyRepository imsr = new InMemorySurveyRepository();
-        SurveyEntity se = imsr.findByCode("testabc");
-        sam = new SurveyAnsweringModel(se);
+        sam = SurveyAnsweringModelBuilder.build();
     }
 
     @Test
