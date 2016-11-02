@@ -2,6 +2,7 @@ package no.hib.megagruppe.webpoll.services;
 
 import java.util.List;
 
+import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 
 /**
@@ -15,5 +16,23 @@ public interface SurveyLecturerService {
     // Clone
     // See results
 
-    List<SurveyOverviewModel> getSurveyOverviews();
+	/**
+	 * Returns all the surveys belonging to the provided userID
+	 * @param userID the logged in lecturers userID
+	 * @return All the lecturers surveys represented as a list of SurveryOverviewModels
+	 */
+    List<SurveyOverviewModel> getSurveyOverviews(Integer userID);
+    
+    /**
+     * Clones the survey with the provided survey ID as a new survey
+     * @param surveyID The ID of the survey to be cloned
+     */
+    void cloneSurvey(Integer surveyID);
+    
+    /**
+     * Commit (finish) the creation of a survey
+     * @param creationModel The survey creation model
+     */
+    void commitNewSurvey(SurveyCreationModel creationModel);
+    
 }
