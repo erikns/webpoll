@@ -17,29 +17,32 @@
             				<h3 class="panel-title">Ny undersøkelse</h3>
                         </div>
             			<div class="panel-body">
-                            <form class="form-inline" action="createsurvey" method="post">
+                            <form class="form-inline" action="savesurvey" method="post">
                             	<div class="form-group">
-                            		<label for="surveyName">Undersøkelsenavn: </label>
-									<input type="text" id="surveyName" name="surveyName" class="form-control" value="<c:out value=""/>">
+                            		<p>
+                            		Undersøkelsenavn: <c:out value="${surveymodel.name}"/>&nbsp;
+                            		<a class="btn btn-default" href="changename" role="button">Endre navn</a>
+                            		</p>
 									<input type="submit" id="submit-form" class="hidden">
 								</div>
+							</form>
+							<c:set var="count" value="0" scope="page" />
+							<c:forEach var="question" items="${surveymodel.questions}">
+								<form class="form-inline" action="savesurvey" method="post">
 								<div class="form-group">
-									<c:set var="count" value="1" scope="page" />
-									<c:forEach var="question" items="">
-										<p><c:out value=""/>&nbsp;
-										<button class="btn btn-default" name="delete" value="${count}">Slett</button></p>
-										<c:set var="count" value="${count + 1}" scope="page" />
-									</c:forEach>
+									<p><c:out value="${question.questiontext}"/>&nbsp;
+									<button class="btn btn-default" name="questionnumber" value="${count}">Slett</button></p>
+									<c:set var="count" value="${count + 1}" scope="page"/>
                            		</div>
-                            </form>
+                            	</form>
+                            </c:forEach>
                         </div>
                         <div class="panel-footer">
-                        	<form class="form-inline" action="createquestion" method="post">
-                        		<div class="form-group">
-                        			<button class="btn btn-default" name="action" value="freetext">Nytt fritekstspørsmål</button>&nbsp;
-            						<button class="btn btn-default" name="action" value="multiplechoice">Nytt flervalgspørsmål</button>&nbsp;
+                        		<p>
+                        		<a class="btn btn-default" href="newtextquestion" role="button">Nytt fritekstspørsmål</a>
+                        		<a class="btn btn-default" href="newtextquestion" role="button">Nytt flervalgspørsmål</a>
             					<c:choose>
-								<c:when test="${count eq 1}">
+								<c:when test="${count eq 0}">
 									<label for="submit-form" class="btn btn-primary disabled"
 									data-toggle="tooltip" data-placement="top" title="En undersøkelse må ha minst ett spørsmål">Ferdig</label>
 								</c:when>
@@ -47,6 +50,8 @@
 									<label for="submit-form" class="btn btn-primary">Ferdig</label>
 									</c:otherwise>
 								</c:choose>
+								<a class="btn btn-default" href="lecturer" role="button">Avbryt</a>
+								</p>
             					</div>
             				</form>
                         </div>
