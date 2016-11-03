@@ -3,13 +3,13 @@ package no.hib.megagruppe.webpoll.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 
 import no.hib.megagruppe.webpoll.data.RepositoryFactory;
 import no.hib.megagruppe.webpoll.entities.OptionEntity;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
-import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.models.lecturer.QuestionCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
@@ -17,16 +17,14 @@ import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 public class SurveyLecturerServiceImpl implements SurveyLecturerService {
 	private final RepositoryFactory repositoryFactory;
 	
+	@EJB
+	SurveyCreationService scs; //  Brukes for å opprette ny SurveyModel i metoden cloneSurvey(...).
+	
 	@Inject
 	public SurveyLecturerServiceImpl(RepositoryFactory repositoryFactory) {
 		this.repositoryFactory = repositoryFactory;
 	}
 	
-	@Override
-	public SurveyCreationModel startSurveyCreation(String name, UserEntity user) {
-		return new SurveyCreationModel(user);
-	}
-
 	@Override
 	public List<SurveyOverviewModel> getSurveyOverviews(Integer userID) {
 		
@@ -56,18 +54,13 @@ public class SurveyLecturerServiceImpl implements SurveyLecturerService {
 			surveyCreation.setName(name);
 			surveyCreation.setOwner(survey.getOwner());
 			copyQuestions(survey,surveyCreation);
-			commitNewSurvey(surveyCreation);
+			scs.commitSurveyCreation(surveyCreation);
+			// commitNewSurvey(surveyCreation); // OLD
 		}
 		
 		return foundSurvey;
 	}
 
-	@Override
-	public void commitNewSurvey(SurveyCreationModel creationModel) {
-		SurveyEntity survey = creationModel.createSurvey();
-		repositoryFactory.getSurveyRepository().add(survey);
-	}
-	
 	private SurveyOverviewModel convertSurvey(SurveyEntity survey) {
 		 // TODO Konvertere survey til surveyOverview
 		return null;

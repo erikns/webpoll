@@ -18,13 +18,6 @@ public interface SurveyLecturerService {
     // See results
 	
 	/**
-	 * Starts a survey creation session.
-	 * @param name The name of the survey
-	 * @return
-	 */
-	SurveyCreationModel startSurveyCreation(String name, UserEntity user);
-
-	/**
 	 * Returns all the surveys belonging to the provided userID
 	 * @param userID the logged in lecturers userID
 	 * @return All the lecturers surveys represented as a list of SurveryOverviewModels
@@ -37,11 +30,4 @@ public interface SurveyLecturerService {
      * @return Returns false if no survey with the provide surveyID exists
      */
     Boolean cloneSurvey(Integer surveyID, String name);
-    
-    /**
-     * Commit (finish) the creation of a survey
-     * @param creationModel The survey creation model
-     */
-    void commitNewSurvey(SurveyCreationModel creationModel);
-    
 }
