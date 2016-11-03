@@ -32,7 +32,7 @@ public class SaveSurveyServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Save survey in database. Redirect to SurveyInformationServlet.
+		// Save survey in database. Redirect to SurveyInformationServlet.
 		if(securityService.isLoggedIn()){
 			
 			CreateSurveySessionManager session = new CreateSurveySessionManager(request);
