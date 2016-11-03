@@ -21,17 +21,17 @@
                             	<div class="form-group">
                             		<p>
                             		Undersøkelsenavn: <c:out value="${surveymodel.name}"/>&nbsp;
-                            		<a class="btn btn-default" href="<c:url value="changename"/>" role="button">Endre navn</a>
+                            		<a href="<c:url value="changename"/>" class="btn btn-default" role="button">Endre navn</a>
                             		</p>
 									<input type="submit" id="submit-form" class="hidden">
 								</div>
 							</form>
 							<c:set var="count" value="0" scope="page" />
 							<c:forEach var="question" items="${surveymodel.questions}">
-								<form class="form-inline" action="savesurvey" method="post">
+								<form class="form-inline" action="surveybuilder" method="post">
 								<div class="form-group">
-									<p><c:out value="${question.questiontext}"/>&nbsp;
-									<button class="btn btn-default" name="questionnumber" value="${count}">Slett</button></p>
+									<p><c:out value="${question.questionText}"/>&nbsp;
+									<button class="btn btn-default" name="questionnumber" value="<c:out value="${count}"/>">Slett</button></p>
 									<c:set var="count" value="${count + 1}" scope="page"/>
                            		</div>
                             	</form>
@@ -39,8 +39,8 @@
                         </div>
                         <div class="panel-footer">
                         		<p>
-                        		<a class="btn btn-default" href="<c:url value="newtextquestion"/>" role="button">Nytt fritekstspørsmål</a>
-                        		<a class="btn btn-default" href="<c:url value="newmultiplechoicequestion"/>" role="button">Nytt flervalgspørsmål</a>
+                        		<a href="<c:url value="newtextquestion"/>" class="btn btn-default" role="button">Nytt fritekstspørsmål</a>
+                        		<a href="<c:url value="newmultiplechoicequestion"/>" class="btn btn-default" role="button">Nytt flervalgspørsmål</a>
             					<c:choose>
 								<c:when test="${count eq 0}">
 									<label for="submit-form" class="btn btn-primary disabled"
@@ -50,7 +50,7 @@
 									<label for="submit-form" class="btn btn-primary">Ferdig</label>
 									</c:otherwise>
 								</c:choose>
-								<a class="btn btn-default" href="<c:url value="lecturer"/>" role="button">Avbryt</a>
+								<a href="<c:url value="lecturer"/>" class="btn btn-default role="button">Avbryt</a>
 								</p>
             					</div>
             				</form>

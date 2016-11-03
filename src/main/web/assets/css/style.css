@@ -25,11 +25,11 @@ footer p {
 }
 
 /* Links */
-a,
+/* a,
 a:focus,
 a:hover {
     color: #fff;
-}
+} */
 
 .build-info {
     opacity: 0.35;
