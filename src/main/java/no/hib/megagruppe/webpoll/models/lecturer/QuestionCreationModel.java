@@ -117,4 +117,8 @@ public class QuestionCreationModel {
 		this.options = options;
 	}
 	
+	public String[] getOptions(){
+		return options;
+	}
+	
 }

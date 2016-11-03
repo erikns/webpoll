@@ -12,10 +12,6 @@ import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
  */
 public class CreateSurveySessionManager extends SessionManager{
 
-	
-	//SurveyCreationModel surveyModel;
-	//QuestionCreationModel questionCreationModel;
-	
 	private final String SURVEY_MODEL = "surveymodel";
 	private final String QUESTION_CREATION_MODEL = "questionmodel";
 	
