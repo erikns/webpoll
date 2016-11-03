@@ -9,6 +9,7 @@ import no.hib.megagruppe.webpoll.data.RepositoryFactory;
 import no.hib.megagruppe.webpoll.entities.OptionEntity;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
+import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.models.lecturer.QuestionCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
@@ -19,6 +20,11 @@ public class SurveyLecturerServiceImpl implements SurveyLecturerService {
 	@Inject
 	public SurveyLecturerServiceImpl(RepositoryFactory repositoryFactory) {
 		this.repositoryFactory = repositoryFactory;
+	}
+	
+	@Override
+	public SurveyCreationModel startSurveyCreation(String name, UserEntity user) {
+		return new SurveyCreationModel(user);
 	}
 
 	@Override

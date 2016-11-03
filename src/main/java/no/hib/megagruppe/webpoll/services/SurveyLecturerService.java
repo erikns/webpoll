@@ -2,6 +2,7 @@ package no.hib.megagruppe.webpoll.services;
 
 import java.util.List;
 
+import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 
@@ -15,6 +16,13 @@ public interface SurveyLecturerService {
     // Create
     // Clone
     // See results
+	
+	/**
+	 * Starts a survey creation session.
+	 * @param name The name of the survey
+	 * @return
+	 */
+	SurveyCreationModel startSurveyCreation(String name, UserEntity user);
 
 	/**
 	 * Returns all the surveys belonging to the provided userID
