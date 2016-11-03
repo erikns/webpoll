@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -23,14 +24,19 @@ public class JpaUserRepository implements UserRepository {
         try {
             Object queryResult = query.getSingleResult();
             return (UserEntity) queryResult;
-        } catch (NoResultException e) {
-            return null; // TODO: maybe throw custom exception later
+        } catch (RuntimeException e) {
+            return null;
         }
     }
 
     @Override
     public UserEntity add(UserEntity entity) {
-        return null;
+        try {
+            em.persist(entity);
+            return entity;
+        } catch (RuntimeException e) {
+            return null;
+        }
     }
 
     @Override
@@ -40,16 +46,28 @@ public class JpaUserRepository implements UserRepository {
 
     @Override
     public List<UserEntity> findAll() {
-        return null;
+        Query query = em.createQuery("select u from user u");
+        try {
+            List resultList = query.getResultList();
+
+            List<UserEntity> userList = new ArrayList<>();
+            for (Object o : resultList) {
+                userList.add((UserEntity) o);
+            }
+
+            return userList;
+        } catch (RuntimeException e) {
+            return null;
+        }
     }
 
     @Override
     public UserEntity update(UserEntity entity) {
-        return null;
+        return em.merge(entity);
     }
 
     @Override
     public void remove(UserEntity entity) {
-
+        em.remove(entity);
     }
 }

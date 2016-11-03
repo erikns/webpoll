@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -21,33 +22,50 @@ public class JpaSurveyRepository implements SurveyRepository {
                 + code + "'");
         try {
             return (SurveyEntity) query.getSingleResult();
-        } catch (NoResultException e) {
+        } catch (RuntimeException e) {
             return null;
         }
     }
 
     @Override
     public SurveyEntity add(SurveyEntity entity) {
-        return null;
+        try {
+            entityManager.persist(entity);
+            return entity;
+        } catch (RuntimeException e) {
+            return null;
+        }
     }
 
     @Override
     public SurveyEntity findById(int id) {
-        return null;
+        return entityManager.find(SurveyEntity.class, id);
     }
 
     @Override
     public List<SurveyEntity> findAll() {
-        return null;
+        Query query = entityManager.createQuery("select s from survey s");
+        try {
+            List resultList = query.getResultList();
+
+            List<SurveyEntity> surveyList = new ArrayList<>();
+            for (Object o : resultList) {
+                surveyList.add((SurveyEntity) o);
+            }
+
+            return surveyList;
+        } catch (RuntimeException e) {
+            return null;
+        }
     }
 
     @Override
     public SurveyEntity update(SurveyEntity entity) {
-        return null;
+        return entityManager.merge(entity);
     }
 
     @Override
     public void remove(SurveyEntity entity) {
-
+        entityManager.remove(entity);
     }
 }
