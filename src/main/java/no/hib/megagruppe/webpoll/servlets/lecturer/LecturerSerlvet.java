@@ -26,6 +26,11 @@ public class LecturerSerlvet extends HttpServlet {
 		if(securityService.isLoggedIn()) {
 			request.getSession().setAttribute("loggedinuser", securityService.getLoggedInUserName());
 			request.getRequestDispatcher("WEB-INF/lecturer/lecturerhome.jsp").forward(request, response);
+			
+		/*   Dersom vi skal ha en oversikt allerede når foreleser logger inn, må den hentes
+			 fra databasen. Dersom oversikt skal være en egen side, må undersøkelsene hentes
+			 når knappen på denne siden trykkes på (doPost i en egen LecturerOversiktServlet). */
+			
 		} else {
 			response.sendRedirect("login");
 		}	
