@@ -1,10 +1,8 @@
 package no.hib.megagruppe.webpoll.models.lecturer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import no.hib.megagruppe.webpoll.entities.AnswerEntity;
-import no.hib.megagruppe.webpoll.entities.ResponseEntity;
 
 public class QuestionOverviewModel {
 	
@@ -30,6 +28,27 @@ public class QuestionOverviewModel {
 		}
 		
 		frequencySum++;
+	}
+	
+	
+	
+	public List<QuestionAnswerOverviewModel> getAnswers(){
+		List<QuestionAnswerOverviewModel> answers = new ArrayList<>();
+		
+		for(String key : frequencyTable.keySet()){
+			String answerText = key;
+			Integer frequency = frequencyTable.get(key);
+			double percentage = frequency / frequencySum * 100;
+			QuestionAnswerOverviewModel answer = new QuestionAnswerOverviewModel(answerText, frequency, percentage);
+			
+			answers.add(answer);
+		}
+		
+		return answers;
+	}
+	
+	public String getQuestionText(){
+		return questionText;
 	}
 
 }
