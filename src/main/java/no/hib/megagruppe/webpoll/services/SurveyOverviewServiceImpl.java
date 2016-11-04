@@ -8,10 +8,13 @@ import javax.ejb.EJB;
 import javax.inject.Inject;
 
 import no.hib.megagruppe.webpoll.data.RepositoryFactory;
+import no.hib.megagruppe.webpoll.data.SurveyRepository;
 import no.hib.megagruppe.webpoll.entities.OptionEntity;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity;
+import no.hib.megagruppe.webpoll.entities.ResponseEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.models.lecturer.QuestionCreationModel;
+import no.hib.megagruppe.webpoll.models.lecturer.QuestionOverviewModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 
@@ -88,15 +91,26 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 	}
 
 	@Override
-	public SurveyOverviewModel getSurveyModel(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public SurveyOverviewModel getSurveyOverviewModel(Integer surveyID) {
+		
+		SurveyEntity survey = repositoryFactory.getSurveyRepository().findById(surveyID);
+		List<QuestionOverviewModel> questions = new ArrayList<>();
+		
+		for (ResponseEntity response : survey.getResponses()) {
+			// TODO Må gjøre alle responsene om til QuestionOverviewModeler.
+		}
+		
+		SurveyOverviewModel	surveyOverview = new SurveyOverviewModel(questions, survey);
+
+		return surveyOverview;
 	}
 
 	@Override
-	public void activateSurvey(Timestamp deadline) {
-		// TODO Auto-generated method stub
-		
+	public void activateSurvey(Timestamp deadline, Integer SurveyID) {
+		SurveyRepository surveyRepository = repositoryFactory.getSurveyRepository();
+		SurveyEntity survey = surveyRepository.findById(SurveyID);
+		survey.setDeadline(deadline);
+		surveyRepository.update(survey);
 	}
 
 }

@@ -32,7 +32,7 @@ public interface SurveyOverviewService {
      */
     Boolean cloneSurvey(Integer surveyID, String name);
     
-    SurveyOverviewModel getSurveyModel(int id);
+    SurveyOverviewModel getSurveyOverviewModel(Integer id);
     
-    void activateSurvey(Timestamp deadline);
+    void activateSurvey(Timestamp deadline, Integer surveyID);
 }
