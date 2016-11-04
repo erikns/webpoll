@@ -1,12 +1,6 @@
 package no.hib.megagruppe.webpoll.models.lecturer;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import no.hib.megagruppe.webpoll.entities.OptionEntity;
-import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity.QuestionType;
-import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 
 /**
  * Model for creating a new question for a survey.
@@ -34,11 +28,6 @@ public class QuestionCreationModel {
 		this.questionType = questionType;
 		this.questionText = questionText;
 	}
-
-	
-	
-	
-	
 	
 	/**
 	 * Checks if the question is ready to be built.
@@ -48,51 +37,26 @@ public class QuestionCreationModel {
 	 */
 	public boolean isReady(){
 		boolean hasOptionsIfMultipleChoice 
-				= questionType.isMultipleChoice() ? options.length >= 1 : options == null;
+				= questionType.isMultipleChoice() ? numberOfOptionsWritten() >= 1 : options == null;
 		
 		return hasOptionsIfMultipleChoice;
 	}
 	
 	/**
-	 * Returns a QuestionEntity ready to be stored in the database.
-	 * Make sure to call isReady() before calling this method.
-	 * @param survey The survey that owns this question.
-	 * @return The QuestionEntity associated with this SurveyQuestionCreationModel.
+	 * Gets the number of options in this question.
+	 * @return THe number of options for this question.
 	 */
-	public QuestionEntity getQuestionEntity(SurveyEntity survey){
-		QuestionEntity questionEntity = new QuestionEntity();
-		questionEntity.setSurvey(survey);
-		questionEntity.setText(questionText);
-		questionEntity.setType(questionType);
-		questionEntity.setOptions(convertOptionsToEntities(questionEntity));
-		
-		return questionEntity;
-	}
-	
-	/**
-	 * Converts each option into a questionEntity.
-	 * It only converts it if the option-string is not empty or null.
-	 * @param questionEntity The question owning this option.
-	 * @return A list of OptionEntity objects.
-	 */
-	private List<OptionEntity> convertOptionsToEntities(QuestionEntity questionEntity){
-		List<OptionEntity> optionEntities = null;
-		if (questionEntity.getType().isMultipleChoice()) {
-			optionEntities = new ArrayList<>();
-			for(String option : options){
-				boolean optionNotEmpty = option != null && option != "";
-				
-				if(optionNotEmpty){
-					OptionEntity optionEntity = new OptionEntity();
-					optionEntity.setText(option);
-					optionEntity.setQuestion(questionEntity);
-					optionEntities.add(optionEntity);
-				}
+	public int numberOfOptionsWritten(){
+		int sum = 0;		
+		for(String option : options){
+			if(option != null && !option.equals("")){
+				sum++;
 			}
 		}
-		
-		return optionEntities;
+				
+		return sum;
 	}
+	
 	
 	
 	

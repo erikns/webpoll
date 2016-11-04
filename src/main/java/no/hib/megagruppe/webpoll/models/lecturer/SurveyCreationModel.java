@@ -1,11 +1,8 @@
 package no.hib.megagruppe.webpoll.models.lecturer;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
 
@@ -77,50 +74,6 @@ public class SurveyCreationModel {
 		
 		return nameReady && ownerReady && questionsReady;
 	}
-	
-	/**
-	 * Creates the SurveyEntity, ready for storing in the database.
-	 * Make sure to call isReady() first.
-	 * @return The SurveyEntity associated with this model.
-	 */
-	public SurveyEntity createSurvey(){
-		
-		survey.setName(name);
-		survey.setOwner(owner);
-		survey.setActive(false);
-		survey.setQuestions(convertQuestionsToEntities());
-		
-		Timestamp now = Timestamp.valueOf(LocalDateTime.now());
-		survey.setDateCreated(now);
-		survey.setCode(generateCode_TemporaryMethod());
-		
-		return survey;
-	}
-
-	/**
-	 * @deprecated Temporary
-	 * @return The code for the survey, which here will always be 'asdf'.
-	 */
-	private String generateCode_TemporaryMethod() {
-		return "asdf";
-	}
-	
-	/**
-	 * Converts the QuestionModel list into an QuestionEntity List.
-	 * @return a QuestionEntity List.
-	 */
-	private List<QuestionEntity> convertQuestionsToEntities(){
-		List<QuestionEntity> questionEntities = new ArrayList<>();
-		
-		for(QuestionCreationModel question : questions){
-			QuestionEntity questionEntity = question.getQuestionEntity(survey);
-			questionEntities.add(questionEntity);
-		}
-		
-		return questionEntities;
-	}
-
-
 
 	public String getName() {
 		return name;

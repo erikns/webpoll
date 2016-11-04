@@ -55,7 +55,7 @@ public class NewMultiplechoiceQuestionServlet extends HttpServlet {
 				boolean canHaveMultipleAnswers = request.getParameter("canhavemultipleanswers") != null;
 				String[] options = request.getParameterValues("option");
 				
-				boolean hasAtleastOneOption = options.length > 1; // TODO Test at dette fungerer.
+				boolean hasAtleastOneOption = options.length > 1; // TODO Test at dette fungerer. Fungerer ikke!
 				if(hasAtleastOneOption){
 					QuestionType questionType = 
 							canHaveMultipleAnswers ? QuestionType.MULTIPLE_CHOICE_CHECKBOX : QuestionType.MULTIPLE_CHOICE_RADIO;
