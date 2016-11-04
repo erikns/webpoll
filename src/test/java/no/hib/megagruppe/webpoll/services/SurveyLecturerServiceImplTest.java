@@ -161,7 +161,7 @@ public class SurveyLecturerServiceImplTest {
 	private static void copyQuestions(SurveyEntity survey, SurveyCreationModel surveyCreation) {
 		for (QuestionEntity question : survey.getQuestions()) {
 			
-			QuestionCreationModel questionCreation = new QuestionCreationModel(question.getType(), question.getText());
+			QuestionCreationModel questionCreation = new QuestionCreationModel(question);
 
 			if (question.getType().isMultipleChoice()) {
 				List<OptionEntity> optionEntities = question.getOptions();

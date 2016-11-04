@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import no.hib.megagruppe.webpoll.entities.QuestionEntity.QuestionType;
 import no.hib.megagruppe.webpoll.models.lecturer.QuestionCreationModel;
 import no.hib.megagruppe.webpoll.services.SecurityService;
 import no.hib.megagruppe.webpoll.util.sessionmanager.CreateSurveySessionManager;
@@ -46,7 +45,7 @@ public class NewTextQuestionServlet extends HttpServlet {
 			CreateSurveySessionManager session = new CreateSurveySessionManager(request);
 			
 			String newName = request.getParameter("questionname");
-			QuestionCreationModel newQuestion = new QuestionCreationModel(QuestionType.FREE_TEXT, newName);
+			QuestionCreationModel newQuestion = new QuestionCreationModel(newName);
 			if(newQuestion.hasQuestionText()){
 				session.getSurveyModel().addQuestionCreationModel(newQuestion);
 			}else {

@@ -14,15 +14,6 @@ import no.hib.megagruppe.webpoll.entities.UserEntity;
  *
  */
 public class SurveyCreationModel {
-
-	/* Funksjoner:
-	 *	- Gi navn
-	 * 	- Nytt spørsmål
-	 * 	- Fjern et spørsmål fra listen.
-	 * 	- Lagre til database (Dersom har minst 1 spørsmål)
-	 * 
-	 */
-
 	private SurveyEntity survey;
 	
 	private String name;
