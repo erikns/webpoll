@@ -17,7 +17,7 @@ public class SurveyCreationModel {
 	private SurveyEntity survey;
 	
 	private String name;
-	private UserEntity owner;
+	private UserEntity owner; // FIXME Endre til string med navn til brukeren.
 	
 	private List<QuestionCreationModel> questions;
 	

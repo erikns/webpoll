@@ -83,6 +83,7 @@ public class SurveyAnsweringServiceImplTest {
 		assertEquals(survey, response.getSurvey()); // FIXME: What if the repository returns a copy?
 		assertEquals(survey.getQuestions().get(0).getOptions().get(1), response.getAnswers().get(0).getOption());
 		assertEquals("Veldig bra", response.getAnswers().get(1).getFreetext());
+		
 	}
 
 	private static SurveyAnsweringService buildService(SurveyRepository surveyRepository, ResponseRepository responseRepository) {

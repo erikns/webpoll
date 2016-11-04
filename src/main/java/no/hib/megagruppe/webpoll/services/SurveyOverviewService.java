@@ -1,5 +1,6 @@
 package no.hib.megagruppe.webpoll.services;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import no.hib.megagruppe.webpoll.entities.UserEntity;
@@ -11,7 +12,7 @@ import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
  * Note: this service assumes nothing about security, and expects the checking of
  * user credentials etc to be done before any service method is called.
  */
-public interface SurveyLecturerService {
+public interface SurveyOverviewService {
     // NOTES:
     // Create
     // Clone
@@ -30,4 +31,8 @@ public interface SurveyLecturerService {
      * @return Returns false if no survey with the provide surveyID exists
      */
     Boolean cloneSurvey(Integer surveyID, String name);
+    
+    SurveyOverviewModel getSurveyModel(int id);
+    
+    void activateSurvey(Timestamp deadline);
 }

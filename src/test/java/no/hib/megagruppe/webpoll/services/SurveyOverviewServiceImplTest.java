@@ -22,11 +22,11 @@ import no.hib.megagruppe.webpoll.fakes.TestSurveyRepository;
 import no.hib.megagruppe.webpoll.models.lecturer.QuestionCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 
-public class SurveyLecturerServiceImplTest {
+public class SurveyOverviewServiceImplTest {
 	
 	private SurveyRepository surveyRepository;
 	private SurveyEntity survey;
-	private SurveyLecturerService lecturerService;
+	private SurveyOverviewService lecturerService;
 	private SurveyCreationService creationService;
 	private SurveyCreationModel surveyCreation;
 	
@@ -83,8 +83,8 @@ public class SurveyLecturerServiceImplTest {
 		}
 	}
 
-	private static SurveyLecturerService buildLecturerService(SurveyRepository surveyRepository) {
-		return new SurveyLecturerServiceImpl(new FakeRepositoryFactory(null, surveyRepository, null));
+	private static SurveyOverviewService buildLecturerService(SurveyRepository surveyRepository) {
+		return new SurveyOverviewServiceImpl(new FakeRepositoryFactory(null, surveyRepository, null));
 	}
 	
 	private static SurveyCreationService buildCreationService(SurveyRepository surveyRepository) {

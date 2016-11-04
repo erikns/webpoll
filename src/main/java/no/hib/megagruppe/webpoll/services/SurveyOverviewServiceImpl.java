@@ -1,5 +1,6 @@
 package no.hib.megagruppe.webpoll.services;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,14 +15,14 @@ import no.hib.megagruppe.webpoll.models.lecturer.QuestionCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 
-public class SurveyLecturerServiceImpl implements SurveyLecturerService {
+public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 	private final RepositoryFactory repositoryFactory;
 	
 	@EJB
 	SurveyCreationService scs; //  Brukes for å opprette ny SurveyModel i metoden cloneSurvey(...).
 	
 	@Inject
-	public SurveyLecturerServiceImpl(RepositoryFactory repositoryFactory) {
+	public SurveyOverviewServiceImpl(RepositoryFactory repositoryFactory) {
 		this.repositoryFactory = repositoryFactory;
 	}
 	
@@ -84,6 +85,18 @@ public class SurveyLecturerServiceImpl implements SurveyLecturerService {
 			
 			surveyCreation.addQuestionCreationModel(questionCreation);
 		}
+	}
+
+	@Override
+	public SurveyOverviewModel getSurveyModel(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void activateSurvey(Timestamp deadline) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
