@@ -2,6 +2,7 @@ package no.hib.megagruppe.webpoll.services;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -9,6 +10,7 @@ import javax.inject.Inject;
 
 import no.hib.megagruppe.webpoll.data.RepositoryFactory;
 import no.hib.megagruppe.webpoll.data.SurveyRepository;
+import no.hib.megagruppe.webpoll.entities.AnswerEntity;
 import no.hib.megagruppe.webpoll.entities.OptionEntity;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.ResponseEntity;
@@ -65,9 +67,43 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 		return foundSurvey;
 	}
 
+	
+	/**
+	 * Converts an SurveyEntity to a SurveyOverviewModel. This method is very memory-heavy because
+	 * it needs all the composite tables of SurveyEntity to be able to correctly fill in all the
+	 * responses and map them to the correct QuestionOverviewModel.
+	 * @param survey The SurveyEntity.
+	 * @return A SurveyOverviewModel based on the SurveyEntity.
+	 */
 	private SurveyOverviewModel convertSurvey(SurveyEntity survey) {
-		 // TODO Konvertere survey til surveyOverview
-		return null;
+		
+		HashMap<Integer, QuestionOverviewModel> questionOverviewModelsMap = new HashMap<>();
+		List<ResponseEntity> responses = survey.getResponses();
+		for(ResponseEntity response : responses){
+			List<AnswerEntity> answers = response.getAnswers();
+			for(AnswerEntity answer : answers){
+				
+				QuestionEntity question = answer.getQuestion();
+				Integer questionID = question.getId();
+				
+				if(questionOverviewModelsMap.containsKey(questionID)){
+					if(question.getType().isMultipleChoice()){
+						questionOverviewModelsMap.get(questionID).addAnswer(answer.getFreetext());
+					}else{
+						questionOverviewModelsMap.get(questionID).addAnswer(answer.getOption().getText());
+					}
+				} else {
+					
+					QuestionOverviewModel questionOverviewModel = new QuestionOverviewModel(question.getText());
+					questionOverviewModelsMap.put(questionID, questionOverviewModel);
+				}
+			}
+		}
+		
+		List<QuestionOverviewModel> questionOverviewModels = new ArrayList<>();
+		questionOverviewModels.addAll(questionOverviewModels);
+		SurveyOverviewModel surveyOverviewModel = new SurveyOverviewModel(questionOverviewModels, survey);
+		return surveyOverviewModel;
 	}
 	
 	private void copyQuestions(SurveyEntity survey, SurveyCreationModel surveyCreation) {
@@ -94,13 +130,7 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 	public SurveyOverviewModel getSurveyOverviewModel(Integer surveyID) {
 		
 		SurveyEntity survey = repositoryFactory.getSurveyRepository().findById(surveyID);
-		List<QuestionOverviewModel> questions = new ArrayList<>();
-		
-		for (ResponseEntity response : survey.getResponses()) {
-			// TODO Må gjøre alle responsene om til QuestionOverviewModeler.
-		}
-		
-		SurveyOverviewModel	surveyOverview = new SurveyOverviewModel(questions, survey);
+		SurveyOverviewModel	surveyOverview = convertSurvey(survey);
 
 		return surveyOverview;
 	}
