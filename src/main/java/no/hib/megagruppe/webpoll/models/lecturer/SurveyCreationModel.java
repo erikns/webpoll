@@ -75,12 +75,21 @@ public class SurveyCreationModel {
 		return nameReady && ownerReady && questionsReady;
 	}
 
+	/**
+	 * Checks if the name is not empty. Sets it if it is not empty.
+	 * @param newName The new name.
+	 * @return True if the name is not empty.
+	 */
+	public boolean setName(String newName) {
+		boolean valid = newName != null && !newName.equals("");
+		if(valid){
+			this.name = newName;
+		}
+		return valid;
+	}
+	
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public UserEntity getOwner() {

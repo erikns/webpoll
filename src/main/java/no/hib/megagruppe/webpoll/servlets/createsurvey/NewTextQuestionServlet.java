@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.hib.megagruppe.webpoll.entities.QuestionEntity.QuestionType;
 import no.hib.megagruppe.webpoll.models.lecturer.QuestionCreationModel;
-import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.services.SecurityService;
 import no.hib.megagruppe.webpoll.util.sessionmanager.CreateSurveySessionManager;
 
@@ -47,17 +46,13 @@ public class NewTextQuestionServlet extends HttpServlet {
 			CreateSurveySessionManager session = new CreateSurveySessionManager(request);
 			
 			String newName = request.getParameter("questionname");
-			boolean valid = newName != null && !newName.equals(""); // TODO Flytt logikk-kode inn i hjelpeklasse.
-			if(valid){
-				SurveyCreationModel surveyModel = session.getSurveyModel();
-				QuestionCreationModel question = new QuestionCreationModel(QuestionType.FREE_TEXT, newName);
-				surveyModel.addQuestionCreationModel(question);
-				response.sendRedirect("surveybuilder");
-			} else {
+			QuestionCreationModel newQuestion = new QuestionCreationModel(QuestionType.FREE_TEXT, newName);
+			if(newQuestion.hasQuestionText()){
+				session.getSurveyModel().addQuestionCreationModel(newQuestion);
+			}else {
 				session.setErrorMessage("Spørsmålsnavnet kan ikke være tomt.");
 				response.sendRedirect("newtextquestion");
 			}
-			
 		} else {
 			response.sendRedirect("index");
 		}

@@ -29,35 +29,26 @@ public class QuestionCreationModel {
 		this.questionText = questionText;
 	}
 	
-	/**
-	 * Checks if the question is ready to be built.
-	 * If it is a multiple-choice question, it must have atleast one option.
-	 * If it is not a multiple-choice question then the options-array is empty.
-	 * @return True if there is atleast one option in the case of multiple-choice question.
-	 */
-	public boolean isReady(){
-		boolean hasOptionsIfMultipleChoice 
-				= questionType.isMultipleChoice() ? numberOfOptionsWritten() >= 1 : options == null;
-		
-		return hasOptionsIfMultipleChoice;
+	public QuestionCreationModel(String[] options, boolean canHaveMultipleAnswers, String questionText) {
+		this.options = options;
+		this.questionType = canHaveMultipleAnswers ? QuestionType.MULTIPLE_CHOICE_CHECKBOX : QuestionType.MULTIPLE_CHOICE_RADIO;
+		this.questionText = questionText;
 	}
 	
-	/**
-	 * Gets the number of options in this question.
-	 * @return THe number of options for this question.
-	 */
-	public int numberOfOptionsWritten(){
-		int sum = 0;		
+	public boolean hasAtleastOneOption(){
+		boolean atleastOneOption = false;
 		for(String option : options){
 			if(option != null && !option.equals("")){
-				sum++;
+				atleastOneOption = true;
+				break;
 			}
 		}
-				
-		return sum;
+		return atleastOneOption;
 	}
 	
-	
+	public boolean hasQuestionText(){
+		return questionText != null && !questionText.equals("");
+	}
 	
 	
 

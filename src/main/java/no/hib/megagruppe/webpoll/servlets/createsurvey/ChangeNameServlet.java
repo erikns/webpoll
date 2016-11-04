@@ -45,16 +45,14 @@ public class ChangeNameServlet extends HttpServlet {
 			CreateSurveySessionManager session = new CreateSurveySessionManager(request);
 			
 			String newName = request.getParameter("newname");
-			boolean valid = newName != null && !newName.equals(""); // TODO Flytte logikk-koden ut til en hjelpeklasse. Må evt også sjekke at det ikke finnes en undersøkelse med samme navn.
-			if(valid){
-				SurveyCreationModel surveyModel = session.getSurveyModel();
-				surveyModel.setName(newName);
+			
+			SurveyCreationModel surveyModel = session.getSurveyModel();
+			if(surveyModel.setName(newName)){
 				response.sendRedirect("surveybuilder");
 			} else {
 				session.setErrorMessage("Navnet kan ikke være tomt.");
 				response.sendRedirect("changename");
 			}
-			
 		} else {
 			response.sendRedirect("index");
 		}
