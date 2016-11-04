@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <footer>
 	<div class="container text-center">
 		<p>&copy;&nbsp;2016 Prosjektgruppe 2
