@@ -50,7 +50,7 @@
 									<label for="submit-form" class="btn btn-primary">Ferdig</label>
 									</c:otherwise>
 								</c:choose>
-								<a href="<c:url value="lecturer"/>" class="btn btn-default role="button">Avbryt</a>
+								<a href="<c:url value="lecturer"/>" class="btn btn-default role="button">Avbryt</a>
 								</p>
             					</div>
             				</form>
