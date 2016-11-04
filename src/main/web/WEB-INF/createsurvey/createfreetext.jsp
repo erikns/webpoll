@@ -17,12 +17,13 @@
             				<h3 class="panel-title">Nytt fritekstspørsmål</h3>
                         </div>
             			<div class="panel-body">
-                            <form class="form-inline" action="newtextquestion" method="post">
+                            <form id="freetext" action="newtextquestion" method="post">
 								<div class="form-group">
 									<p>
 									<label for="questionname">Spørsmål:&nbsp;</label>
-                            		<input type="text" id="questionname" name="questionname" class="form-control"> 
+                            		<textarea class="form-control" id="questionname" name="questionname" form="freetext" rows="5"></textarea>
                             		<span class="errormsg"><c:out value="${errormsg}"/>&nbsp;</span>
+
 									<input type="submit" id="submit-form" class="hidden">
 									</p>
 								</div>

@@ -21,14 +21,14 @@
     				<h3 class="panel-title">Nytt flervalgspørsmål</h3>
                 </div>
     			<div class="panel-body">
-                    <form class="form-horizontal" 
+                    <form id="multiplechoice" class="form-horizontal" 
                     	action="newmultiplechoicequestion" method="post">
 						<div class="form-group">
 							<label class="col-md-2 control-label" for="questionname">
 								Spørsmål: 
 							</label>
 							<div class="col-md-10">
-                    			<input type="text" id="questionname" name="questionname" class="form-control"> 
+                    			<textarea class="form-control" id="questionname" name="questionname" form="multiplechoice" rows="5"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
