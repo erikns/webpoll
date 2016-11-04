@@ -31,6 +31,7 @@
                         </div>
                         <div class="panel-footer">
                         	<label for="submit-form" class="btn btn-primary">Lagre</label>
+                            <a href="<c:url value="surveybuilder"/>" class="btn btn-default role="button">Avbryt</a>
                         </div>
                     </div>
 			    </div>

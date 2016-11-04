@@ -42,6 +42,7 @@
 										Kan svare på mer enn et alternativ
 									</label>
 								</div>
+								<p>Det er maks 10 alternativer per spørsmål. Du trenger ikke fylle inn alle alternativ.</p>
 							</div>
 						</div>
 						<c:forEach begin="1" end="10" varStatus="loop">
@@ -62,6 +63,7 @@
                 </div>
                 <div class="panel-footer">
                 	<label for="submit-form" class="btn btn-primary">Lagre</label>
+                	<a href="<c:url value="surveybuilder"/>" class="btn btn-default role="button">Avbryt</a>
                 </div>
             </div>
     	</div>

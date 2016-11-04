@@ -48,6 +48,7 @@ public class NewTextQuestionServlet extends HttpServlet {
 			QuestionCreationModel newQuestion = new QuestionCreationModel(newName);
 			if(newQuestion.hasQuestionText()){
 				session.getSurveyModel().addQuestionCreationModel(newQuestion);
+				response.sendRedirect("surveybuilder");
 			}else {
 				session.setErrorMessage("Spørsmålsnavnet kan ikke være tomt.");
 				response.sendRedirect("newtextquestion");
