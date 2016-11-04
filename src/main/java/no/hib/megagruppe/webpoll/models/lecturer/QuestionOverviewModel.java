@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * A class that contains all the answerresponses for a specific question.
+ * @author Magnus
+ *
+ */
 public class QuestionOverviewModel {
 	
 	private String questionText;
@@ -31,7 +36,12 @@ public class QuestionOverviewModel {
 	}
 	
 	
-	
+	/**
+	 * Creates and returns a list of all the answers in the form of QuestionAnswerOverviewModels.
+	 * QuestionAnswerOverviewModels contains the answertext, the number of times it has been chosen as an answer,
+	 * and the frequency-percentage of all the different answers.
+	 * @return a List of all the answers in the form of QuestionAnswerOverviewModels.
+	 */
 	public List<QuestionAnswerOverviewModel> getAnswers(){
 		List<QuestionAnswerOverviewModel> answers = new ArrayList<>();
 		
