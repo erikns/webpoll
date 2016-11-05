@@ -1,23 +1,20 @@
 package no.hib.megagruppe.webpoll.util;
 
-import no.hib.megagruppe.webpoll.models.answering.SurveyAnsweringModel;
-import no.hib.megagruppe.webpoll.testutil.SurveyAnsweringModelBuilder;
-import org.junit.Before;
+import static org.junit.Assert.assertEquals;
+
+import java.time.Duration;
+import java.util.Date;
+
 import org.junit.Test;
 
 public class DurationFormatTest {
 
-    private SurveyAnsweringModel sam;
-
-    @Before
-    public void setup() {
-        sam = SurveyAnsweringModelBuilder.build();
-    }
-
     @Test
     public void TimeRemainingReturnsFormattedString(){
-        System.out.println(sam.getTimeRemaining());
-        //assertEquals(sam.getTimeRemaining(), "0d, 9t, 59m, 59s");
-        //Vanskelig å teste fordi den er basert på realtime
+    	Date now = new Date();
+    	Date deadline = new Date(now.getTime() + 10000 + 120000);
+    	long remainingMillis = deadline.getTime() - now.getTime();
+		Duration timeRemaining = Duration.ofMillis(remainingMillis);
+        assertEquals(DurationFormatter.formatDuration(timeRemaining), "0d, 0t, 02m, 10s");
     }
 }
