@@ -7,7 +7,7 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="<c:out value="${survey.name}"/>">
       <h4 class="panel-title">
-        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#<c:out value="${survey.dateCreated"/>">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#<c:out value="${survey.dateCreated}"/>">
           <c:out value="${survey.name}"/>
         </a>
       </h4>
