@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 import no.hib.megagruppe.webpoll.services.SecurityService;
 import no.hib.megagruppe.webpoll.services.SurveyOverviewService;
-import no.hib.megagruppe.webpoll.util.SessionSecurityAdapter;
 
 /**
  * Servlet implementation class LecturerSerlvet
@@ -24,7 +23,7 @@ public class LecturerSerlvet extends HttpServlet {
        
 	@EJB
     SecurityService securityService;
-	
+	@EJB
 	SurveyOverviewService sos;
 	
 	

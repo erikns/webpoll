@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import no.hib.megagruppe.webpoll.data.RepositoryFactory;
@@ -19,6 +20,7 @@ import no.hib.megagruppe.webpoll.models.lecturer.QuestionOverviewModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 
+@Stateless
 public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 	private final RepositoryFactory repositoryFactory;
 	private final SecurityAdapter securityAdapter;
