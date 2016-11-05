@@ -17,11 +17,10 @@ public interface SurveyOverviewService {
     // See results
 	
 	/**
-	 * Returns all the surveys belonging to the provided userID
-	 * @param userID the logged in lecturers userID
+	 * Returns all the surveys belonging to the logged in user.
 	 * @return All the lecturers surveys represented as a list of SurveryOverviewModels
 	 */
-    List<SurveyOverviewModel> getSurveyOverviews(Integer userID);
+    List<SurveyOverviewModel> getSurveyOverviews();
     
     /**
      * Clones the survey with the provided survey ID as a new survey

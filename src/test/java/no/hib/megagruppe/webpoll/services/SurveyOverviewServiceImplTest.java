@@ -156,7 +156,7 @@ public class SurveyOverviewServiceImplTest {
 	}
 
 	private SurveyOverviewService buildLecturerService(SurveyRepository surveyRepository) {
-		return new SurveyOverviewServiceImpl(new FakeRepositoryFactory(null, surveyRepository, null), creationService);
+		return new SurveyOverviewServiceImpl(new FakeRepositoryFactory(null, surveyRepository, null), new TestSecurityAdapter(), creationService);
 	}
 	
 	private SurveyCreationService buildCreationService(SurveyRepository surveyRepository) {

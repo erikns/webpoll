@@ -21,17 +21,21 @@ import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 
 public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 	private final RepositoryFactory repositoryFactory;
+	private final SecurityAdapter securityAdapter;
 	private final SurveyCreationService scs; //  Brukes for å opprette ny SurveyModel i metoden cloneSurvey(...).
 
 	@Inject
-	public SurveyOverviewServiceImpl(RepositoryFactory repositoryFactory, SurveyCreationService scs) {
+	public SurveyOverviewServiceImpl(RepositoryFactory repositoryFactory, SecurityAdapter securityAdapter, SurveyCreationService scs) {
 		this.repositoryFactory = repositoryFactory;
+		this.securityAdapter = securityAdapter;
 		this.scs = scs;
 	}
 
 	@Override
-	public List<SurveyOverviewModel> getSurveyOverviews(Integer userID) {
+	public List<SurveyOverviewModel> getSurveyOverviews() {
 
+		Integer userID = securityAdapter.getLoggedInUser();
+		
 		List<SurveyEntity> allSurveys = repositoryFactory.getSurveyRepository().findAll();
 		List<SurveyOverviewModel> userSurveys = new ArrayList<>();
 
