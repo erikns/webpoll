@@ -52,7 +52,7 @@ public class SurveyOverviewServiceImplTest {
 		assertEquals("Test", surveyRepository.findAll().get(1).getName());
 		assertEquals(surveyRepository.findAll().get(0).getOwner(),surveyRepository.findAll().get(1).getOwner());
 		
-		compairQuestionsFromTwoSurveys(surveyRepository.findAll().get(0),surveyRepository.findAll().get(1));
+		compareQuestionsFromTwoSurveys(surveyRepository.findAll().get(0),surveyRepository.findAll().get(1));
 	}
 	
 	@Test
@@ -64,11 +64,11 @@ public class SurveyOverviewServiceImplTest {
 		assertEquals("Test", surveyRepository.findAll().get(1).getName());
 		assertEquals(surveyRepository.findAll().get(0).getOwner(),surveyRepository.findAll().get(1).getOwner());
 		
-		compairQuestionsFromTwoSurveys(surveyRepository.findAll().get(0),surveyRepository.findAll().get(1));
+		compareQuestionsFromTwoSurveys(surveyRepository.findAll().get(0),surveyRepository.findAll().get(1));
 		
 	}
 	
-	private static void compairQuestionsFromTwoSurveys(SurveyEntity oldSurvey, SurveyEntity newSurvey) {
+	private static void compareQuestionsFromTwoSurveys(SurveyEntity oldSurvey, SurveyEntity newSurvey) {
 		
 		List<QuestionEntity> questionsOldSurvey = oldSurvey.getQuestions();
 		List<QuestionEntity> questionsNewSurvey = newSurvey.getQuestions();
@@ -142,6 +142,9 @@ public class SurveyOverviewServiceImplTest {
 		
 		assertTrue(question1.getAnswers().get(0).getFrequency() == 2); // To ganger svart det første alternativet.
 		assertTrue(question2.getAnswers().get(0).getFrequency() == 9); // 3 ganger 3 skrevet "ja".
+		assertTrue(question2.getAnswers().get(1).getFrequency() == 5); // 2 ganger 2 + 1 skrevet "tekst".
+		assertTrue(question2.getAnswers().get(2).getFrequency() == 4); // 3 ganger 1 + 1 skrevet "abc2".
+		assertTrue(question2.getAnswers().get(5).getPercentage() == 10); // 3 svart av 30 er 10%.
 		
 	}
 
@@ -218,7 +221,7 @@ public class SurveyOverviewServiceImplTest {
 			if(question.getType().isMultipleChoice()){
 				answer = new AnswerEntity(question,question.getOptions().get(0));
 			} else {
-				answer = new AnswerEntity(question,"Tekst svar ja mann, ja tekst ja yes! 123 abc2");
+				answer = new AnswerEntity(question,"Tekst svar ja mann, ja ja yes! 123 abc2");
 			}
 			answers1.add(answer);
 		}
@@ -242,11 +245,11 @@ public class SurveyOverviewServiceImplTest {
 			if(question.getType().isMultipleChoice()){
 				answer = new AnswerEntity(question,question.getOptions().get(1));
 			} else {
-				answer = new AnswerEntity(question,"Tekst svar ja mann ja tekst ja yes! 123 abc2");
+				answer = new AnswerEntity(question,"Tekst svar ja mann ja tekst ja yes! 123 abc2 abc2");
 			}
 			answers3.add(answer);
 		}
-		ResponseEntity response3 = new ResponseEntity(survey, answers2);
+		ResponseEntity response3 = new ResponseEntity(survey, answers3);
 		
 		List<ResponseEntity> responses = new ArrayList<>();
 		responses.add(response1);

@@ -50,7 +50,7 @@ public class QuestionOverviewModel {
 		for(String key : frequencyTable.keySet()){
 			String answerText = key;
 			Integer frequency = frequencyTable.get(key);
-			double percentage = frequency / frequencySum * 100;
+			double percentage = (double)frequency / frequencySum * 100;
 			QuestionAnswerOverviewModel answer = new QuestionAnswerOverviewModel(answerText, frequency, percentage);
 			
 			answers.add(answer);
