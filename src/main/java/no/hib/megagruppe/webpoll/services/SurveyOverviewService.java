@@ -3,8 +3,6 @@ package no.hib.megagruppe.webpoll.services;
 import java.sql.Timestamp;
 import java.util.List;
 
-import no.hib.megagruppe.webpoll.entities.UserEntity;
-import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 
 /**
@@ -30,7 +28,7 @@ public interface SurveyOverviewService {
      * @param surveyID The ID of the survey to be cloned
      * @return Returns false if no survey with the provide surveyID exists
      */
-    Boolean cloneSurvey(Integer surveyID, String name);
+    Boolean cloneSurvey(Integer surveyID);
     
     SurveyOverviewModel getSurveyOverviewModel(Integer id);
     

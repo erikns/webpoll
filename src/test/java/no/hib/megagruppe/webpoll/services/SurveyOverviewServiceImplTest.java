@@ -44,12 +44,12 @@ public class SurveyOverviewServiceImplTest {
 		creationService = buildCreationService(surveyRepository);
 	}
 	
-	// FIXME @Test
+	//FIXME @Test
 	public void cloneSurveyMakesNewIdenticalSurvey(){
 		
-		assertTrue(lecturerService.cloneSurvey(0, "Test"));
+		assertTrue(lecturerService.cloneSurvey(0));
 		assertFalse(surveyRepository.findAll().get(1).getActive());
-		assertEquals("Test", surveyRepository.findAll().get(1).getName());
+		assertEquals(surveyRepository.findAll().get(0).getName() + "_2", surveyRepository.findAll().get(1).getName());
 		assertEquals(surveyRepository.findAll().get(0).getOwner(),surveyRepository.findAll().get(1).getOwner());
 		
 		compareQuestionsFromTwoSurveys(surveyRepository.findAll().get(0),surveyRepository.findAll().get(1));

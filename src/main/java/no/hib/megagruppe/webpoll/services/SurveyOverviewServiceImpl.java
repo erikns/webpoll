@@ -48,14 +48,14 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 	}
 
 	@Override
-	public Boolean cloneSurvey(Integer surveyID, String name) {
+	public Boolean cloneSurvey(Integer surveyID) {
 
 		SurveyEntity survey = repositoryFactory.getSurveyRepository().findById(surveyID);
 		Boolean foundSurvey = survey != null;
 
 		if (foundSurvey) {
 			SurveyCreationModel surveyCreation = new SurveyCreationModel(survey.getOwner());
-			surveyCreation.setName(name);
+			surveyCreation.setName(survey.getName() + "_2");
 			surveyCreation.setOwner(survey.getOwner());
 			copyQuestions(survey, surveyCreation);
 			scs.commitSurveyCreation(surveyCreation);

@@ -2,8 +2,8 @@ package no.hib.megagruppe.webpoll.models.lecturer;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Date;
 
-import no.hib.megagruppe.webpoll.entities.ResponseEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 
 public class SurveyOverviewModel {
@@ -27,6 +27,10 @@ public class SurveyOverviewModel {
 		dateCreated = survey.getDateCreated();
 		deadline = survey.getDeadline();
 		this.resultData = responses;
+	}
+	
+	public Boolean isPastDeadline() {
+		return deadline.before(new Timestamp(new Date().getTime()));
 	}
 
 	public String getName() {
