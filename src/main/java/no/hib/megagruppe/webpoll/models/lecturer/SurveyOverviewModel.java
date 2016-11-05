@@ -6,6 +6,12 @@ import java.util.Date;
 
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 
+/**
+ * A class for showing information about a survey, including all the responses and code.
+ * 
+ * @author Jonas
+ *
+ */
 public class SurveyOverviewModel {
 	
 	/**
@@ -22,6 +28,7 @@ public class SurveyOverviewModel {
 	private Timestamp deadline;
 	private List<QuestionOverviewModel> resultData;
 	private int numberOfResponses;
+	private String code;
 	
 	public SurveyOverviewModel(List<QuestionOverviewModel> responses, SurveyEntity survey, int numberOfResponses) {
 		name = survey.getName();
@@ -29,6 +36,7 @@ public class SurveyOverviewModel {
 		deadline = survey.getDeadline();
 		this.resultData = responses;
 		this.numberOfResponses = numberOfResponses;
+		this.code = survey.getCode();
 	}
 	
 	public Boolean isPastDeadline() {
@@ -53,6 +61,10 @@ public class SurveyOverviewModel {
 	
 	public int getNumberOfResponses(){
 		return numberOfResponses;
+	}
+	
+	public String getCode(){
+		return code;
 	}
 
 }

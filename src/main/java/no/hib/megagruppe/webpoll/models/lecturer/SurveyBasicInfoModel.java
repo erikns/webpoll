@@ -3,9 +3,16 @@ package no.hib.megagruppe.webpoll.models.lecturer;
 import java.sql.Timestamp;
 import java.util.Date;
 
+/**
+ * A class for showing basic information about a survey.
+ * It does not encapsulate the responses, use SurveyOverviewModel for that.
+ * @author Magnus
+ *
+ */
 public class SurveyBasicInfoModel {
 
 	private Integer id;
+	
 	private String name;
 	private Timestamp dateCreated;
 	private Timestamp deadline;
