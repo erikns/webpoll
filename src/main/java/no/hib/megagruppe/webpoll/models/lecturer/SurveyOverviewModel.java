@@ -21,12 +21,14 @@ public class SurveyOverviewModel {
 	private Timestamp dateCreated;
 	private Timestamp deadline;
 	private List<QuestionOverviewModel> resultData;
+	private int numberOfResponses;
 	
-	public SurveyOverviewModel(List<QuestionOverviewModel> responses, SurveyEntity survey) {
+	public SurveyOverviewModel(List<QuestionOverviewModel> responses, SurveyEntity survey, int numberOfResponses) {
 		name = survey.getName();
 		dateCreated = survey.getDateCreated();
 		deadline = survey.getDeadline();
 		this.resultData = responses;
+		this.numberOfResponses = numberOfResponses;
 	}
 	
 	public Boolean isPastDeadline() {
@@ -47,6 +49,10 @@ public class SurveyOverviewModel {
 
 	public List<QuestionOverviewModel> getResultData() {
 		return resultData;
+	}
+	
+	public int getNumberOfResponses(){
+		return numberOfResponses;
 	}
 
 }

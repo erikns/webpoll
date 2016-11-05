@@ -116,7 +116,8 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 
 		List<QuestionOverviewModel> questionOverviewModels = new ArrayList<>();
 		questionOverviewModels.addAll(questionOverviewModelsMap.values());
-		SurveyOverviewModel surveyOverviewModel = new SurveyOverviewModel(questionOverviewModels, survey);
+		int numberOfResponses = responses == null ? 0 : responses.size();
+		SurveyOverviewModel surveyOverviewModel = new SurveyOverviewModel(questionOverviewModels, survey, numberOfResponses);
 
 		return surveyOverviewModel;
 	}
