@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import no.hib.megagruppe.webpoll.data.SurveyRepository;
+import no.hib.megagruppe.webpoll.data.UserRepository;
 import no.hib.megagruppe.webpoll.entities.AnswerEntity;
 import no.hib.megagruppe.webpoll.entities.OptionEntity;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity;
@@ -21,6 +22,7 @@ import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.fakes.FakeRepositoryFactory;
 import no.hib.megagruppe.webpoll.fakes.TestSecurityAdapter;
 import no.hib.megagruppe.webpoll.fakes.TestSurveyRepository;
+import no.hib.megagruppe.webpoll.fakes.TestUserRepositoryOneUser;
 import no.hib.megagruppe.webpoll.models.lecturer.QuestionAnswerOverviewModel;
 import no.hib.megagruppe.webpoll.models.lecturer.QuestionCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.QuestionOverviewModel;
@@ -30,13 +32,18 @@ import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 public class SurveyOverviewServiceImplTest {
 	
 	private SurveyRepository surveyRepository;
+	private UserRepository userRepository;
 	private SurveyEntity survey;
+	private UserEntity user;
 	private SurveyOverviewService lecturerService;
 	private SurveyCreationService creationService;
 	private SurveyCreationModel surveyCreation;
 	
 	@Before
 	public void setup() {
+		userRepository = new TestUserRepositoryOneUser();
+		user = buildUser();
+		userRepository.add(user);
 		surveyRepository = new TestSurveyRepository();
 		survey = buildSurvey();
 		surveyRepository.add(survey);
@@ -62,13 +69,13 @@ public class SurveyOverviewServiceImplTest {
 		
 		assertFalse(surveyRepository.findAll().get(1).getActive());
 		assertEquals("Test", surveyRepository.findAll().get(1).getName());
-		assertEquals(surveyRepository.findAll().get(0).getOwner(),surveyRepository.findAll().get(1).getOwner());
+		assertEquals(surveyRepository.findAll().get(0).getOwner(), surveyRepository.findAll().get(1).getOwner());
 		
 		compareQuestionsFromTwoSurveys(surveyRepository.findAll().get(0),surveyRepository.findAll().get(1));
 		
 	}
 	
-	private static void compareQuestionsFromTwoSurveys(SurveyEntity oldSurvey, SurveyEntity newSurvey) {
+	private void compareQuestionsFromTwoSurveys(SurveyEntity oldSurvey, SurveyEntity newSurvey) {
 		
 		List<QuestionEntity> questionsOldSurvey = oldSurvey.getQuestions();
 		List<QuestionEntity> questionsNewSurvey = newSurvey.getQuestions();
@@ -148,22 +155,26 @@ public class SurveyOverviewServiceImplTest {
 		
 	}
 
-	private static SurveyOverviewService buildLecturerService(SurveyRepository surveyRepository) {
+	private SurveyOverviewService buildLecturerService(SurveyRepository surveyRepository) {
 		return new SurveyOverviewServiceImpl(new FakeRepositoryFactory(null, surveyRepository, null));
 	}
 	
-	private static SurveyCreationService buildCreationService(SurveyRepository surveyRepository) {
-		return new SurveyCreationServiceImpl(new FakeRepositoryFactory(null, surveyRepository, null), new TestSecurityAdapter());
+	private SurveyCreationService buildCreationService(SurveyRepository surveyRepository) {
+		return new SurveyCreationServiceImpl(new FakeRepositoryFactory(userRepository, surveyRepository, null), new TestSecurityAdapter());
 	}
 	
-	private static SurveyEntity buildSurvey(){
-		SurveyEntity survey;
-		
+	private UserEntity buildUser(){
 		UserEntity user = new UserEntity();
         user.setEmail("test@testesen.no");
         user.setFirstName("Test");
         user.setLastName("Testesen");
-        user.setId(1);
+        user.setId(0);
+        
+        return user;
+	}
+	
+	private SurveyEntity buildSurvey(){
+		SurveyEntity survey;
 
         //////
         OptionEntity optionA = new OptionEntity();
@@ -199,7 +210,7 @@ public class SurveyOverviewServiceImplTest {
         survey.setName("Testundersøkelse");
         survey.setDateCreated(new Timestamp(System.currentTimeMillis() - 3600));
         survey.setDeadline(new Timestamp(System.currentTimeMillis() + 36000));
-        survey.setOwner(user);
+        survey.setOwner(buildUser());
         survey.setActive(true);
         survey.setCode("abc");
 
@@ -214,7 +225,7 @@ public class SurveyOverviewServiceImplTest {
         return survey;
 	}
 
-	private static void buildResponses(SurveyEntity survey){
+	private void buildResponses(SurveyEntity survey){
 		List<AnswerEntity> answers1 = new ArrayList<>();
 		for(QuestionEntity question : survey.getQuestions()){
 			AnswerEntity answer;
@@ -259,16 +270,14 @@ public class SurveyOverviewServiceImplTest {
 		survey.setResponses(responses);
 	}
 	
-	private static SurveyCreationModel buildSurveyCreationModel(SurveyEntity survey) {
-		SurveyCreationModel surveyCreation = new SurveyCreationModel(survey.getOwner());
-		surveyCreation.setName("Test");
-		surveyCreation.setOwner(survey.getOwner());
+	private SurveyCreationModel buildSurveyCreationModel(SurveyEntity survey) {
+		SurveyCreationModel surveyCreation = new SurveyCreationModel("Test", survey.getOwner().toString());
 		copyQuestions(survey,surveyCreation);
 		
 		return surveyCreation;
 	}
 	
-	private static void copyQuestions(SurveyEntity survey, SurveyCreationModel surveyCreation) {
+	private void copyQuestions(SurveyEntity survey, SurveyCreationModel surveyCreation) {
 		for (QuestionEntity question : survey.getQuestions()) {
 			
 			QuestionCreationModel questionCreation = new QuestionCreationModel(question);

@@ -54,9 +54,8 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 		Boolean foundSurvey = survey != null;
 
 		if (foundSurvey) {
-			SurveyCreationModel surveyCreation = new SurveyCreationModel(survey.getOwner());
+			SurveyCreationModel surveyCreation = new SurveyCreationModel(survey.getName(), survey.getOwner().toString());
 			surveyCreation.setName(survey.getName() + "_2");
-			surveyCreation.setOwner(survey.getOwner());
 			copyQuestions(survey, surveyCreation);
 			scs.commitSurveyCreation(surveyCreation);
 		}

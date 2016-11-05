@@ -3,9 +3,6 @@ package no.hib.megagruppe.webpoll.models.lecturer;
 import java.util.ArrayList;
 import java.util.List;
 
-import no.hib.megagruppe.webpoll.entities.SurveyEntity;
-import no.hib.megagruppe.webpoll.entities.UserEntity;
-
 
 /**
  * Model for creating a new survey.
@@ -14,25 +11,19 @@ import no.hib.megagruppe.webpoll.entities.UserEntity;
  *
  */
 public class SurveyCreationModel {
-	private SurveyEntity survey;
-	
 	private String name;
-	private UserEntity owner; // FIXME Endre til string med navn til brukeren.
+	private String owner;
 	
 	private List<QuestionCreationModel> questions;
 	
-	public SurveyCreationModel(UserEntity owner){
-		survey = new SurveyEntity();
-		survey.setOwner(owner);
+	public SurveyCreationModel(String name, String owner){
+		this.name = name;
+		this.owner = owner;
 		questions = new ArrayList<>();
 	}
 	
 	
-	
-	
-	
 
-	
 	/**
 	 * Adds a question to the survey.
 	 * @param question The question to be added.
@@ -65,6 +56,14 @@ public class SurveyCreationModel {
 		
 		return nameReady && ownerReady && questionsReady;
 	}
+	
+	/**
+	 * Checks if the SurveyCreationModel has been instantiated.
+	 * @return True if it has been instantiated.
+	 */
+	public boolean isInstantiated() {
+		return name != null && !name.equals("") && owner != null && !owner.equals("");
+	}
 
 	/**
 	 * Checks if the name is not empty. Sets it if it is not empty.
@@ -83,16 +82,9 @@ public class SurveyCreationModel {
 		return name;
 	}
 
-	public UserEntity getOwner() {
-		return owner;
-	}
-
-	public void setOwner(UserEntity owner) {
-		this.owner = owner;
-	}
-
 	public List<QuestionCreationModel> getQuestions() {
 		return questions;
 	}
+
 	
 }

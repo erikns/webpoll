@@ -22,6 +22,12 @@ public class UserEntity {
     public String toString(){
     	return firstName + " " + lastName;
     }
+    
+    @Override
+    public boolean equals(Object o){
+    	UserEntity otherUser = (UserEntity)o;
+    	return this.id == otherUser.getId();
+    }
 
     public Integer getId() {
         return id;

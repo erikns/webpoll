@@ -42,6 +42,7 @@ public class QuestionOverviewModel {
 	 * Creates and returns a list of all the answers in the form of QuestionAnswerOverviewModels.
 	 * QuestionAnswerOverviewModels contains the answertext, the number of times it has been chosen as an answer,
 	 * and the frequency-percentage of all the different answers.
+	 * The list is in descending order, with the highest-frequency answer at index 0.
 	 * @return a List of all the answers in the form of QuestionAnswerOverviewModels.
 	 */
 	public List<QuestionAnswerOverviewModel> getAnswers(){

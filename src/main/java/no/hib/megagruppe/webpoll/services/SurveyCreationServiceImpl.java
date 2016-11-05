@@ -38,8 +38,7 @@ public class SurveyCreationServiceImpl implements SurveyCreationService {
 		UserEntity owner = userRepository.findById(userId);
 		
 		String surveyName = generateSurveyName();
-		SurveyCreationModel surveyCreationModel = new SurveyCreationModel(owner);
-		surveyCreationModel.setName(surveyName);
+		SurveyCreationModel surveyCreationModel = new SurveyCreationModel(surveyName, owner.toString());
 		
 		return surveyCreationModel;
 	}
@@ -59,7 +58,10 @@ public class SurveyCreationServiceImpl implements SurveyCreationService {
 		
 		SurveyEntity surveyEntity = new SurveyEntity();
 		surveyEntity.setName(surveyCreationModel.getName());
-		surveyEntity.setOwner(surveyCreationModel.getOwner());
+		
+		int userID = securityAdapter.getLoggedInUser();
+		UserEntity owner = repositoryFactory.getUserRepository().findById(userID);
+		surveyEntity.setOwner(owner);
 		surveyEntity.setActive(false);
 		
 		surveyEntity.setQuestions(convertQuestionModelsToEntities(surveyCreationModel.getQuestions(), surveyEntity));

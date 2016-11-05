@@ -30,7 +30,7 @@ public class SurveyEntity {
     private List<QuestionEntity> questions;
 
     private List<ResponseEntity> responses;
-
+    
     public Integer getId() {
         return id;
     }

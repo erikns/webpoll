@@ -40,6 +40,18 @@ public class CreateSurveySessionManager extends SessionManager{
 		return (SurveyCreationModel)session.getAttribute(SURVEY_MODEL);
 	}
 	
+	/**
+	 * Checks if there is an instantiated SurveyCreationModel in this session.
+	 * @return True, if there is an instantiated SurveyCreationModel in this session.
+	 */
+	public boolean hasSurveyModel(){
+		HttpSession session = request.getSession();
+		SurveyCreationModel surveyModel = (SurveyCreationModel)session.getAttribute(SURVEY_MODEL);
+		boolean instantiated = surveyModel != null && surveyModel.isInstantiated();
+		
+		return instantiated;
+	}
+	
 	
 	
 	
