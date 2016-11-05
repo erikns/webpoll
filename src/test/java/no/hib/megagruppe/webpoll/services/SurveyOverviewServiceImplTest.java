@@ -47,11 +47,11 @@ public class SurveyOverviewServiceImplTest {
 		surveyRepository = new TestSurveyRepository();
 		survey = buildSurvey();
 		surveyRepository.add(survey);
-		lecturerService = buildLecturerService(surveyRepository);
 		creationService = buildCreationService(surveyRepository);
+		lecturerService = buildLecturerService(surveyRepository);
 	}
 	
-	//FIXME @Test
+	@Test
 	public void cloneSurveyMakesNewIdenticalSurvey(){
 		
 		assertTrue(lecturerService.cloneSurvey(0));
@@ -156,7 +156,7 @@ public class SurveyOverviewServiceImplTest {
 	}
 
 	private SurveyOverviewService buildLecturerService(SurveyRepository surveyRepository) {
-		return new SurveyOverviewServiceImpl(new FakeRepositoryFactory(null, surveyRepository, null));
+		return new SurveyOverviewServiceImpl(new FakeRepositoryFactory(null, surveyRepository, null), creationService);
 	}
 	
 	private SurveyCreationService buildCreationService(SurveyRepository surveyRepository) {

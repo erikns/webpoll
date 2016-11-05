@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 
 import no.hib.megagruppe.webpoll.data.RepositoryFactory;
@@ -22,13 +21,12 @@ import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 
 public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 	private final RepositoryFactory repositoryFactory;
-
-	@EJB
-	SurveyCreationService scs; //  Brukes for å opprette ny SurveyModel i metoden cloneSurvey(...).
+	private final SurveyCreationService scs; //  Brukes for å opprette ny SurveyModel i metoden cloneSurvey(...).
 
 	@Inject
-	public SurveyOverviewServiceImpl(RepositoryFactory repositoryFactory) {
+	public SurveyOverviewServiceImpl(RepositoryFactory repositoryFactory, SurveyCreationService scs) {
 		this.repositoryFactory = repositoryFactory;
+		this.scs = scs;
 	}
 
 	@Override
