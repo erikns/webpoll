@@ -23,6 +23,13 @@ import no.hib.megagruppe.webpoll.util.sessionmanager.CreateSurveySessionManager;
  * kanppen trykkes, skal tiden som er satt inn bli sendt til en service som lagrer tiden,
  * og sender tilbake til StartSurveyServlet.
  * 
+ * Ting å gjøre as of 05.11.16:
+ * 
+ * Forandre til riktig session. Er foreløpig bare copypaste fra ChangeNameServlet.
+ * 
+ * Redirecte til riktig jsp, altså StartSurvey.jsp.
+ * 
+ * survey.setActive(active) active = true, skal det gjøres her, eller i modellen?
  */
 @WebServlet("/startsurvey")
 public class StartSurveyServlet extends HttpServlet {
@@ -59,7 +66,11 @@ public class StartSurveyServlet extends HttpServlet {
 			
 			Integer id = survey.getId();  
 			
-			surveyoverview.activateSurvey(deadline, id); */
+			surveyoverview.activateSurvey(deadline, id);
+			
+			//Er skrevet en kommentar til koden activateSurvey^ angående survey.setActive
+			
+			 */
 			
 			
 		} else {
@@ -69,8 +80,7 @@ public class StartSurveyServlet extends HttpServlet {
 
 }
 	
-		/*CurrentSurvey = survey.getID();
-		CurrentSurvey.setTimestamp();*/
+		
 				
 	
 
