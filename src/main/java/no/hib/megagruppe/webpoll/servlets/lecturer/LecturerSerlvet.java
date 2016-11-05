@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
+import no.hib.megagruppe.webpoll.models.lecturer.SurveyBasicInfoModel;
 import no.hib.megagruppe.webpoll.services.SecurityService;
 import no.hib.megagruppe.webpoll.services.SurveyOverviewService;
 
@@ -32,7 +32,7 @@ public class LecturerSerlvet extends HttpServlet {
 		if(securityService.isLoggedIn()) {
 			request.getSession().setAttribute("loggedinuser", securityService.getLoggedInUserName());
 		
-			List<SurveyOverviewModel> som = sos.getSurveyOverviews();
+			List<SurveyBasicInfoModel> som = sos.getSurveyOverviews();
 			
 			request.getSession().setAttribute("surveys", som);
 			

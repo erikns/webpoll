@@ -59,4 +59,28 @@ public class TestSurveyRepository implements SurveyRepository {
             surveys.remove(entity.getId());
         }
     }
+
+	@Override
+	public List<SurveyEntity> findAllSurveysByUser(Integer userID) {
+		List<SurveyEntity> surveysByOwner = new ArrayList<>();
+		for(SurveyEntity survey : surveys.values()){
+			if(survey.getOwner().getId().equals(userID)){
+				surveysByOwner.add(survey);
+			}
+		}
+		return surveysByOwner;
+	}
+
+	@Override
+	public Long numberOfResponses(SurveyEntity survey) {
+		Long count = new Long(0);
+		for(SurveyEntity surveyInRepo : surveys.values()){
+			if(surveyInRepo.getId() == survey.getId()){
+				if(surveyInRepo.getResponses() != null){
+					count = Long.sum(count, surveyInRepo.getResponses().size());
+				}
+			}
+		}
+		return count;
+	}
 }

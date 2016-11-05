@@ -17,6 +17,7 @@ import no.hib.megagruppe.webpoll.entities.ResponseEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.models.lecturer.QuestionCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.QuestionOverviewModel;
+import no.hib.megagruppe.webpoll.models.lecturer.SurveyBasicInfoModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 
@@ -34,21 +35,20 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 	}
 
 	@Override
-	public List<SurveyOverviewModel> getSurveyOverviews() {
+	public List<SurveyBasicInfoModel> getSurveyOverviews() {
 
 		Integer userID = securityAdapter.getLoggedInUser();
 		
-		List<SurveyEntity> allSurveys = repositoryFactory.getSurveyRepository().findAll();
-		List<SurveyOverviewModel> userSurveys = new ArrayList<>();
-
-		for (SurveyEntity survey : allSurveys) {
-			if (survey.getOwner().getId().equals(userID)) {
-				SurveyOverviewModel surveyOverview = convertSurvey(survey);
-				userSurveys.add(surveyOverview);
-			}
+		SurveyRepository surveyRepository = repositoryFactory.getSurveyRepository();
+		List<SurveyEntity> surveys = surveyRepository.findAllSurveysByUser(userID);
+		List<SurveyBasicInfoModel> surveyBasicInfoModels = new ArrayList<>();
+		for(SurveyEntity survey : surveys){
+			Long responseCount = surveyRepository.numberOfResponses(survey);
+			SurveyBasicInfoModel surveyBasicInfoModel = new SurveyBasicInfoModel(survey.getId(), survey.getName(), survey.getDateCreated(), survey.getDeadline(), survey.getActive(), responseCount);
+			surveyBasicInfoModels.add(surveyBasicInfoModel);
 		}
 
-		return userSurveys;
+		return surveyBasicInfoModels;
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 	 *            The SurveyEntity.
 	 * @return A SurveyOverviewModel based on the SurveyEntity.
 	 */
-	private SurveyOverviewModel convertSurvey(SurveyEntity survey) {
+	private SurveyOverviewModel convertSurveyToOverviewModel(SurveyEntity survey) {
 
 		// The questions mapped by their ID.
 		HashMap<Integer, QuestionOverviewModel> questionOverviewModelsMap = new HashMap<>();
@@ -160,7 +160,7 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 	public SurveyOverviewModel getSurveyOverviewModel(Integer surveyID) {
 
 		SurveyEntity survey = repositoryFactory.getSurveyRepository().findById(surveyID);
-		SurveyOverviewModel surveyOverview = convertSurvey(survey);
+		SurveyOverviewModel surveyOverview = convertSurveyToOverviewModel(survey);
 
 		return surveyOverview;
 	}

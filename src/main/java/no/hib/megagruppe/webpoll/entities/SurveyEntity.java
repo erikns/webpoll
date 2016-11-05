@@ -14,7 +14,7 @@ public class SurveyEntity {
     @Column(name = "name")
     private String name;
     @Column(name = "date")
-    private Timestamp dateCreated;
+    private Timestamp datecreated;
     @Column(name = "deadline")
     private Timestamp deadline;
     @ManyToOne
@@ -48,11 +48,11 @@ public class SurveyEntity {
     }
 
     public Timestamp getDateCreated() {
-        return dateCreated;
+        return datecreated;
     }
 
     public void setDateCreated(Timestamp dateCreated) {
-        this.dateCreated = dateCreated;
+        this.datecreated = dateCreated;
     }
 
     public Timestamp getDeadline() {

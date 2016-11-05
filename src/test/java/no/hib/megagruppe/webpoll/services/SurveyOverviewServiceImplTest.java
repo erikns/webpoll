@@ -26,6 +26,7 @@ import no.hib.megagruppe.webpoll.fakes.TestUserRepositoryOneUser;
 import no.hib.megagruppe.webpoll.models.lecturer.QuestionAnswerOverviewModel;
 import no.hib.megagruppe.webpoll.models.lecturer.QuestionCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.QuestionOverviewModel;
+import no.hib.megagruppe.webpoll.models.lecturer.SurveyBasicInfoModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 
@@ -157,14 +158,14 @@ public class SurveyOverviewServiceImplTest {
 	
 	@Test
 	public void listOfSurveysContainsAllSurveys(){
-		List<SurveyOverviewModel> surveyModels = lecturerService.getSurveyOverviews();
+		List<SurveyBasicInfoModel> surveyModels = lecturerService.getSurveyOverviews();
 		assertTrue(surveyModels.size() == 1);
 	}
 	
 	@Test
 	public void noSurveysReturnsEmptyList(){
 		surveyRepository.remove(survey);
-		List<SurveyOverviewModel> surveyModels = lecturerService.getSurveyOverviews();
+		List<SurveyBasicInfoModel> surveyModels = lecturerService.getSurveyOverviews();
 		assertTrue(surveyModels.size() == 0);
 	}
 

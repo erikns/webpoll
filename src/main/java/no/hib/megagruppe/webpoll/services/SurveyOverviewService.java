@@ -3,6 +3,7 @@ package no.hib.megagruppe.webpoll.services;
 import java.sql.Timestamp;
 import java.util.List;
 
+import no.hib.megagruppe.webpoll.models.lecturer.SurveyBasicInfoModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 
 /**
@@ -20,7 +21,7 @@ public interface SurveyOverviewService {
 	 * Returns all the surveys belonging to the logged in user.
 	 * @return All the lecturers surveys represented as a list of SurveryOverviewModels
 	 */
-    List<SurveyOverviewModel> getSurveyOverviews();
+    List<SurveyBasicInfoModel> getSurveyOverviews();
     
     /**
      * Clones the survey with the provided survey ID as a new survey

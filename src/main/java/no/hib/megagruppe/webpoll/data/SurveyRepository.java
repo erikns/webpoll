@@ -1,5 +1,7 @@
 package no.hib.megagruppe.webpoll.data;
 
+import java.util.List;
+
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 
 /**
@@ -13,4 +15,18 @@ public interface SurveyRepository extends Repository<SurveyEntity> {
      * @return The found entity, or null on error
      */
     SurveyEntity findByCode(String code);
+    
+    /**
+     * Returns all the surveys owned by the given user.
+     * @param user The user that owns the surveys.
+     * @return All the surveys owned by the given user.
+     */
+    List<SurveyEntity> findAllSurveysByUser(Integer userID);
+    
+    /**
+     * Returns the number of responses to the given survey.
+     * @param survey The survey that owns the responses.
+     * @return The number of responses to the given survey.
+     */
+    Long numberOfResponses(SurveyEntity survey);
 }

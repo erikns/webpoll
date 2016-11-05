@@ -1,14 +1,14 @@
 package no.hib.megagruppe.webpoll.data;
 
-import no.hib.megagruppe.webpoll.entities.SurveyEntity;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.ArrayList;
-import java.util.List;
+
+import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 
 @SuppressWarnings("unused")
 @RequestScoped
@@ -57,6 +57,25 @@ public class JpaSurveyRepository implements SurveyRepository {
         } catch (RuntimeException e) {
             return null;
         }
+    }
+    
+    @Override
+    public List<SurveyEntity> findAllSurveysByUser(Integer userID){
+    	Query query = entityManager.createQuery("select s from survey s where s.owner.id = " + userID);
+    	List resultList = query.getResultList();
+    	List<SurveyEntity> surveyList  = new ArrayList<>();
+    	for (Object o : resultList) {
+            surveyList.add((SurveyEntity) o);
+        }
+    	
+    	return surveyList;
+    }
+    
+    @Override
+    public Long numberOfResponses(SurveyEntity survey){
+    	Query query = entityManager.createQuery("select count(r) from response r where r.survey = :survey");
+    	query.setParameter("survey", survey);
+    	return (Long) query.getSingleResult();
     }
 
     @Override
