@@ -154,6 +154,19 @@ public class SurveyOverviewServiceImplTest {
 		assertTrue(question2.getAnswers().get(5).getPercentage() == 10); // 3 svart av 30 er 10%.
 		
 	}
+	
+	@Test
+	public void listOfSurveysContainsAllSurveys(){
+		List<SurveyOverviewModel> surveyModels = lecturerService.getSurveyOverviews();
+		assertTrue(surveyModels.size() == 1);
+	}
+	
+	@Test
+	public void noSurveysReturnsEmptyList(){
+		surveyRepository.remove(survey);
+		List<SurveyOverviewModel> surveyModels = lecturerService.getSurveyOverviews();
+		assertTrue(surveyModels.size() == 0);
+	}
 
 	private SurveyOverviewService buildLecturerService(SurveyRepository surveyRepository) {
 		return new SurveyOverviewServiceImpl(new FakeRepositoryFactory(null, surveyRepository, null), new TestSecurityAdapter(), creationService);
