@@ -11,8 +11,11 @@
 		<jsp:include page="/pages/navbar.jsp"/>
 		<div class="container">
 			<div class="panel panel-default margin-top">
+				<div class="panel-heading">
+					<h3 class="panel-title">Ny undersøkelse</h3>
+				</div>
 				<div class="panel-body">
-					<a class="btn btn-primary" href="<c:url value="instantiatesurvey"/>" role="button">Ny undersøkelse</a>
+					<a class="btn btn-primary" href="<c:url value="instantiatesurvey"/>" role="button">Opprett undersøkelse</a>
 				</div>
 			</div>
 

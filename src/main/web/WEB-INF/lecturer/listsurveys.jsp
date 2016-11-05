@@ -5,16 +5,24 @@
 
 <c:forEach var="survey" items="${surveys}">
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="${survey.id}">
+    <div class="panel-heading" role="tab" id="<c:out value="${survey.name}"/>">
       <h4 class="panel-title">
-        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#${survey.code}">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#<c:out value="${survey.dateCreated"/>">
           <c:out value="${survey.name}"/>
         </a>
       </h4>
     </div>
-    <div id="${survey.code}" class="panel-collapse collapse in" role="tabpanel">
+    <div id="<c:out value="${survey.dateCreated"/>" class="panel-collapse collapse in" role="tabpanel">
       <div class="panel-body">
-        <p>Her står info om survey, om den er aktiv, mulighet for å aktivere, resultat etc //TODO! </p>
+        <p>Dato laget: <c:out value="${survey.dateCreated}"/></p>
+        <p>Deadline: <c:out value="${not empty survey.deadline ? survey.deadline :'Ikke satt'}"/></p>
+      </div>
+      <div class="panel-footer">
+        <p>
+          <a class="btn btn-default" href="<c:url value="surveyoverview"/>" role="button">
+            <c:out value="${not empty survey.deadline ? 'Se resultat' : 'Aktiver'}"/>
+          </a>
+        </p>
       </div>
     </div>
   </div>
