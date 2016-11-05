@@ -13,6 +13,7 @@ import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.services.SecurityService;
 import no.hib.megagruppe.webpoll.services.SurveyCreationService;
 import no.hib.megagruppe.webpoll.util.sessionmanager.CreateSurveySessionManager;
+import no.hib.megagruppe.webpoll.util.sessionmanager.ErrorMessage;
 
 /**
  * Denne servleten kalles rett etter at brukeren har trykket "Ny undersøkelse".
@@ -35,12 +36,14 @@ public class InstantiateSurveyServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		CreateSurveySessionManager session = new CreateSurveySessionManager(request);
 		if(securityService.isLoggedIn()) {
 			SurveyCreationModel surveyModel = scs.instantiateNewSurvey();
-			CreateSurveySessionManager session = new CreateSurveySessionManager(request);
 			session.setSurveyCrationModel(surveyModel);
 			response.sendRedirect("surveybuilder");
+			session.clearErrorMessages();
 		} else {
+			session.setErrorMessage(ErrorMessage.NOT_LOGGED_IN);
 			response.sendRedirect("index");
 		}
 	}

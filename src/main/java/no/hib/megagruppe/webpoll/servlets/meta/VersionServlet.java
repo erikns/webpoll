@@ -15,7 +15,9 @@ import no.hib.megagruppe.webpoll.util.VersionInfo;
  */
 @WebServlet("/version")
 public class VersionServlet extends HttpServlet {
-    @Override
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json");

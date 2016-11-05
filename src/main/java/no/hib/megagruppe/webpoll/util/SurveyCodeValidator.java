@@ -1,6 +1,7 @@
 package no.hib.megagruppe.webpoll.util;
 
 import no.hib.megagruppe.webpoll.services.SurveyAnsweringService;
+import no.hib.megagruppe.webpoll.util.sessionmanager.ErrorMessage;
 
 /**
  * Util-class for validating a surveycode.
@@ -8,23 +9,19 @@ import no.hib.megagruppe.webpoll.services.SurveyAnsweringService;
  *
  */
 public class SurveyCodeValidator {
-
-	private final String NO_ERROR = "";
-	private final String NOT_VALID_CODE_ERROR_MESSAGE = "Ugyldig kode!";
-	private final String EMPTY_CODE_ERROR_MESSAGE = "Du må skrive inn en kode.";
 	
 	String code;
 	SurveyAnsweringService sas;
 	
 	boolean isValid;
-	String errorMessage;
+	ErrorMessage errorMessage;
 	
 	public SurveyCodeValidator(String code, SurveyAnsweringService sas){
 		this.code = code;
 		this.sas = sas;
 		
 		isValid = false;
-		errorMessage = "Code has not yet been validated. Call validate()-method in SurveyCodeValidator.";
+		errorMessage = null;
 	}
 	
 	/**
@@ -34,13 +31,12 @@ public class SurveyCodeValidator {
 		if (!(code == null) && !(code.equals(""))) {
 			if (sas.isValidSurvey(code)) {
 				isValid = true;
-				errorMessage = NO_ERROR;
 
 			} else {
-				errorMessage = NOT_VALID_CODE_ERROR_MESSAGE;
+				errorMessage = ErrorMessage.NOT_VALID_CODE_ERROR_MESSAGE;
 			}
 		} else {
-			errorMessage = EMPTY_CODE_ERROR_MESSAGE;
+			errorMessage = ErrorMessage.EMPTY_CODE_ERROR_MESSAGE;
 		}
 	}
 	
@@ -48,7 +44,7 @@ public class SurveyCodeValidator {
 		return isValid;
 	}
 	
-	public String getErrorMessage(){
+	public ErrorMessage getErrorMessage(){
 		return errorMessage;
 	}
 	

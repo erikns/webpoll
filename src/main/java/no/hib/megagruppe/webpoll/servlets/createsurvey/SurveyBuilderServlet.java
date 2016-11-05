@@ -12,25 +12,34 @@ import javax.servlet.http.HttpServletResponse;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.services.SecurityService;
 import no.hib.megagruppe.webpoll.util.sessionmanager.CreateSurveySessionManager;
+import no.hib.megagruppe.webpoll.util.sessionmanager.ErrorMessage;
 
 /**
- * Denne servleten forwarder til createsurvey.jsp som fungerer som en main-hub for oppretting av undersøkelser.
- * Post-metoden kalles når et spørsmål slettes fra undersøkelsen.
+ * Denne servleten forwarder til createsurvey.jsp som fungerer som en main-hub for oppretting av undersøkelser. Post-metoden
+ * kalles når et spørsmål slettes fra undersøkelsen.
  */
 @WebServlet("/surveybuilder")
 public class SurveyBuilderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-    SecurityService securityService;
-	
+	SecurityService securityService;
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(securityService.isLoggedIn()) {
-			request.getRequestDispatcher("WEB-INF/createsurvey/createsurvey.jsp").forward(request, response);
+		CreateSurveySessionManager session = new CreateSurveySessionManager(request);
+		if (securityService.isLoggedIn()) {
+			if (session.hasSurveyModel()) {
+				request.getRequestDispatcher("WEB-INF/createsurvey/createsurvey.jsp").forward(request, response);
+				session.clearErrorMessages();
+			} else {
+				response.sendRedirect("lecturer");
+				session.clearErrorMessages();
+			}
 		} else {
+			session.setErrorMessage(ErrorMessage.NOT_LOGGED_IN);
 			response.sendRedirect("index");
 		}
 	}
@@ -40,17 +49,25 @@ public class SurveyBuilderServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Delete question found in request from SurveyModel. Redirect to self, /surveybuilder. 
+		CreateSurveySessionManager session = new CreateSurveySessionManager(request);
 		
-		if(securityService.isLoggedIn()) {
-			CreateSurveySessionManager session = new CreateSurveySessionManager(request);
-			
-			SurveyCreationModel surveyModel = session.getSurveyModel();
-			int index = Integer.parseInt(request.getParameter("questionnumber"));
-			surveyModel.removeQuestionAtIndex(index);
-			
-			response.sendRedirect("surveybuilder");
-			
+		if (securityService.isLoggedIn()) {
+			if (session.hasSurveyModel()) {
+
+				SurveyCreationModel surveyModel = session.getSurveyModel();
+				int index = Integer.parseInt(request.getParameter("questionnumber"));
+				surveyModel.removeQuestionAtIndex(index);
+
+				response.sendRedirect("surveybuilder");
+				session.clearErrorMessages();
+				
+			} else {
+				response.sendRedirect("lecturer");
+				session.clearErrorMessages();
+			}
+
 		} else {
+			session.setErrorMessage(ErrorMessage.NOT_LOGGED_IN);
 			response.sendRedirect("index");
 		}
 	}

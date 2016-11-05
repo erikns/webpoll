@@ -14,7 +14,9 @@ import no.hib.megagruppe.webpoll.services.SurveyAnsweringService;
 
 @WebServlet("/test")
 public class TestServlet extends HttpServlet {
-    @EJB
+	private static final long serialVersionUID = 1L;
+
+	@EJB
     SecurityService securityService;
 
     @EJB

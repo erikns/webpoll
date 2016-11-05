@@ -21,10 +21,10 @@ public abstract class SessionManager {
 	 * Stores an error message in this session.
 	 * @param errorMessage The error message.
 	 */
-	public void setErrorMessage(String errorMessage){
+	public void setErrorMessage(ErrorMessage errorMessage){
 		HttpSession session = request.getSession();
 		
-		session.setAttribute(ERROR_MESSAGE_ATTRIBUTE_NAME, errorMessage);
+		session.setAttribute(ERROR_MESSAGE_ATTRIBUTE_NAME, errorMessage.toString());
 	}
 	
 	/**

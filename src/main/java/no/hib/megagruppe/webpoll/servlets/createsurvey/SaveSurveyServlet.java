@@ -13,6 +13,7 @@ import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.services.SecurityService;
 import no.hib.megagruppe.webpoll.services.SurveyCreationService;
 import no.hib.megagruppe.webpoll.util.sessionmanager.CreateSurveySessionManager;
+import no.hib.megagruppe.webpoll.util.sessionmanager.ErrorMessage;
 
 /**
  * Lagrer undersøkelsen i databasen.
@@ -32,21 +33,27 @@ public class SaveSurveyServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Save survey in database. Redirect to SurveyInformationServlet.
+		
+		CreateSurveySessionManager session = new CreateSurveySessionManager(request);
 		if(securityService.isLoggedIn()){
-			
-			CreateSurveySessionManager session = new CreateSurveySessionManager(request);
-			SurveyCreationModel surveyCreationModel = session.getSurveyModel();
-			
-			if(surveyCreationModel.isReady()){
-				scs.commitSurveyCreation(surveyCreationModel);
-				response.sendRedirect("SERVLET FOR Å SE INFORMASJON OM UNDERSØKELSE"); // TODO Legg til skikkelig url.
+			if(session.hasSurveyModel()){
+				SurveyCreationModel surveyCreationModel = session.getSurveyModel();
+				
+				if(surveyCreationModel.isReady()){
+					scs.commitSurveyCreation(surveyCreationModel);
+					response.sendRedirect("SERVLET FOR Å SE INFORMASJON OM UNDERSØKELSE"); // TODO Legg til skikkelig url.
+					session.clearErrorMessages();
+				} else {
+					session.setErrorMessage(ErrorMessage.SURVEY_NOT_READY_TO_BE_COMMITED);
+					response.sendRedirect("surveybuilder");
+				}
 			} else {
-				session.setErrorMessage("Du mangler noe i undersøkelsen.");
-				response.sendRedirect("surveybuilder");
+				response.sendRedirect("lecturer");
+				session.clearErrorMessages();
 			}
 			
-			
 		} else {
+			session.setErrorMessage(ErrorMessage.NOT_LOGGED_IN);
 			response.sendRedirect("login");
 		}
 	}

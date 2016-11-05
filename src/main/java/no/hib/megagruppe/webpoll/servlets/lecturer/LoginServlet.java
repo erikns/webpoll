@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.hib.megagruppe.webpoll.services.SecurityService;
+import no.hib.megagruppe.webpoll.util.sessionmanager.ErrorMessage;
 import no.hib.megagruppe.webpoll.util.sessionmanager.LoginSessionManager;
 
 /**
@@ -43,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("lecturer");
 		} else {
 			// Login failed
-			session.setErrorMessage("Feil brukernavn eller passord");
+			session.setErrorMessage(ErrorMessage.WRONG_USERNAME_OR_PASSWORD);
 			session.setTypedUsername(username);
 			
 			response.sendRedirect("login");
