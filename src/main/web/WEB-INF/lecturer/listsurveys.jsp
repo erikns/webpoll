@@ -12,7 +12,7 @@
         </a>
       </h4>
     </div>
-    <div id="<c:out value="${survey.dateCreated"/>" class="panel-collapse collapse in" role="tabpanel">
+    <div id="<c:out value="${survey.dateCreated}"/>" class="panel-collapse collapse in" role="tabpanel">
       <div class="panel-body">
         <p>Dato laget: <c:out value="${survey.dateCreated}"/></p>
         <p>Deadline: <c:out value="${not empty survey.deadline ? survey.deadline :'Ikke satt'}"/></p>
