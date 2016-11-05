@@ -45,9 +45,11 @@ public class QuestionCreationModel {
 		this.questionType = questionEntity.getType();
 		this.questionText = questionEntity.getText();
 		List<OptionEntity> optionList = questionEntity.getOptions();
-		options = new String[optionList.size()];
-		for(int i = 0; i < optionList.size(); i++){
-			options[i] = optionList.get(i).getText();
+		if(optionList != null){
+			options = new String[optionList.size()];
+			for(int i = 0; i < optionList.size(); i++){
+				options[i] = optionList.get(i).getText();
+			}
 		}
 	}
 

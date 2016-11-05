@@ -53,12 +53,12 @@ public class SurveyAnsweringServiceImpl implements SurveyAnsweringService {
     			for (String answer : questions[i].getAnswers()) {
     				option = findOption(question, answer);
     				if (option != null) {
-    					answers.add(new AnswerEntity(question, option, freetext));	
+    					answers.add(new AnswerEntity(question, option));	
     				}
     			}
     		} else {
     			freetext = questions[i].getAnswers()[0];		
-        		answers.add(new AnswerEntity(question, option, freetext));
+        		answers.add(new AnswerEntity(question, freetext));
     		}
     	}
     	ResponseEntity response = new ResponseEntity(survey, answers);

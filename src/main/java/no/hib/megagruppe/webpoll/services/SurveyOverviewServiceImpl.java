@@ -22,115 +22,142 @@ import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 
 public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 	private final RepositoryFactory repositoryFactory;
-	
+
 	@EJB
 	SurveyCreationService scs; //  Brukes for å opprette ny SurveyModel i metoden cloneSurvey(...).
-	
+
 	@Inject
 	public SurveyOverviewServiceImpl(RepositoryFactory repositoryFactory) {
 		this.repositoryFactory = repositoryFactory;
 	}
-	
+
 	@Override
 	public List<SurveyOverviewModel> getSurveyOverviews(Integer userID) {
-		
+
 		List<SurveyEntity> allSurveys = repositoryFactory.getSurveyRepository().findAll();
 		List<SurveyOverviewModel> userSurveys = new ArrayList<>();
-		
+
 		for (SurveyEntity survey : allSurveys) {
 			if (survey.getOwner().getId().equals(userID)) {
 				SurveyOverviewModel surveyOverview = convertSurvey(survey);
 				userSurveys.add(surveyOverview);
 			}
 		}
-		
+
 		return userSurveys;
 	}
 
 	@Override
-	public Boolean cloneSurvey(Integer surveyID,String name) {
-		
+	public Boolean cloneSurvey(Integer surveyID, String name) {
+
 		SurveyEntity survey = repositoryFactory.getSurveyRepository().findById(surveyID);
-		Boolean foundSurvey = false;
-		
-		if (survey != null) {
-			foundSurvey = true;
-			
+		Boolean foundSurvey = survey != null;
+
+		if (foundSurvey) {
 			SurveyCreationModel surveyCreation = new SurveyCreationModel(survey.getOwner());
 			surveyCreation.setName(name);
 			surveyCreation.setOwner(survey.getOwner());
-			copyQuestions(survey,surveyCreation);
+			copyQuestions(survey, surveyCreation);
 			scs.commitSurveyCreation(surveyCreation);
-			// commitNewSurvey(surveyCreation); // OLD
 		}
-		
+
 		return foundSurvey;
 	}
 
-	
 	/**
-	 * Converts an SurveyEntity to a SurveyOverviewModel. This method is very memory-heavy because
-	 * it needs all the composite tables of SurveyEntity to be able to correctly fill in all the
-	 * responses and map them to the correct QuestionOverviewModel.
-	 * @param survey The SurveyEntity.
+	 * Converts an SurveyEntity to a SurveyOverviewModel. This method is very memory-heavy because it needs all the composite
+	 * tables of SurveyEntity to be able to correctly fill in all the responses and map them to the correct QuestionOverviewModel.
+	 * \n If the question is multiple choice then the answerdata strings will be the option chosen, if the question is free-text
+	 * then the answerdata strings will be each word in an answer.
+	 * 
+	 * @param survey
+	 *            The SurveyEntity.
 	 * @return A SurveyOverviewModel based on the SurveyEntity.
 	 */
 	private SurveyOverviewModel convertSurvey(SurveyEntity survey) {
-		
+
+		// The questions mapped by their ID.
 		HashMap<Integer, QuestionOverviewModel> questionOverviewModelsMap = new HashMap<>();
+
+		// Iterates through all the answers in every response.
 		List<ResponseEntity> responses = survey.getResponses();
-		for(ResponseEntity response : responses){
-			List<AnswerEntity> answers = response.getAnswers();
-			for(AnswerEntity answer : answers){
-				
-				QuestionEntity question = answer.getQuestion();
-				Integer questionID = question.getId();
-				
-				if(questionOverviewModelsMap.containsKey(questionID)){
-					if(question.getType().isMultipleChoice()){
-						questionOverviewModelsMap.get(questionID).addAnswer(answer.getFreetext());
-					}else{
-						questionOverviewModelsMap.get(questionID).addAnswer(answer.getOption().getText());
+		if (responses != null) {
+			for (ResponseEntity response : responses) {
+				List<AnswerEntity> answers = response.getAnswers();
+				for (AnswerEntity answer : answers) {
+
+					QuestionEntity question = answer.getQuestion();
+					Integer questionID = question.getId();
+
+					// If there is no mapped value for the current question, add it to the map.
+					if (!questionOverviewModelsMap.containsKey(questionID)) {
+						QuestionOverviewModel questionOverviewModel = new QuestionOverviewModel(question.getText());
+						questionOverviewModelsMap.put(questionID, questionOverviewModel);
 					}
-				} else {
-					
-					QuestionOverviewModel questionOverviewModel = new QuestionOverviewModel(question.getText());
-					questionOverviewModelsMap.put(questionID, questionOverviewModel);
+
+					// Adds the answer to the question. How it is added is based on the type of question.
+					if (question.getType().isMultipleChoice()) {
+						// Multiple choice adds the option that was chosen by the student.
+						String optionAnswer = answer.getOption().getText();
+						questionOverviewModelsMap.get(questionID).addAnswer(optionAnswer);
+					} else {
+						// Freetext adds every word in the answertext, ready to be used in a wordcloud.
+						String[] answerWords = getWordsFromString(answer.getFreetext());
+						for (String answerWord : answerWords) {
+							questionOverviewModelsMap.get(questionID).addAnswer(answerWord);
+						}
+					}
 				}
 			}
 		}
-		
+
 		List<QuestionOverviewModel> questionOverviewModels = new ArrayList<>();
-		questionOverviewModels.addAll(questionOverviewModels);
+		questionOverviewModels.addAll(questionOverviewModelsMap.values());
 		SurveyOverviewModel surveyOverviewModel = new SurveyOverviewModel(questionOverviewModels, survey);
+
 		return surveyOverviewModel;
 	}
-	
+
+	/**
+	 * Splits the string into lowercase words, including numbers, separated by whitespace.
+	 * 
+	 * @param answerText
+	 *            The answertext to be split into words.
+	 * @return An array of the words in the answerText.
+	 */
+	private String[] getWordsFromString(String answerText) {
+		answerText = answerText.toLowerCase();
+		answerText = answerText.replaceAll("[^a-z0-9\\s]+", "");
+		String[] answerWords = answerText.split(" ");
+
+		return answerWords;
+	}
+
 	private void copyQuestions(SurveyEntity survey, SurveyCreationModel surveyCreation) {
 		for (QuestionEntity question : survey.getQuestions()) {
-			
+
 			QuestionCreationModel questionCreation = new QuestionCreationModel(question);
 
 			if (question.getType().isMultipleChoice()) {
 				List<OptionEntity> optionEntities = question.getOptions();
 				String[] options = new String[optionEntities.size()];
-				
+
 				for (int i = 0; i < optionEntities.size(); i++) {
 					options[i] = optionEntities.get(i).getText();
 				}
-				
+
 				questionCreation.setOptions(options);
 			}
-			
+
 			surveyCreation.addQuestionCreationModel(questionCreation);
 		}
 	}
 
 	@Override
 	public SurveyOverviewModel getSurveyOverviewModel(Integer surveyID) {
-		
+
 		SurveyEntity survey = repositoryFactory.getSurveyRepository().findById(surveyID);
-		SurveyOverviewModel	surveyOverview = convertSurvey(survey);
+		SurveyOverviewModel surveyOverview = convertSurvey(survey);
 
 		return surveyOverview;
 	}

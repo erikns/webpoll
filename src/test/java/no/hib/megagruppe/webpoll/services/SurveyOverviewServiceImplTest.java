@@ -12,15 +12,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 import no.hib.megagruppe.webpoll.data.SurveyRepository;
+import no.hib.megagruppe.webpoll.entities.AnswerEntity;
 import no.hib.megagruppe.webpoll.entities.OptionEntity;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity;
+import no.hib.megagruppe.webpoll.entities.ResponseEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.fakes.FakeRepositoryFactory;
 import no.hib.megagruppe.webpoll.fakes.TestSecurityAdapter;
 import no.hib.megagruppe.webpoll.fakes.TestSurveyRepository;
+import no.hib.megagruppe.webpoll.models.lecturer.QuestionAnswerOverviewModel;
 import no.hib.megagruppe.webpoll.models.lecturer.QuestionCreationModel;
+import no.hib.megagruppe.webpoll.models.lecturer.QuestionOverviewModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
+import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 
 public class SurveyOverviewServiceImplTest {
 	
@@ -39,11 +44,6 @@ public class SurveyOverviewServiceImplTest {
 		creationService = buildCreationService(surveyRepository);
 	}
 	
-	@Test
-	public void getSurveyOverviewGivesCorrectSurvey() {
-		
-	}
-	
 	// FIXME @Test
 	public void cloneSurveyMakesNewIdenticalSurvey(){
 		
@@ -55,7 +55,7 @@ public class SurveyOverviewServiceImplTest {
 		compairQuestionsFromTwoSurveys(surveyRepository.findAll().get(0),surveyRepository.findAll().get(1));
 	}
 	
-	//FIXME @Test
+	@Test
 	public void commitSurveyCommitsNewSurvey() {
 		
 		creationService.commitSurveyCreation(buildSurveyCreationModel(survey));
@@ -81,6 +81,68 @@ public class SurveyOverviewServiceImplTest {
 				}
 			}
 		}
+	}
+	
+	@Test
+	public void surveyOverviewModelIsSameAsSurveyEntity(){
+		surveyCreation = buildSurveyCreationModel(survey);
+		creationService.commitSurveyCreation(surveyCreation);
+		
+		SurveyOverviewModel surveyModel = lecturerService.getSurveyOverviewModel(survey.getId());
+		assertEquals(surveyModel.getName(), survey.getName());
+		assertEquals(surveyModel.getDateCreated(), survey.getDateCreated());
+		assertEquals(surveyModel.getDeadline(), survey.getDeadline());
+	}
+	
+	@Test
+	public void surveyOverviewModelHasSameQuestionsAsSurveyEntity(){
+		surveyCreation = buildSurveyCreationModel(survey);
+		creationService.commitSurveyCreation(surveyCreation);
+		buildResponses(survey);
+		
+		SurveyOverviewModel surveyModel = lecturerService.getSurveyOverviewModel(survey.getId());
+		List<QuestionOverviewModel> questionModels = surveyModel.getResultData();
+		
+		assertTrue(questionModels.size() == 2);
+		assertTrue(questionModels.get(0).getQuestionText().equals(survey.getQuestions().get(0).getText()));
+		assertTrue(questionModels.get(1).getQuestionText().equals(survey.getQuestions().get(1).getText()));
+	}
+	
+	@Test
+	public void questionAnswerOverviewModelDataIsInDescendingOrder(){
+		surveyCreation = buildSurveyCreationModel(survey);
+		creationService.commitSurveyCreation(surveyCreation);
+		buildResponses(survey);
+		
+		SurveyOverviewModel surveyModel = lecturerService.getSurveyOverviewModel(survey.getId());
+		
+		List<QuestionOverviewModel> questionModels = surveyModel.getResultData();
+		for(QuestionOverviewModel question : questionModels){
+			List<QuestionAnswerOverviewModel> answers = question.getAnswers();
+			int prevAnswerFrequency = answers.get(0).getFrequency();
+			for(int i = 1; i < answers.size(); i++){
+				assertTrue(answers.get(i).getFrequency()<=prevAnswerFrequency);
+				prevAnswerFrequency = answers.get(i).getFrequency();
+			}
+		}
+		
+	}
+	
+	@Test
+	public void questionAnswerOverviewModelHasCorrectData(){
+		surveyCreation = buildSurveyCreationModel(survey);
+		creationService.commitSurveyCreation(surveyCreation);
+		buildResponses(survey);
+		
+		SurveyOverviewModel surveyModel = lecturerService.getSurveyOverviewModel(survey.getId());
+		
+		List<QuestionOverviewModel> questionModels = surveyModel.getResultData();
+		QuestionOverviewModel question1 = questionModels.get(0);
+		QuestionOverviewModel question2 = questionModels.get(1);
+		
+		assertTrue(question1.getAnswers().get(0).getFrequency() == 2); // To ganger svart det første alternativet.
+		assertTrue(question2.getAnswers().get(0).getFrequency() == 9); // 3 ganger 3 skrevet "ja".
+		
 	}
 
 	private static SurveyOverviewService buildLecturerService(SurveyRepository surveyRepository) {
@@ -149,6 +211,51 @@ public class SurveyOverviewServiceImplTest {
         return survey;
 	}
 
+	private static void buildResponses(SurveyEntity survey){
+		List<AnswerEntity> answers1 = new ArrayList<>();
+		for(QuestionEntity question : survey.getQuestions()){
+			AnswerEntity answer;
+			if(question.getType().isMultipleChoice()){
+				answer = new AnswerEntity(question,question.getOptions().get(0));
+			} else {
+				answer = new AnswerEntity(question,"Tekst svar ja mann, ja tekst ja yes! 123 abc2");
+			}
+			answers1.add(answer);
+		}
+		ResponseEntity response1 = new ResponseEntity(survey, answers1);
+		
+		List<AnswerEntity> answers2 = new ArrayList<>();
+		for(QuestionEntity question : survey.getQuestions()){
+			AnswerEntity answer;
+			if(question.getType().isMultipleChoice()){
+				answer = new AnswerEntity(question,question.getOptions().get(1));
+			} else {
+				answer = new AnswerEntity(question,"Tekst svar ja mann ja tekst ja yes! 123 abc2");
+			}
+			answers2.add(answer);
+		}
+		ResponseEntity response2 = new ResponseEntity(survey, answers2);
+		
+		List<AnswerEntity> answers3 = new ArrayList<>();
+		for(QuestionEntity question : survey.getQuestions()){
+			AnswerEntity answer;
+			if(question.getType().isMultipleChoice()){
+				answer = new AnswerEntity(question,question.getOptions().get(1));
+			} else {
+				answer = new AnswerEntity(question,"Tekst svar ja mann ja tekst ja yes! 123 abc2");
+			}
+			answers3.add(answer);
+		}
+		ResponseEntity response3 = new ResponseEntity(survey, answers2);
+		
+		List<ResponseEntity> responses = new ArrayList<>();
+		responses.add(response1);
+		responses.add(response2);
+		responses.add(response3);
+		
+		survey.setResponses(responses);
+	}
+	
 	private static SurveyCreationModel buildSurveyCreationModel(SurveyEntity survey) {
 		SurveyCreationModel surveyCreation = new SurveyCreationModel(survey.getOwner());
 		surveyCreation.setName("Test");

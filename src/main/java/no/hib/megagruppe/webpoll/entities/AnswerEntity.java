@@ -23,10 +23,16 @@ public class AnswerEntity {
     	
     }
     
-    public AnswerEntity(QuestionEntity question, OptionEntity option, String freetext) {
+    public AnswerEntity(QuestionEntity question, String freetext) {
+    	this.question = question;
+    	this.option = null;
+    	this.freetext = freetext;
+    }
+    
+    public AnswerEntity(QuestionEntity question, OptionEntity option) {
     	this.question = question;
     	this.option = option;
-    	this.freetext = freetext;
+    	this.freetext = null;
     }
 
     public Integer getId() {

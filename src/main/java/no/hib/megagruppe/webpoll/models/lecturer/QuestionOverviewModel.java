@@ -1,6 +1,7 @@
 package no.hib.megagruppe.webpoll.models.lecturer;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class QuestionOverviewModel {
 	
 	public QuestionOverviewModel(String questionText) {
 		this.questionText = questionText;
+		frequencyTable = new HashMap<>();
 		frequencySum = 0;
 	}
 	
@@ -53,6 +55,13 @@ public class QuestionOverviewModel {
 			
 			answers.add(answer);
 		}
+		
+		answers.sort(new Comparator<QuestionAnswerOverviewModel>(){
+			@Override
+			public int compare(QuestionAnswerOverviewModel o1, QuestionAnswerOverviewModel o2) {
+				return o2.getFrequency()-o1.getFrequency();
+			}
+		});
 		
 		return answers;
 	}
