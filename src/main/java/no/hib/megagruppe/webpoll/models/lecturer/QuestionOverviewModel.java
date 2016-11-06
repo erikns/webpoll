@@ -15,13 +15,11 @@ public class QuestionOverviewModel {
 	private String questionText;
 	private HashMap<String, Integer> frequencyTable;
 	private int frequencySum;
-	private List<QuestionAnswerOverviewModel> answers;
 	
 	public QuestionOverviewModel(String questionText) {
 		this.questionText = questionText;
 		frequencyTable = new HashMap<>();
 		frequencySum = 0;
-		answers = new ArrayList<>();
 	}
 	
 	/**
@@ -48,6 +46,7 @@ public class QuestionOverviewModel {
 	 * @return a List of all the answers in the form of QuestionAnswerOverviewModels.
 	 */
 	public List<QuestionAnswerOverviewModel> getAnswers(){
+		List<QuestionAnswerOverviewModel> answers = new ArrayList<>();
 		
 		for(String key : frequencyTable.keySet()){
 			String answerText = key;

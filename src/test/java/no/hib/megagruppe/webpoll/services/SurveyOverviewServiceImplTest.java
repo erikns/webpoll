@@ -126,7 +126,6 @@ public class SurveyOverviewServiceImplTest {
 		
 	}
 	
-	@Ignore
 	@Test
 	public void questionAnswerOverviewModelHasCorrectData(){
 		surveyCreation = buildSurveyCreationModel(survey);
@@ -141,9 +140,6 @@ public class SurveyOverviewServiceImplTest {
 		
 		assertTrue(question1.getAnswers().get(0).getFrequency() == 2); // To ganger svart det første alternativet.
 		assertTrue(question2.getAnswers().get(0).getFrequency() == 9); // 3 ganger 3 skrevet "ja".
-		for(QuestionAnswerOverviewModel answer : question2.getAnswers()){
-			System.out.println(answer.getAnswerText() + " " + answer.getFrequency());
-		}
 		assertTrue(question2.getAnswers().get(1).getFrequency() == 5); // 2 ganger 2 + 1 skrevet "tekst".
 		assertTrue(question2.getAnswers().get(2).getFrequency() == 4); // 3 ganger 1 + 1 skrevet "abc2".
 		assertTrue(question2.getAnswers().get(5).getPercentage() == 10); // 3 svart av 30 er 10%.
