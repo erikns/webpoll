@@ -20,14 +20,6 @@ import no.hib.megagruppe.webpoll.util.sessionmanager.SeeSurveyOverviewSessionMan
  * Skal starte(/aktivere) en survey gjennom en "Start Survey" knapp på SurveyOverview siden. Når denne 
  * kanppen trykkes, skal tiden som er satt inn bli sendt til en service som lagrer tiden,
  * og sender tilbake til StartSurveyServlet.
- * 
- * Ting å gjøre as of 05.11.16:
- * 
- * Forandre til riktig session. Er foreløpig bare copypaste fra ChangeNameServlet. fixd
- * 
- * Redirecte til riktig jsp, altså StartSurvey.jsp. fixd
- * 
- * survey.setActive(active) active = true, skal det gjøres her, eller i modellen?
  */
 @WebServlet("/startsurvey")
 public class StartSurveyServlet extends HttpServlet {
@@ -35,7 +27,6 @@ public class StartSurveyServlet extends HttpServlet {
        
 	@EJB
     SecurityService securityService;
-	
 	@EJB
 	SurveyOverviewService surveyOverviewService;
 	
@@ -52,9 +43,18 @@ public class StartSurveyServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(securityService.isLoggedIn()) {
 			SeeSurveyOverviewSessionManager session = new SeeSurveyOverviewSessionManager(request);
-			Timestamp deadline = (Timestamp) request.getAttribute("deadline");
+			/*
+			 * Kan ikkje sende Timestamp via jsp så må gjøre litt magi for å gjøre om datetime_local i stedet 
+			 */
+			String datetimeLocal = (String) request.getAttribute("deadline");
+		
+			if ((datetimeLocal.length() - datetimeLocal.replace(":", "").length()) == 1) {
+				datetimeLocal += ":00";
+			}
+			Timestamp deadline = Timestamp.valueOf(datetimeLocal.replace("T", " "));
+
 			Integer id = session.getID();  
-			surveyOverviewService.activateSurvey(deadline, id); //må kanskje gjøre setActive òg
+			surveyOverviewService.activateSurvey(deadline, id);
 		} else {
 			response.sendRedirect("index");
 		}
