@@ -41,7 +41,7 @@ public class StartSurveyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(securityService.isLoggedIn()) {
 			SeeSurveyOverviewSessionManager session = new SeeSurveyOverviewSessionManager(request);
-			request.getRequestDispatcher("WEB-INF/createsurvey/startsurvey.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/lecturer/startsurvey.jsp").forward(request, response);
 			session.clearErrorMessages();
 		} else {
 			response.sendRedirect("index");
