@@ -17,7 +17,7 @@
         <p>Dato laget: <c:out value="${survey.dateCreated}"/></p>
         <p>Deadline: <c:out value="${not empty survey.deadline ? survey.deadline :'Ikke satt'}"/></p>
         <p>Kode: <c:out value="${survey.code}"/></p>
-        <p>Antall svar: <c:out value="${survey.numberOfResponses}"/>
+        <p>Antall svar: <c:out value="${survey.numberOfResponses}"/></p>
       </div>
       <div class="panel-footer">
         <p>
