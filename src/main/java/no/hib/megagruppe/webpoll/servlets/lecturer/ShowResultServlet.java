@@ -33,7 +33,7 @@ public class ShowResultServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(securityService.isLoggedIn()) {
 			int id = Integer.parseInt(request.getParameter("id"));
-			request.setAttribute("surveyresult", surveyOverviewService.getSurveyResult(id));
+			request.setAttribute("survey", surveyOverviewService.getSurveyOverviewModel(id));
 			request.getRequestDispatcher("WEB-INF/lecturer/surveyresult.jsp").forward(request, response);
 		} else {
 			response.sendRedirect("login");
