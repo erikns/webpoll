@@ -2,12 +2,25 @@ package no.hib.megagruppe.webpoll.util;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SurveyCodeGeneratorTest {
 
-	SurveyCodeGenerator codeGenerator = new SurveyCodeGeneratorImpl();
-	
+    private SurveyCodeGenerator codeGenerator;
+
+	@Before
+	public void setup() {
+        StubResourceReader resourceReader = new StubResourceReader();
+        codeGenerator = new SurveyCodeGeneratorImpl(resourceReader);
+	}
+
 	@Test
 	public void generatedCodeIsCorrectPattern(){
 		int digits = 2;
@@ -26,5 +39,16 @@ public class SurveyCodeGeneratorTest {
 			assertTrue(code.matches("[a-zæøå]+[0-9]{1,"+digits+"}"));
 		}
 	}
+
+    class StubResourceReader implements ResourceReader {
+        @Override
+        public List<String> readAllLines() {
+            List<String> wordlist = new ArrayList<>();
+            wordlist.add("fox");
+            wordlist.add("rabbit");
+            wordlist.add("badger");
+            return wordlist;
+        }
+    }
 	
 }
