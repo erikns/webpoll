@@ -42,12 +42,21 @@ public class ShowResultServlet extends HttpServlet {
 			SeeSurveyOverviewSessionManager session = new SeeSurveyOverviewSessionManager(request);
 			Integer id = session.getID();
 			
-		/* 	while(surveyen er active) {
+		/* if (surveyen er active) {
+		 * 
+		 * 	while(surveyen er active) {
+				
+				Vis resultat på siden
 				
 				Hent ID og refresh siden slik at den blir oppdatert etterhvert som det blir gitt nye svar
 				
 			}
-			
+				}
+			else {
+				
+			Vis resultat på siden
+				
+			}
 			
 		*/	
 	} else {
