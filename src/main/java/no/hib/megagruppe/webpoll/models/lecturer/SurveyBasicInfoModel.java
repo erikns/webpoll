@@ -18,15 +18,17 @@ public class SurveyBasicInfoModel {
 	private Timestamp deadline;
 	private boolean activated;
 	private Long numberOfResponses;
+	private String code;
 	
 
-	public SurveyBasicInfoModel(Integer id, String name, Timestamp dateCreated, Timestamp deadline, boolean activated, Long numberOfResponses) {
+	public SurveyBasicInfoModel(Integer id, String name, Timestamp dateCreated, Timestamp deadline, boolean activated, Long numberOfResponses, String code) {
 		this.id = id;
 		this.name = name;
 		this.dateCreated = dateCreated;
 		this.deadline = deadline;
 		this.activated = activated;
 		this.numberOfResponses = numberOfResponses;
+		this.code = code;
 	}
 
 	public boolean isPastDeadline() {
@@ -55,6 +57,10 @@ public class SurveyBasicInfoModel {
 
 	public Long getNumberOfResponses() {
 		return numberOfResponses;
+	}
+	
+	public String getCode(){
+		return code;
 	}
 	
 	

@@ -40,7 +40,7 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 		List<SurveyBasicInfoModel> surveyBasicInfoModels = new ArrayList<>();
 		for(SurveyEntity survey : surveys){
 			Long responseCount = surveyRepository.numberOfResponses(survey);
-			SurveyBasicInfoModel surveyBasicInfoModel = new SurveyBasicInfoModel(survey.getId(), survey.getName(), survey.getDateCreated(), survey.getDeadline(), survey.getActive(), responseCount);
+			SurveyBasicInfoModel surveyBasicInfoModel = new SurveyBasicInfoModel(survey.getId(), survey.getName(), survey.getDateCreated(), survey.getDeadline(), survey.getActive(), responseCount, survey.getCode());
 			surveyBasicInfoModels.add(surveyBasicInfoModel);
 		}
 
