@@ -7,12 +7,12 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="<c:out value="${survey.name}"/>">
       <h4 class="panel-title">
-        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#<c:out value="${survey.dateCreated}"/>">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#<c:out value="${survey.name}"/>">
           <c:out value="${survey.name}"/>
         </a>
       </h4>
     </div>
-    <div id="<c:out value="${survey.dateCreated}"/>" class="panel-collapse collapse in" role="tabpanel">
+    <div id="<c:out value="${survey.name}"/>" class="panel-collapse collapse in" role="tabpanel">
       <div class="panel-body">
         <p>Dato laget: <c:out value="${survey.dateCreated}"/></p>
         <p>Deadline: <c:out value="${not empty survey.deadline ? survey.deadline :'Ikke satt'}"/></p>
