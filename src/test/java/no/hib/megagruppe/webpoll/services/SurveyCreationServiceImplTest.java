@@ -2,6 +2,7 @@ package no.hib.megagruppe.webpoll.services;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -54,6 +55,14 @@ public class SurveyCreationServiceImplTest {
 		assertEquals(surveyRepository.findAll().get(0).getOwner(), surveyRepository.findAll().get(1).getOwner());
 		
 		compareQuestionsFromTwoSurveys(surveyRepository.findAll().get(0),surveyRepository.findAll().get(1));
+		for(QuestionEntity question : surveyRepository.findAll().get(1).getQuestions()){
+			assertNotNull(question.getType());
+			assertNotNull(question.getText());
+			assertNotNull(question.getSurvey());
+			if(question.getType().isMultipleChoice()){
+				assertNotNull(question.getOptions());
+			}
+		}
 	}
 	
 	private void compareQuestionsFromTwoSurveys(SurveyEntity oldSurvey, SurveyEntity newSurvey) {

@@ -41,7 +41,7 @@ public class SaveSurveyServlet extends HttpServlet {
 				
 				if(surveyCreationModel.isReady()){
 					scs.commitSurveyCreation(surveyCreationModel);
-					response.sendRedirect("SERVLET FOR Å SE INFORMASJON OM UNDERSØKELSE"); // TODO Legg til skikkelig url.
+					response.sendRedirect("lecturer"); // TODO Legg til skikkelig url.
 					session.clearErrorMessages();
 				} else {
 					session.setErrorMessage(ErrorMessage.SURVEY_NOT_READY_TO_BE_COMMITED);
