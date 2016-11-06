@@ -9,10 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.services.SecurityService;
 import no.hib.megagruppe.webpoll.services.SurveyOverviewService;
-import no.hib.megagruppe.webpoll.util.sessionmanager.SeeSurveyOverviewSessionManager;
 
 /**
  * Servlet implementation class ShowResultServlet
@@ -30,39 +28,15 @@ public class ShowResultServlet extends HttpServlet {
 	@EJB
     SecurityService securityService;
 	
-	SurveyOverviewService surveyoverview;
+	SurveyOverviewService surveyOverviewService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(securityService.isLoggedIn()) {
-			SeeSurveyOverviewSessionManager session = new SeeSurveyOverviewSessionManager(request);
+			int id = Integer.parseInt(request.getParameter("id"));
+			request.setAttribute("surveyresult", surveyOverviewService.getSurveyResult(id));
 			request.getRequestDispatcher("WEB-INF/lecturer/surveyresult.jsp").forward(request, response);
-			session.clearErrorMessages();
 		} else {
-			response.sendRedirect("index");
+			response.sendRedirect("login");
 		}
-	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(securityService.isLoggedIn()) {
-			SeeSurveyOverviewSessionManager session = new SeeSurveyOverviewSessionManager(request);
-			Integer id = session.getID();
-			SurveyEntity survey = session.getSurvey(id);  //Prøver å hente den gjeldende surveyen som er blitt valgt gjennom parameter id
-			
-		 if ( surveyoverview.isActive(id) ) {             //Ønsker en metode for å se om surveyen er active gjennom parameter id
-				
-				survey.getResponses();		              //Henter svar fra gjeldende survey
-				
-				request.getRequestDispatcher("WEB-INF/lecturer/surveyresult.jsp").forward(request, response); //Ønsker å refreshe siden, og da vil alt bli kjørt på nytt, så tror id-en også blir hentet på nytt. Men er ikkje sikker
-				
-		} else {
-				
-			survey.getResponses();							//Dersom den ikkje er active, vises svarene uten å refreshe siden
-				
-			}
-			
-			
-	} else {
-		response.sendRedirect("index");
-	}
-
 	}
 }

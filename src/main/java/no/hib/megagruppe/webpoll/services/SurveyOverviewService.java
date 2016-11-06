@@ -5,6 +5,7 @@ import java.util.List;
 
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyBasicInfoModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
+import no.hib.megagruppe.webpoll.models.lecturer.SurveyResultModel;
 
 /**
  * Interface to support the use cases of the lecturer editing / viewing surveys.
@@ -31,6 +32,8 @@ public interface SurveyOverviewService {
     Boolean cloneSurvey(Integer surveyID);
     
     SurveyOverviewModel getSurveyOverviewModel(Integer id);
+
+    SurveyResultModel getSurveyResult(Integer id);
     
     void activateSurvey(Timestamp deadline, Integer surveyID);
 }

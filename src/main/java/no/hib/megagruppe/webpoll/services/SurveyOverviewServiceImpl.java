@@ -15,11 +15,7 @@ import no.hib.megagruppe.webpoll.entities.OptionEntity;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.ResponseEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
-import no.hib.megagruppe.webpoll.models.lecturer.QuestionCreationModel;
-import no.hib.megagruppe.webpoll.models.lecturer.QuestionOverviewModel;
-import no.hib.megagruppe.webpoll.models.lecturer.SurveyBasicInfoModel;
-import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
-import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
+import no.hib.megagruppe.webpoll.models.lecturer.*;
 
 @Stateless
 public class SurveyOverviewServiceImpl implements SurveyOverviewService {
@@ -164,6 +160,11 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 		SurveyOverviewModel surveyOverview = convertSurveyToOverviewModel(survey);
 
 		return surveyOverview;
+	}
+
+	@Override
+	public SurveyResultModel getSurveyResult(Integer id) {
+		return new SurveyResultModel(); // TODO: implement
 	}
 
 	@Override
