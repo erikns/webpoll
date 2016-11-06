@@ -27,7 +27,8 @@ public class ShowResultServlet extends HttpServlet {
        
 	@EJB
     SecurityService securityService;
-	
+
+	@EJB
 	SurveyOverviewService surveyOverviewService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

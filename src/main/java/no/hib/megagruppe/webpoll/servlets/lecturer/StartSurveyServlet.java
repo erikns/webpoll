@@ -36,7 +36,8 @@ public class StartSurveyServlet extends HttpServlet {
 	@EJB
     SecurityService securityService;
 	
-	SurveyOverviewService surveyoverview;
+	@EJB
+	SurveyOverviewService surveyOverviewService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(securityService.isLoggedIn()) {
@@ -53,7 +54,7 @@ public class StartSurveyServlet extends HttpServlet {
 			SeeSurveyOverviewSessionManager session = new SeeSurveyOverviewSessionManager(request);
 			Timestamp deadline = (Timestamp) request.getAttribute("deadline");
 			Integer id = session.getID();  
-			surveyoverview.activateSurvey(deadline, id); //må kanskje gjøre setActive òg
+			surveyOverviewService.activateSurvey(deadline, id); //må kanskje gjøre setActive òg
 		} else {
 			response.sendRedirect("index");
 		}
