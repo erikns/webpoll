@@ -34,7 +34,10 @@
 			$.backstretch([
 				"<c:url value="assets/img/people.jpg"/>",
     				"<c:url value="assets/img/lecture.jpg"/>",
-    				"<c:url value="assets/img/maclecture.jpg"/>"
+    				"<c:url value="assets/img/maclecture.jpg"/>",
+    				"<c:url value="assets/img/stats.jpg"/>",
+    				"<c:url value="assets/img/calendar.jpg"/>",
+    				"<c:url value="assets/img/desk.jpg"/>"
   				], {duration: 5000, fade: "slow"});
 		</script>
 	</body>
