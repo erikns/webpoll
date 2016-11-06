@@ -1,11 +1,16 @@
 package no.hib.megagruppe.webpoll.servlets.lecturer;
 
 import java.io.IOException;
+
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import no.hib.megagruppe.webpoll.services.SecurityService;
+import no.hib.megagruppe.webpoll.util.sessionmanager.SeeSurveyOverviewSessionManager;
 
 /**
  * Servlet implementation class ShowResultServlet
@@ -16,19 +21,38 @@ import javax.servlet.http.HttpServletResponse;
  * Må huske å hente id fra survey for å oppdatere resultat dersom surveyen ikkje er ferdig.
  * 
  */
-@WebServlet("/ShowResultServlet")
+@WebServlet("/surveyresult")
 public class ShowResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
+	@EJB
+    SecurityService securityService;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		if(securityService.isLoggedIn()) {
+			SeeSurveyOverviewSessionManager session = new SeeSurveyOverviewSessionManager(request);
+			request.getRequestDispatcher("WEB-INF/lecturer/surveyresult.jsp").forward(request, response);
+			session.clearErrorMessages();
+		} else {
+			response.sendRedirect("index");
+		}
 	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		if(securityService.isLoggedIn()) {
+			SeeSurveyOverviewSessionManager session = new SeeSurveyOverviewSessionManager(request);
+			Integer id = session.getID();
+			
+		/* 	while(surveyen er active) {
+				
+				Hent ID og refresh siden slik at den blir oppdatert etterhvert som det blir gitt nye svar
+				
+			}
+			
+			
+		*/	
+	} else {
+		response.sendRedirect("index");
 	}
 
+	}
 }
