@@ -7,23 +7,28 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="<c:out value="${survey.name}"/>">
       <h4 class="panel-title">
-        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#<c:out value="${survey.code}"/>">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#<c:out value="${survey.id}"/>">
           <c:out value="${survey.name}"/>
         </a>
       </h4>
     </div>
-    <div id="<c:out value="${survey.code}"/>" class="panel-collapse collapse in" role="tabpanel">
+    <div id="<c:out value="${survey.id}"/>" class="panel-collapse collapse in" role="tabpanel">
       <div class="panel-body">
         <p>Dato laget: <c:out value="${survey.dateCreated}"/></p>
         <p>Deadline: <c:out value="${not empty survey.deadline ? survey.deadline :'Ikke satt'}"/></p>
         <p>Kode: <c:out value="${survey.code}"/></p>
         <p>Antall svar: <c:out value="${survey.numberOfResponses}"/></p>
+
+        <form class="form-inline" action="<c:out value="${survey.activated ? 'surveyoverview' : 'startsurvey'}"/>" method="get">
+          <input type="hidden" name="id" value="<c:out value="${survey.id}"/>">
+          <input type="submit" id="submit-form<c:out value="${survey.id}"/>" class="hidden">
+        </form>
       </div>
       <div class="panel-footer">
         <p>
-          <a class="btn btn-default" href="<c:url value="surveyoverview"/>" role="button">
-            <c:out value="${not empty survey.deadline ? 'Se resultat' : 'Aktiver'}"/>
-          </a>
+          <label for="submit-form<c:out value="${survey.id}"/>" class="btn btn-primary">
+              <c:out value="${survey.activated ? 'Se resultat' : 'Aktiver'}"/>
+          </label>
         </p>
       </div>
     </div>
