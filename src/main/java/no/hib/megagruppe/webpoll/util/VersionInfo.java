@@ -48,6 +48,8 @@ public class VersionInfo {
     }
 
     private static String readFromResource(ServletContext servletContext, String resourcePath) {
+        // TODO: make shure we close the file here?
+
         String tmp = "X";
         InputStream is = servletContext.getResourceAsStream(resourcePath);
         if (is != null) {
