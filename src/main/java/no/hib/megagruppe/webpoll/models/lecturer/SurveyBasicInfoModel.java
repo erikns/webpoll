@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * A class for showing basic information about a survey.
- * It does not encapsulate the responses, use SurveyOverviewModel for that.
+ * It does not encapsulate the responses like SurveyOverviewModel do.
  * @author Magnus
  *
  */

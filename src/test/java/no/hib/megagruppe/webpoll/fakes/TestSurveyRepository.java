@@ -61,7 +61,7 @@ public class TestSurveyRepository implements SurveyRepository {
     }
 
 	@Override
-	public List<SurveyEntity> findAllSurveysByUser(Integer userID) {
+	public List<SurveyEntity> findAllByUser(Integer userID) {
 		List<SurveyEntity> surveysByOwner = new ArrayList<>();
 		for(SurveyEntity survey : surveys.values()){
 			if(survey.getOwner().getId().equals(userID)){
@@ -82,5 +82,11 @@ public class TestSurveyRepository implements SurveyRepository {
 			}
 		}
 		return count;
+	}
+
+	@Override
+	public boolean existsActiveSurveyWithCode(String code) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

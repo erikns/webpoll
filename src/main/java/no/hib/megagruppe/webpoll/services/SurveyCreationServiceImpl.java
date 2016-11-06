@@ -17,6 +17,7 @@ import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.models.lecturer.QuestionCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
+import no.hib.megagruppe.webpoll.util.SurveyCodeGenerator;
 
 @Stateless
 public class SurveyCreationServiceImpl implements SurveyCreationService {
@@ -68,7 +69,7 @@ public class SurveyCreationServiceImpl implements SurveyCreationService {
 		
 		Timestamp now = Timestamp.valueOf(LocalDateTime.now());
 		surveyEntity.setDateCreated(now);
-		surveyEntity.setCode(generateSurveyCode());
+		surveyEntity.setCode(generateUniqueSurveyCode());
 		
 		SurveyRepository surveyRepository = repositoryFactory.getSurveyRepository();
 		surveyRepository.add(surveyEntity);
@@ -76,10 +77,27 @@ public class SurveyCreationServiceImpl implements SurveyCreationService {
 	
 	/**
 	 * Generates a new unique code for the survey.
+	 * If it can't find a unique code by the given number of tries it will try to find a code with more digits.
 	 * @return A new unique code for the survey.
 	 */
-	private String generateSurveyCode(){
-		String surveyCode = "fox39"; // FIXME generer unik kode.
+	private String generateUniqueSurveyCode(){
+		SurveyRepository surveyRepository = repositoryFactory.getSurveyRepository();
+		
+		int digits = 2;
+		String surveyCode = SurveyCodeGenerator.generateSurveyCode(digits);
+		
+		int tries = 0;
+		long maxTries = (long) (Math.pow(10, digits-1)); // 10^(digits-1) tries per digit to ensure the least possible number of digits. (2 digits = 10 tries, 3 digits = 100 tries, 4 digits = 1000 tries).
+		while(surveyRepository.existsActiveSurveyWithCode(surveyCode)){
+			surveyCode = SurveyCodeGenerator.generateSurveyCode(digits);
+			
+			tries++;
+			if(tries >= maxTries){ // Try with more digits.
+				digits++;
+				tries = 0;
+			}
+		}
+		
 		return surveyCode;
 	}
 	

@@ -21,7 +21,7 @@ public interface SurveyRepository extends Repository<SurveyEntity> {
      * @param user The user that owns the surveys.
      * @return All the surveys owned by the given user.
      */
-    List<SurveyEntity> findAllSurveysByUser(Integer userID);
+    List<SurveyEntity> findAllByUser(Integer userID);
     
     /**
      * Returns the number of responses to the given survey.
@@ -29,4 +29,11 @@ public interface SurveyRepository extends Repository<SurveyEntity> {
      * @return The number of responses to the given survey.
      */
     Long numberOfResponses(SurveyEntity survey);
+
+    /**
+     * Returns true if there exists a survey with the same code in the database.
+     * @param code The code that is being checked.
+     * @return True if there exists a survey with the same code in the database.
+     */
+	boolean existsActiveSurveyWithCode(String code);
 }

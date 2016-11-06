@@ -7,7 +7,7 @@ import java.util.Date;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 
 /**
- * A class for showing information about a survey, including all the responses and code.
+ * A class for showing information about a survey, including all the responses and survey-search-code.
  * 
  * @author Jonas
  *

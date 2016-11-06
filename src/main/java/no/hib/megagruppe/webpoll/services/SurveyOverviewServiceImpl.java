@@ -40,7 +40,7 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 		Integer userID = securityAdapter.getLoggedInUser();
 		
 		SurveyRepository surveyRepository = repositoryFactory.getSurveyRepository();
-		List<SurveyEntity> surveys = surveyRepository.findAllSurveysByUser(userID);
+		List<SurveyEntity> surveys = surveyRepository.findAllByUser(userID);
 		List<SurveyBasicInfoModel> surveyBasicInfoModels = new ArrayList<>();
 		for(SurveyEntity survey : surveys){
 			Long responseCount = surveyRepository.numberOfResponses(survey);

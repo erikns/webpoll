@@ -63,19 +63,6 @@ public class SurveyOverviewServiceImplTest {
 		compareQuestionsFromTwoSurveys(surveyRepository.findAll().get(0),surveyRepository.findAll().get(1));
 	}
 	
-	@Test
-	public void commitSurveyCommitsNewSurvey() {
-		
-		creationService.commitSurveyCreation(buildSurveyCreationModel(survey));
-		
-		assertFalse(surveyRepository.findAll().get(1).getActive());
-		assertEquals("Test", surveyRepository.findAll().get(1).getName());
-		assertEquals(surveyRepository.findAll().get(0).getOwner(), surveyRepository.findAll().get(1).getOwner());
-		
-		compareQuestionsFromTwoSurveys(surveyRepository.findAll().get(0),surveyRepository.findAll().get(1));
-		
-	}
-	
 	private void compareQuestionsFromTwoSurveys(SurveyEntity oldSurvey, SurveyEntity newSurvey) {
 		
 		List<QuestionEntity> questionsOldSurvey = oldSurvey.getQuestions();

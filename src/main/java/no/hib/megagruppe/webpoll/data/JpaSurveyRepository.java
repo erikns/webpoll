@@ -60,7 +60,7 @@ public class JpaSurveyRepository implements SurveyRepository {
     }
     
     @Override
-    public List<SurveyEntity> findAllSurveysByUser(Integer userID){
+    public List<SurveyEntity> findAllByUser(Integer userID){
     	Query query = entityManager.createQuery("select s from survey s where s.owner.id = " + userID);
     	List resultList = query.getResultList();
     	List<SurveyEntity> surveyList  = new ArrayList<>();
@@ -76,6 +76,14 @@ public class JpaSurveyRepository implements SurveyRepository {
     	Query query = entityManager.createQuery("select count(r) from response r where r.survey = :survey");
     	query.setParameter("survey", survey);
     	return (Long) query.getSingleResult();
+    }
+    
+    @Override
+    public boolean existsActiveSurveyWithCode(String code){
+    	// TODO Istedetfor å skrive 's.active = true', bør vi skrive 's.deadline > now'? Da slipper vi å oppdatere 'active' attributten i databasen. Kanskje vi bare skal fjerne den...
+    	Query query = entityManager.createQuery("select count(1) from survey s where s.active = true and s.code = '" + code + "'");
+    	Long bool = (Long) query.getSingleResult();
+    	return bool >= 1;
     }
 
     @Override
