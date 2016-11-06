@@ -22,5 +22,11 @@ public class SeeSurveyOverviewSessionManager extends SessionManager {
 
 		session.setAttribute(SURVEY_ID, surveyID);
 	}
+	
+	public boolean hasSurveyID(){
+		HttpSession session = request.getSession();
+
+		return (Integer) session.getAttribute(SURVEY_ID) != null;
+	}
 
 }

@@ -15,32 +15,35 @@ import no.hib.megagruppe.webpoll.entities.OptionEntity;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.ResponseEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
-import no.hib.megagruppe.webpoll.models.lecturer.*;
+import no.hib.megagruppe.webpoll.models.lecturer.QuestionCreationModel;
+import no.hib.megagruppe.webpoll.models.lecturer.QuestionOverviewModel;
+import no.hib.megagruppe.webpoll.models.lecturer.SurveyBasicInfoModel;
+import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
+import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 
 @Stateless
 public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 	private final RepositoryFactory repositoryFactory;
 	private final SecurityAdapter securityAdapter;
-	private final SurveyCreationService scs; //  Brukes for å opprette ny SurveyModel i metoden cloneSurvey(...).
-
+	
 	@Inject
-	public SurveyOverviewServiceImpl(RepositoryFactory repositoryFactory, SecurityAdapter securityAdapter, SurveyCreationService scs) {
+	public SurveyOverviewServiceImpl(RepositoryFactory repositoryFactory, SecurityAdapter securityAdapter) {
 		this.repositoryFactory = repositoryFactory;
 		this.securityAdapter = securityAdapter;
-		this.scs = scs;
 	}
 
 	@Override
 	public List<SurveyBasicInfoModel> getSurveyOverviews() {
 
 		Integer userID = securityAdapter.getLoggedInUser();
-		
+
 		SurveyRepository surveyRepository = repositoryFactory.getSurveyRepository();
 		List<SurveyEntity> surveys = surveyRepository.findAllByUser(userID);
 		List<SurveyBasicInfoModel> surveyBasicInfoModels = new ArrayList<>();
-		for(SurveyEntity survey : surveys){
+		for (SurveyEntity survey : surveys) {
 			Long responseCount = surveyRepository.numberOfResponses(survey);
-			SurveyBasicInfoModel surveyBasicInfoModel = new SurveyBasicInfoModel(survey.getId(), survey.getName(), survey.getDateCreated(), survey.getDeadline(), survey.getActive(), responseCount, survey.getCode());
+			SurveyBasicInfoModel surveyBasicInfoModel = new SurveyBasicInfoModel(survey.getId(), survey.getName(), survey.getDateCreated(),
+					survey.getDeadline(), survey.getActive(), responseCount, survey.getCode());
 			surveyBasicInfoModels.add(surveyBasicInfoModel);
 		}
 
@@ -48,19 +51,15 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 	}
 
 	@Override
-	public Boolean cloneSurvey(Integer surveyID) {
+	public SurveyCreationModel cloneSurvey(Integer surveyID) {
 
 		SurveyEntity survey = repositoryFactory.getSurveyRepository().findById(surveyID);
-		Boolean foundSurvey = survey != null;
 
-		if (foundSurvey) {
-			SurveyCreationModel surveyCreation = new SurveyCreationModel(survey.getName(), survey.getOwner().toString());
-			surveyCreation.setName(survey.getName() + "_2");
-			copyQuestions(survey, surveyCreation);
-			scs.commitSurveyCreation(surveyCreation);
-		}
+		String surveyName = survey.getName() + "_2";
+		SurveyCreationModel surveyCreation = new SurveyCreationModel(surveyName, survey.getOwner().toString());
+		copyQuestions(survey, surveyCreation);
 
-		return foundSurvey;
+		return surveyCreation;
 	}
 
 	/**
@@ -160,11 +159,6 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 		SurveyOverviewModel surveyOverview = convertSurveyToOverviewModel(survey);
 
 		return surveyOverview;
-	}
-
-	@Override
-	public SurveyResultModel getSurveyResult(Integer id) {
-		return new SurveyResultModel(); // TODO: implement
 	}
 
 	@Override

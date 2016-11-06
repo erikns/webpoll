@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyBasicInfoModel;
+import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
-import no.hib.megagruppe.webpoll.models.lecturer.SurveyResultModel;
 
 /**
  * Interface to support the use cases of the lecturer editing / viewing surveys.
@@ -25,15 +25,23 @@ public interface SurveyOverviewService {
     List<SurveyBasicInfoModel> getSurveyOverviews();
     
     /**
-     * Clones the survey with the provided survey ID as a new survey
+     * Clones the survey with the provided survey ID as a new survey.
      * @param surveyID The ID of the survey to be cloned
-     * @return Returns false if no survey with the provide surveyID exists
+     * @return The new survey as a SurveyCreationModel.
      */
-    Boolean cloneSurvey(Integer surveyID);
+    SurveyCreationModel cloneSurvey(Integer surveyID);
     
+    /**
+     * Gets the overview model for the survey.
+     * @param id The survey id.
+     * @return The overview model for the survey with given id.
+     */
     SurveyOverviewModel getSurveyOverviewModel(Integer id);
 
-    SurveyResultModel getSurveyResult(Integer id);
-    
+    /**
+     * Activates the survey and sets the deadline.
+     * @param deadline The deadline to be set.
+     * @param surveyID The ID of the survey to be activated.
+     */
     void activateSurvey(Timestamp deadline, Integer surveyID);
 }

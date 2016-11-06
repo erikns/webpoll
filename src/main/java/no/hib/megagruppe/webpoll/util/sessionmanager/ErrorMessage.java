@@ -49,6 +49,13 @@ public enum ErrorMessage {
 		public String toString(){
 			return "Du må skrive inn en kode.";
 		}
+	}, 
+	
+	NO_SURVEY_IN_SESSION(){
+		@Override
+		public String toString(){
+			return "Det finnes ikke en undersøkelse i sesjonen.";
+		}
 	}
 	
 }

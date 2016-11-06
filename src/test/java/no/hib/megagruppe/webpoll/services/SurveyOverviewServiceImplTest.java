@@ -58,7 +58,9 @@ public class SurveyOverviewServiceImplTest {
 	@Test
 	public void cloneSurveyMakesNewIdenticalSurvey(){
 		
-		assertTrue(lecturerService.cloneSurvey(0));
+		SurveyCreationModel newSurvey = lecturerService.cloneSurvey(0);
+		creationService.commitSurveyCreation(newSurvey);
+		
 		assertFalse(surveyRepository.findAll().get(1).getActive());
 		assertEquals(surveyRepository.findAll().get(0).getName() + "_2", surveyRepository.findAll().get(1).getName());
 		assertEquals(surveyRepository.findAll().get(0).getOwner(),surveyRepository.findAll().get(1).getOwner());
@@ -173,7 +175,7 @@ public class SurveyOverviewServiceImplTest {
 	}
 
 	private SurveyOverviewService buildLecturerService(SurveyRepository surveyRepository) {
-		return new SurveyOverviewServiceImpl(new FakeRepositoryFactory(null, surveyRepository, null), new TestSecurityAdapter(), creationService);
+		return new SurveyOverviewServiceImpl(new FakeRepositoryFactory(null, surveyRepository, null), new TestSecurityAdapter());
 	}
 	
 	private SurveyCreationService buildCreationService(SurveyRepository surveyRepository) {
