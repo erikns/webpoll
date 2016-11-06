@@ -24,11 +24,13 @@ public class SurveyCreationServiceImpl implements SurveyCreationService {
 
 	private final RepositoryFactory repositoryFactory;
 	private final SecurityAdapter securityAdapter;
+	private final SurveyCodeGenerator codeGenerator;
 
 	@Inject
-	public SurveyCreationServiceImpl(RepositoryFactory repositoryFactory, SecurityAdapter securityAdapter) {
+	public SurveyCreationServiceImpl(RepositoryFactory repositoryFactory, SecurityAdapter securityAdapter, SurveyCodeGenerator codeGenerator) {
 		this.repositoryFactory = repositoryFactory;
 		this.securityAdapter = securityAdapter;
+		this.codeGenerator = codeGenerator;
 	}
 
 	@Override
@@ -83,20 +85,19 @@ public class SurveyCreationServiceImpl implements SurveyCreationService {
 	private String generateUniqueSurveyCode(){
 		SurveyRepository surveyRepository = repositoryFactory.getSurveyRepository();
 		
+		String surveyCode;
 		int digits = 2;
-		String surveyCode = SurveyCodeGenerator.generateSurveyCode(digits);
-		
 		int tries = 0;
 		long maxTries = (long) (Math.pow(10, digits-1)); // 10^(digits-1) tries per digit to ensure the least possible number of digits. (2 digits = 10 tries, 3 digits = 100 tries, 4 digits = 1000 tries).
-		while(surveyRepository.existsActiveSurveyWithCode(surveyCode)){
-			surveyCode = SurveyCodeGenerator.generateSurveyCode(digits);
+		do{
+			surveyCode = codeGenerator.generateSurveyCode(digits);
 			
 			tries++;
 			if(tries >= maxTries){ // Try with more digits.
 				digits++;
 				tries = 0;
 			}
-		}
+		} while(surveyRepository.existsActiveSurveyWithCode(surveyCode));
 		
 		return surveyCode;
 	}

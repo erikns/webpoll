@@ -86,7 +86,10 @@ public class TestSurveyRepository implements SurveyRepository {
 
 	@Override
 	public boolean existsActiveSurveyWithCode(String code) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean exists = false;
+		for(SurveyEntity surveyInRepo : surveys.values()){
+			exists = exists || surveyInRepo.getCode().equals(code);
+		}
+		return exists;
 	}
 }

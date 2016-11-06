@@ -18,6 +18,7 @@ import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.entities.UserEntity;
 import no.hib.megagruppe.webpoll.fakes.FakeRepositoryFactory;
+import no.hib.megagruppe.webpoll.fakes.FakeSurveyCodeGenerator;
 import no.hib.megagruppe.webpoll.fakes.TestSecurityAdapter;
 import no.hib.megagruppe.webpoll.fakes.TestSurveyRepository;
 import no.hib.megagruppe.webpoll.fakes.TestUserRepositoryOneUser;
@@ -44,7 +45,6 @@ public class SurveyCreationServiceImplTest {
 	}
 	
 	@Test
-	@Ignore // TODO: fix this!
 	public void commitSurveyCommitsNewSurvey() {
 		
 		creationService.commitSurveyCreation(buildSurveyCreationModel(survey));
@@ -54,7 +54,6 @@ public class SurveyCreationServiceImplTest {
 		assertEquals(surveyRepository.findAll().get(0).getOwner(), surveyRepository.findAll().get(1).getOwner());
 		
 		compareQuestionsFromTwoSurveys(surveyRepository.findAll().get(0),surveyRepository.findAll().get(1));
-		
 	}
 	
 	private void compareQuestionsFromTwoSurveys(SurveyEntity oldSurvey, SurveyEntity newSurvey) {
@@ -72,8 +71,21 @@ public class SurveyCreationServiceImplTest {
 		}
 	}
 	
+	@Test
+	public void surveyCodeIsUnique(){
+		SurveyCreationModel s1 = buildSurveyCreationModel(survey);
+		SurveyEntity s2 = buildSurvey();
+		s2.setCode("fox3");
+		surveyRepository.add(s2);
+		creationService.commitSurveyCreation(s1);
+		List<SurveyEntity> surveys = surveyRepository.findAll();
+		assertFalse(surveys.get(0).getCode().equals(surveys.get(2).getCode()));
+		assertFalse(surveys.get(1).getCode().equals(surveys.get(2).getCode()));
+		assertEquals(surveys.get(2).getCode(), "fox4");
+	}
+	
 	private SurveyCreationService buildCreationService(SurveyRepository surveyRepository) {
-		return new SurveyCreationServiceImpl(new FakeRepositoryFactory(userRepository, surveyRepository, null), new TestSecurityAdapter());
+		return new SurveyCreationServiceImpl(new FakeRepositoryFactory(userRepository, surveyRepository, null), new TestSecurityAdapter(), new FakeSurveyCodeGenerator());
 	}
 	
 	private UserEntity buildUser(){
@@ -125,7 +137,7 @@ public class SurveyCreationServiceImplTest {
         survey.setDeadline(new Timestamp(System.currentTimeMillis() + 36000));
         survey.setOwner(buildUser());
         survey.setActive(true);
-        survey.setCode("abc");
+        survey.setCode("fox2");
 
         List<QuestionEntity> questions = new ArrayList<>();
         question1.setSurvey(survey);

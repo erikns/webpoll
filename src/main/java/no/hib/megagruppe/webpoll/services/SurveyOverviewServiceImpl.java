@@ -172,6 +172,7 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 		SurveyRepository surveyRepository = repositoryFactory.getSurveyRepository();
 		SurveyEntity survey = surveyRepository.findById(SurveyID);
 		survey.setDeadline(deadline);
+		survey.setActive(true);
 		surveyRepository.update(survey);
 	}
 
