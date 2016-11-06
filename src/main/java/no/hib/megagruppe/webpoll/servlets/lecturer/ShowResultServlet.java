@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.services.SecurityService;
+import no.hib.megagruppe.webpoll.services.SurveyOverviewService;
 import no.hib.megagruppe.webpoll.util.sessionmanager.SeeSurveyOverviewSessionManager;
 
 /**
@@ -28,6 +30,8 @@ public class ShowResultServlet extends HttpServlet {
 	@EJB
     SecurityService securityService;
 	
+	SurveyOverviewService surveyoverview;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(securityService.isLoggedIn()) {
 			SeeSurveyOverviewSessionManager session = new SeeSurveyOverviewSessionManager(request);
@@ -41,24 +45,21 @@ public class ShowResultServlet extends HttpServlet {
 		if(securityService.isLoggedIn()) {
 			SeeSurveyOverviewSessionManager session = new SeeSurveyOverviewSessionManager(request);
 			Integer id = session.getID();
+			SurveyEntity survey = session.getSurvey(id);  //Prøver å hente den gjeldende surveyen som er blitt valgt gjennom parameter id
 			
-		/* if (surveyen er active) {
-		 * 
-		 * 	while(surveyen er active) {
+		 if ( surveyoverview.isActive(id) ) {             //Ønsker en metode for å se om surveyen er active gjennom parameter id
 				
-				Vis resultat på siden
+				survey.getResponses();		              //Henter svar fra gjeldende survey
 				
-				Hent ID og refresh siden slik at den blir oppdatert etterhvert som det blir gitt nye svar
+				request.getRequestDispatcher("WEB-INF/lecturer/surveyresult.jsp").forward(request, response); //Ønsker å refreshe siden, og da vil alt bli kjørt på nytt, så tror id-en også blir hentet på nytt. Men er ikkje sikker
 				
-			}
-				}
-			else {
+		} else {
 				
-			Vis resultat på siden
+			survey.getResponses();							//Dersom den ikkje er active, vises svarene uten å refreshe siden
 				
 			}
 			
-		*/	
+			
 	} else {
 		response.sendRedirect("index");
 	}
