@@ -19,8 +19,9 @@
         <p>Kode: <c:out value="${survey.code}"/></p>
         <p>Antall svar: <c:out value="${survey.numberOfResponses}"/></p>
 
-        <form class="form-inline" action="<c:out value="${survey.activated ? 'surveyoverview' : 'startsurvey'}"/>" method="get">
+        <form class="form-inline" action="opensurvey" method="post">
           <input type="hidden" name="id" value="<c:out value="${survey.id}"/>">
+          <input type="hidden" name="active" value="<c:out value="${survey.activated}"/>">
           <input type="submit" id="submit-form<c:out value="${survey.id}"/>" class="hidden">
         </form>
       </div>

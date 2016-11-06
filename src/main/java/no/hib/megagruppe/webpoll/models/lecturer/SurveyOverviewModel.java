@@ -27,10 +27,11 @@ public class SurveyOverviewModel {
 	private Timestamp dateCreated;
 	private Timestamp deadline;
 	private List<QuestionOverviewModel> resultData;
-	private int numberOfResponses;
+	private Long numberOfResponses;
 	private String code;
+	private boolean activated;
 	
-	public SurveyOverviewModel(List<QuestionOverviewModel> responses, SurveyEntity survey, int numberOfResponses) {
+	public SurveyOverviewModel(List<QuestionOverviewModel> responses, SurveyEntity survey, Long numberOfResponses) {
 		name = survey.getName();
 		dateCreated = survey.getDateCreated();
 		deadline = survey.getDeadline();
@@ -59,7 +60,7 @@ public class SurveyOverviewModel {
 		return resultData;
 	}
 	
-	public int getNumberOfResponses(){
+	public Long getNumberOfResponses(){
 		return numberOfResponses;
 	}
 	
@@ -67,4 +68,7 @@ public class SurveyOverviewModel {
 		return code;
 	}
 
+	public boolean isActivated() {
+		return activated;
+	}
 }

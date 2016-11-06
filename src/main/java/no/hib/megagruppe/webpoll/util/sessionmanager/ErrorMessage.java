@@ -56,6 +56,13 @@ public enum ErrorMessage {
 		public String toString(){
 			return "Det finnes ikke en undersøkelse i sesjonen.";
 		}
+	}, 
+	
+	GENERIC_ERROR(){
+		@Override
+		public String toString(){
+			return "Noe gikk galt.";
+		}
 	}
 	
 }

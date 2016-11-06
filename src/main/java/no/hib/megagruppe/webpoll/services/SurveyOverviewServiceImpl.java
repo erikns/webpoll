@@ -111,7 +111,7 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 
 		List<QuestionOverviewModel> questionOverviewModels = new ArrayList<>();
 		questionOverviewModels.addAll(questionOverviewModelsMap.values());
-		int numberOfResponses = responses == null ? 0 : responses.size();
+		Long numberOfResponses = repositoryFactory.getSurveyRepository().numberOfResponses(survey);
 		SurveyOverviewModel surveyOverviewModel = new SurveyOverviewModel(questionOverviewModels, survey, numberOfResponses);
 
 		return surveyOverviewModel;
@@ -155,6 +155,7 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 	@Override
 	public SurveyOverviewModel getSurveyOverviewModel(Integer surveyID) {
 
+		// FIXME This needs to be EAGER fetch!
 		SurveyEntity survey = repositoryFactory.getSurveyRepository().findById(surveyID);
 		SurveyOverviewModel surveyOverview = convertSurveyToOverviewModel(survey);
 

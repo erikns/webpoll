@@ -26,8 +26,8 @@
                 <div class="panel-footer">
 					<p>
 						<label for="submit-form" class="btn btn-primary">Refresh</label>
-						<a href="<c:url value="clonesurvey"/>" class="btn btn-default role="button">Klon Undersøkelse</a>
-						<a href="<c:url value="lecturer"/>" class="btn btn-default role="button">Tilbake</a>
+						<a href="<c:url value="clonesurvey"/>" class="btn btn-default" role="button">Klon Undersøkelse</a>
+						<a href="<c:url value="lecturer"/>" class="btn btn-default" role="button">Tilbake</a>
 					</p>
     			</div>
       		</div>

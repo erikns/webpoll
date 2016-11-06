@@ -9,8 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hib.megagruppe.webpoll.models.lecturer.QuestionAnswerOverviewModel;
+import no.hib.megagruppe.webpoll.models.lecturer.QuestionOverviewModel;
+import no.hib.megagruppe.webpoll.models.lecturer.SurveyOverviewModel;
 import no.hib.megagruppe.webpoll.services.SecurityService;
 import no.hib.megagruppe.webpoll.services.SurveyOverviewService;
+import no.hib.megagruppe.webpoll.util.sessionmanager.ErrorMessage;
+import no.hib.megagruppe.webpoll.util.sessionmanager.SeeSurveyOverviewSessionManager;
 
 /**
  * Servlet implementation class ShowResultServlet
@@ -32,11 +37,21 @@ public class ShowResultServlet extends HttpServlet {
 	SurveyOverviewService surveyOverviewService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		SeeSurveyOverviewSessionManager session = new SeeSurveyOverviewSessionManager(request);
 		if(securityService.isLoggedIn()) {
-			int id = Integer.parseInt(request.getParameter("id"));
-			request.setAttribute("survey", surveyOverviewService.getSurveyOverviewModel(id));
+			Integer surveyID = session.getID();
+			SurveyOverviewModel surveyOverview = surveyOverviewService.getSurveyOverviewModel(surveyID);
+			System.out.println(surveyOverview.getResultData().size());
+			for(QuestionOverviewModel q : surveyOverview.getResultData()){
+				for(QuestionAnswerOverviewModel a : q.getAnswers()){
+					System.out.println(a.getAnswerText());
+				}
+			}
+			
+			request.setAttribute("survey", surveyOverview);
 			request.getRequestDispatcher("WEB-INF/lecturer/surveyresult.jsp").forward(request, response);
 		} else {
+			session.setErrorMessage(ErrorMessage.NOT_LOGGED_IN);
 			response.sendRedirect("login");
 		}
 	}
