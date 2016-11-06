@@ -19,8 +19,8 @@ import no.hib.megagruppe.webpoll.util.sessionmanager.SeeSurveyOverviewSessionMan
 /**
  * Copies a survey and redirects to surveybuilder.
  */
-@WebServlet("/copysurvey")
-public class CopySurveyServlet extends HttpServlet {
+@WebServlet("/clonesurvey")
+public class CloneSurveyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	@EJB
