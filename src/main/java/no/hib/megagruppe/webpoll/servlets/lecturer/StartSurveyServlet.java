@@ -10,24 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import no.hib.megagruppe.webpoll.entities.SurveyEntity;
-import no.hib.megagruppe.webpoll.models.lecturer.SurveyCreationModel;
 import no.hib.megagruppe.webpoll.services.SecurityService;
 import no.hib.megagruppe.webpoll.services.SurveyOverviewService;
-import no.hib.megagruppe.webpoll.util.sessionmanager.CreateSurveySessionManager;
+import no.hib.megagruppe.webpoll.util.sessionmanager.SeeSurveyOverviewSessionManager;
 
 /**
  * Servlet implementation class StartSurveyServlet
  * 
- * Skal starte en survey gjennom en Start Survey knapp på SurveyOverview siden. Når denne 
+ * Skal starte(/aktivere) en survey gjennom en "Start Survey" knapp på SurveyOverview siden. Når denne 
  * kanppen trykkes, skal tiden som er satt inn bli sendt til en service som lagrer tiden,
  * og sender tilbake til StartSurveyServlet.
  * 
  * Ting å gjøre as of 05.11.16:
  * 
- * Forandre til riktig session. Er foreløpig bare copypaste fra ChangeNameServlet.
+ * Forandre til riktig session. Er foreløpig bare copypaste fra ChangeNameServlet. fixd
  * 
- * Redirecte til riktig jsp, altså StartSurvey.jsp.
+ * Redirecte til riktig jsp, altså StartSurvey.jsp. fixd
  * 
  * survey.setActive(active) active = true, skal det gjøres her, eller i modellen?
  */
@@ -42,46 +40,22 @@ public class StartSurveyServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(securityService.isLoggedIn()) {
-			CreateSurveySessionManager session = new CreateSurveySessionManager(request);
-			request.getRequestDispatcher("WEB-INF/createsurvey/changename.jsp").forward(request, response);
+			SeeSurveyOverviewSessionManager session = new SeeSurveyOverviewSessionManager(request);
+			request.getRequestDispatcher("WEB-INF/createsurvey/startsurvey.jsp").forward(request, response);
 			session.clearErrorMessages();
-			
-			/* Må endres til noe annet enn CreateSurveySessionManager */
-			
 		} else {
 			response.sendRedirect("index");
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		if(securityService.isLoggedIn()) {
-			CreateSurveySessionManager session = new CreateSurveySessionManager(request);
-			
-			/* Må endres til noe annet enn CreateSurveySessionManager */
-			
+			SeeSurveyOverviewSessionManager session = new SeeSurveyOverviewSessionManager(request);
 			Timestamp deadline = (Timestamp) request.getAttribute("deadline");
-			
-		/*	SurveyEntity survey = session.getSurveyEntity(); 
-			
-			Integer id = survey.getId();  
-			
-			surveyoverview.activateSurvey(deadline, id);
-			
-			//Er skrevet en kommentar til koden activateSurvey^ angående survey.setActive
-			
-			 */
-			
-			
+			Integer id = session.getID();  
+			surveyoverview.activateSurvey(deadline, id); //må kanskje gjøre setActive òg
 		} else {
 			response.sendRedirect("index");
 		}
 	}
-
 }
-	
-		
-				
-	
-
-
