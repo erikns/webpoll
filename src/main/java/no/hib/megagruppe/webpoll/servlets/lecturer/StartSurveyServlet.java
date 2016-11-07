@@ -12,51 +12,57 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.hib.megagruppe.webpoll.services.SecurityService;
 import no.hib.megagruppe.webpoll.services.SurveyOverviewService;
+import no.hib.megagruppe.webpoll.util.sessionmanager.ErrorMessage;
 import no.hib.megagruppe.webpoll.util.sessionmanager.SeeSurveyOverviewSessionManager;
 
 /**
  * Servlet implementation class StartSurveyServlet
  * 
- * Skal starte(/aktivere) en survey gjennom en "Start Survey" knapp på SurveyOverview siden. Når denne 
- * kanppen trykkes, skal tiden som er satt inn bli sendt til en service som lagrer tiden,
- * og sender tilbake til StartSurveyServlet.
+ * Skal starte(/aktivere) en survey gjennom en "Start Survey" knapp på SurveyOverview siden. Når denne kanppen trykkes, skal tiden
+ * som er satt inn bli sendt til en service som lagrer tiden, og sender tilbake til StartSurveyServlet.
  */
 @WebServlet("/startsurvey")
 public class StartSurveyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	@EJB
-    SecurityService securityService;
+	SecurityService securityService;
 	@EJB
 	SurveyOverviewService surveyOverviewService;
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(securityService.isLoggedIn()) {
-			SeeSurveyOverviewSessionManager session = new SeeSurveyOverviewSessionManager(request);
+		SeeSurveyOverviewSessionManager session = new SeeSurveyOverviewSessionManager(request);
+		if (securityService.isLoggedIn()) {
+			
 			request.getRequestDispatcher("WEB-INF/lecturer/startsurvey.jsp").forward(request, response);
 			session.clearErrorMessages();
 		} else {
+			session.setErrorMessage(ErrorMessage.NOT_LOGGED_IN);
 			response.sendRedirect("index");
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(securityService.isLoggedIn()) {
-			SeeSurveyOverviewSessionManager session = new SeeSurveyOverviewSessionManager(request);
-			/*
-			 * Kan ikkje sende Timestamp via jsp så må gjøre litt magi for å gjøre om datetime_local i stedet 
-			 */
-			String datetimeLocal = (String) request.getAttribute("deadline");
 		
-			if ((datetimeLocal.length() - datetimeLocal.replace(":", "").length()) == 1) {
-				datetimeLocal += ":00";
-			}
-			Timestamp deadline = Timestamp.valueOf(datetimeLocal.replace("T", " "));
+		SeeSurveyOverviewSessionManager session = new SeeSurveyOverviewSessionManager(request);
+		if (securityService.isLoggedIn()) {
 
-			Integer id = session.getID();  
-			surveyOverviewService.activateSurvey(deadline, id);
-			response.sendRedirect("lecturer");
+			try{
+				String days = request.getParameter("days");
+				String hours = request.getParameter("hours");
+				String minutes = request.getParameter("minutes");
+				Timestamp deadline = session.getTimestamp(days, hours, minutes);
+
+				Integer id = session.getID();
+				surveyOverviewService.activateSurvey(deadline, id);
+				response.sendRedirect("lecturer");
+				
+			} catch(Exception e){
+				session.setErrorMessage(ErrorMessage.GENERIC_ERROR);
+				response.sendRedirect("startsurvey");
+			}
 		} else {
+			session.setErrorMessage(ErrorMessage.NOT_LOGGED_IN);
 			response.sendRedirect("index");
 		}
 	}
