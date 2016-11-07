@@ -13,7 +13,7 @@
 			<c:forEach var="o" items="${question.options}">
 				<%-- o = option --%>
 				<div class="radio">
-					<label> <input type="radio" name="answer" value="${count}">
+					<label> <input type="radio" name="answer" value="${count - 1}">
 						<c:out value="${o}"/>
 					</label>
 				</div>

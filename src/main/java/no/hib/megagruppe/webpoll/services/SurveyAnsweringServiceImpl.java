@@ -37,27 +37,27 @@ public class SurveyAnsweringServiceImpl implements SurveyAnsweringService {
     	
     	SurveyEntity survey = repositoryFactory.getSurveyRepository().findByCode(answeringModel.getCode());
     	List<AnswerEntity> answers = new ArrayList<>();
-    	SurveyQuestionModel[] questions = answeringModel.getQuestions();	
+    	SurveyQuestionModel[] surveyQuestions = answeringModel.getQuestions();	
 		OptionEntity option;
 		String freetext;
 		QuestionEntity question;
 		
 		
-    	for (int i = 0; i < questions.length; i++) {
+    	for (int i = 0; i < surveyQuestions.length; i++) {
     		
     		option = null;
     		freetext = null;
     		question = survey.getQuestions().get(i);
     		
     		if (question.getType().isMultipleChoice()) {
-    			for (String answer : questions[i].getAnswers()) {
-    				option = findOption(question, answer);
+    			for (String surveyAnswer : surveyQuestions[i].getAnswers()) {
+    				option = findOption(question, surveyAnswer);
     				if (option != null) {
     					answers.add(new AnswerEntity(question, option));	
     				}
     			}
     		} else {
-    			freetext = questions[i].getAnswers()[0];		
+    			freetext = surveyQuestions[i].getAnswers()[0];		
         		answers.add(new AnswerEntity(question, freetext));
     		}
     	}
@@ -65,15 +65,13 @@ public class SurveyAnsweringServiceImpl implements SurveyAnsweringService {
     	repositoryFactory.getResponseRepository().add(response);
     }
     
-    private OptionEntity findOption(QuestionEntity question, String answer) {
+    private OptionEntity findOption(QuestionEntity question, String surveyAnswer) {
     	OptionEntity option = null;
-    	boolean optionFound = false;
-		for (int j = 0; j < question.getOptions().size() && !optionFound; j++) {
-			if(answer.equals(question.getOptions().get(j).getText())) {
-				option = question.getOptions().get(j);
-				optionFound = true;
-			}
-		}
+    	
+    	try {
+    		option = question.getOptions().get(Integer.parseInt(surveyAnswer));
+    	} catch(NumberFormatException e) {}
+    	
 		return option;
     }
 }
