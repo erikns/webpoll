@@ -31,7 +31,9 @@
                 <div class="panel-footer">
 					<p>
 						<label for="submit-form" class="btn btn-primary">Refresh</label>
-						<a href="<c:url value="clonesurvey"/>" class="btn btn-default" role="button">Klon Undersøkelse</a>
+						<form method="post" action="clonesurvey">
+							<input type="submit" class="btn btn-default" value="Klon undersøkelse"/>
+						</form>
 						<a href="<c:url value="lecturer"/>" class="btn btn-default" role="button">Tilbake</a>
 					</p>
     			</div>

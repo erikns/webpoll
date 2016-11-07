@@ -41,12 +41,6 @@ public class ShowResultServlet extends HttpServlet {
 		if(securityService.isLoggedIn()) {
 			Integer surveyID = session.getID();
 			SurveyOverviewModel surveyOverview = surveyOverviewService.getSurveyOverviewModel(surveyID);
-			System.out.println(surveyOverview.getResultData().size());
-			for(QuestionOverviewModel q : surveyOverview.getResultData()){
-				for(QuestionAnswerOverviewModel a : q.getAnswers()){
-					System.out.println(a.getAnswerText());
-				}
-			}
 			
 			request.setAttribute("survey", surveyOverview);
 			request.getRequestDispatcher("WEB-INF/lecturer/surveyresult.jsp").forward(request, response);

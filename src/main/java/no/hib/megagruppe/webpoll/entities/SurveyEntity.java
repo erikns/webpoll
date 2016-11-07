@@ -29,6 +29,8 @@ public class SurveyEntity {
             fetch = FetchType.EAGER)
     private List<QuestionEntity> questions;
 
+    @OneToMany(targetEntity = ResponseEntity.class, cascade = CascadeType.ALL, mappedBy = "survey",
+            fetch = FetchType.EAGER)
     private List<ResponseEntity> responses;
     
     public Integer getId() {

@@ -30,10 +30,11 @@ public class QuestionEntity {
     @Column(name = "question_type")
     @Enumerated(EnumType.STRING)
     private QuestionType type;
+    private Boolean multiple;
     @OneToMany(targetEntity = OptionEntity.class, cascade = CascadeType.ALL, mappedBy = "question",
         fetch = FetchType.EAGER)
     private List<OptionEntity> options;
-
+    
     public Integer getId() {
         return id;
     }
@@ -64,6 +65,7 @@ public class QuestionEntity {
 
     public void setType(QuestionType type) {
         this.type = type;
+        this.multiple = type.isMultipleChoice();
     }
 
     public List<OptionEntity> getOptions() {

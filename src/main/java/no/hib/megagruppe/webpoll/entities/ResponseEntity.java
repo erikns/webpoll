@@ -11,7 +11,7 @@ public class ResponseEntity {
     private Integer id;
     @ManyToOne
     private SurveyEntity survey;
-    @OneToMany(targetEntity = AnswerEntity.class, cascade = CascadeType.PERSIST, mappedBy = "response")
+    @OneToMany(targetEntity = AnswerEntity.class, cascade = CascadeType.PERSIST, mappedBy = "response",  fetch = FetchType.EAGER)
     private List<AnswerEntity> answers;
     
     public ResponseEntity() {
