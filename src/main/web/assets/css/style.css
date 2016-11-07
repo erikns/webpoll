@@ -36,9 +36,10 @@ a:hover {
     color: #fff;
 } */
 
-.no-bg {
-	background: none !important;
-	background-color: rgba(0,0,0,0) !important;
+.panel .no-bg {
+	background: none;
+	background-color: rgba(0,0,0,0);
+	background-color: transparent;
 }
 
 .panel-body {
