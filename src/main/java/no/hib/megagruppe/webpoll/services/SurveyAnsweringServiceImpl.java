@@ -67,11 +67,13 @@ public class SurveyAnsweringServiceImpl implements SurveyAnsweringService {
     
     private OptionEntity findOption(QuestionEntity question, String surveyAnswer) {
     	OptionEntity option = null;
-    	
-    	try {
-    		option = question.getOptions().get(Integer.parseInt(surveyAnswer));
-    	} catch(NumberFormatException e) {}
-    	
+    	boolean optionFound = false;
+		for (int j = 0; j < question.getOptions().size() && !optionFound; j++) {
+			if(surveyAnswer.equals(question.getOptions().get(j).getText())) {
+				option = question.getOptions().get(j);
+				optionFound = true;
+			}
+		}
 		return option;
     }
 }

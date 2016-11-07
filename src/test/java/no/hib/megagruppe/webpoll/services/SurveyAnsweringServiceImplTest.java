@@ -70,7 +70,7 @@ public class SurveyAnsweringServiceImplTest {
 		assertEquals(survey.getDeadline(), sam.getSurveyDeadline());
 	}
 	
-	// @Test
+	@Test
 	public void commitSurveyCommitsResponse(){
 		SurveyAnsweringModel sam = service.startSurveyAnswering("abc");
 		sam.getQuestions()[0].submitAnswer(new String[]{sam.getQuestions()[0].getOptions().get(1)});
