@@ -171,4 +171,12 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 		surveyRepository.update(survey);
 	}
 
+	@Override
+	public boolean ownedByUser(Integer surveyID) {
+		SurveyRepository surveyRepository = repositoryFactory.getSurveyRepository();
+		SurveyEntity survey = surveyRepository.findById(surveyID);
+		boolean ownedByUser = securityAdapter.getLoggedInUser() == survey.getOwner().getId();
+		return ownedByUser;
+	}
+
 }

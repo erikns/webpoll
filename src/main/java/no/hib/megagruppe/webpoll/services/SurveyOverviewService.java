@@ -44,4 +44,10 @@ public interface SurveyOverviewService {
      * @param surveyID The ID of the survey to be activated.
      */
     void activateSurvey(Timestamp deadline, Integer surveyID);
+    
+    /**
+     * Checks if the survey is owned by the logged in user.
+     * @return True if the survey is owned by the logged in user, false if not.
+     */
+    boolean ownedByUser(Integer surveyID);
 }

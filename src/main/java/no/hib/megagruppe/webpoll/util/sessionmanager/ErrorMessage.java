@@ -63,6 +63,13 @@ public enum ErrorMessage {
 		public String toString(){
 			return "Noe gikk galt.";
 		}
-	}
+	}, 
+	
+	SURVEY_NOT_OWNED_BY_USER(){
+		@Override
+		public String toString(){
+			return "Du eier ikke denne undersøkelsen.";
+		}
+	}, 
 	
 }

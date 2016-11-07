@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.hib.megagruppe.webpoll.services.SecurityService;
+import no.hib.megagruppe.webpoll.services.SurveyOverviewService;
 import no.hib.megagruppe.webpoll.util.sessionmanager.ErrorMessage;
 import no.hib.megagruppe.webpoll.util.sessionmanager.SeeSurveyOverviewSessionManager;
 
@@ -22,6 +23,8 @@ public class OpenSurveyServlet extends HttpServlet {
 
 	@EJB
 	SecurityService securityService;
+	@EJB
+	SurveyOverviewService sos;
 	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -33,13 +36,18 @@ public class OpenSurveyServlet extends HttpServlet {
 		if(securityService.isLoggedIn()){
 			try{
 				Integer surveyID = Integer.parseInt(request.getParameter("id"));
-				Boolean activated = Boolean.parseBoolean(request.getParameter("active"));
-				session.setID(surveyID);
+				if(sos.ownedByUser(surveyID)){
+					Boolean activated = Boolean.parseBoolean(request.getParameter("active"));
+					session.setID(surveyID);
 
-				if(activated){
-					response.sendRedirect("surveyresult");
+					if(activated){
+						response.sendRedirect("surveyresult");
+					} else {
+						response.sendRedirect("startsurvey");
+					}
 				} else {
-					response.sendRedirect("startsurvey");
+					session.setErrorMessage(ErrorMessage.SURVEY_NOT_OWNED_BY_USER);
+					response.sendRedirect("lecturer");
 				}
 				
 			}catch(Exception e){
