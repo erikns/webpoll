@@ -55,6 +55,7 @@ public class StartSurveyServlet extends HttpServlet {
 
 			Integer id = session.getID();  
 			surveyOverviewService.activateSurvey(deadline, id);
+			response.sendRedirect("lecturer");
 		} else {
 			response.sendRedirect("index");
 		}
