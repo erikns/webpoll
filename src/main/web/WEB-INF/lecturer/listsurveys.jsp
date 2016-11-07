@@ -2,17 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
+<div class="panel">
 <c:forEach var="survey" items="${surveys}">
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="<c:out value="${survey.name}"/>">
+    <div class="panel-heading" role="tab" id="heading<c:out value="${survey.code}"/>">
       <h4 class="panel-title">
-        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#<c:out value="${survey.id}"/>">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<c:out value="${survey.id}"/>">
           <c:out value="${survey.name}"/>
         </a>
       </h4>
     </div>
-    <div id="<c:out value="${survey.id}"/>" class="panel-collapse collapse in" role="tabpanel">
+    <div id="collapse<c:out value="${survey.id}"/>" class="panel-collapse collapse in" role="tabpanel">
       <div class="panel-body">
         <p>Dato laget: <c:out value="${survey.dateCreated}"/></p>
         <p>Deadline: <c:out value="${not empty survey.deadline ? survey.deadline :'Ikke satt'}"/></p>
@@ -35,4 +35,5 @@
     </div>
   </div>
 </c:forEach>
+</div>
 </div>
