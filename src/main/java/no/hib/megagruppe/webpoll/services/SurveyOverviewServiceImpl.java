@@ -126,7 +126,7 @@ public class SurveyOverviewServiceImpl implements SurveyOverviewService {
 	 */
 	private String[] getWordsFromString(String answerText) {
 		answerText = answerText.toLowerCase();
-		answerText = answerText.replaceAll("[^a-z0-9\\s]+", "");
+		answerText = answerText.replaceAll("[^a-z0-9æøå\\s]+", "");
 		String[] answerWords = answerText.split(" ");
 
 		return answerWords;

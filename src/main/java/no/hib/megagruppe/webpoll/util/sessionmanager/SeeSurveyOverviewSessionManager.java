@@ -33,21 +33,21 @@ public class SeeSurveyOverviewSessionManager extends SessionManager {
 	}
 	
 	public Timestamp getTimestamp(String daysS, String hoursS, String minutesS){
-		daysS = daysS==null ? "0" : daysS;
-		hoursS = hoursS==null ? "0" : hoursS;
-		minutesS = minutesS==null ? "0" : minutesS;
+		daysS = daysS==null || daysS.equals("") ? "0" : daysS;
+		hoursS = hoursS==null || hoursS.equals("") ? "0" : hoursS;
+		minutesS = minutesS==null || minutesS.equals("") ? "0" : minutesS;
 		
 		Integer days = Integer.parseInt(daysS);
-		Integer minutes = Integer.parseInt(hoursS);
-		Integer hours = Integer.parseInt(minutesS);
+		Integer hours = Integer.parseInt(hoursS);
+		Integer minutes = Integer.parseInt(minutesS);
 		
 		if(days==0 && hours==0 && minutes==0){
-			days = 100;
+			days = 10000;
 			hours = 11;
 			minutes = 59;
 		}
 		
-		days = days > 100 ? 100 : days;
+		days = days > 10000 ? 10000 : days;
 		hours = hours%24;
 		minutes = minutes%60;
 		
