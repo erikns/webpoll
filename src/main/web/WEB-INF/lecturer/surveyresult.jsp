@@ -24,7 +24,7 @@
                     	<div class="form-group">
                     		<p>Undersøkelsenavn: <c:out value="${survey.name}"/></p>
                     		<p>Antall svar: <c:out value="${survey.numberOfResponses}"/>
-							<input type="submit" id="submit-form" class="hidden">
+							<input formmethod="get" type="submit" id="submit-form" class="hidden">
 						</div>
 					</form>
                 </div>
