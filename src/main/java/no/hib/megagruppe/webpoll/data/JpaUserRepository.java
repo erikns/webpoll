@@ -19,7 +19,8 @@ public class JpaUserRepository implements UserRepository {
 
     @Override
     public UserEntity findByEmail(String email) {
-        Query query = em.createQuery("select u from user u where u.email = '" + email + "'");
+        Query query = em.createQuery("select u from user u where u.email = :email");
+        query.setParameter("email", email);
 
         try {
             Object queryResult = query.getSingleResult();
