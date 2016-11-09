@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<footer class="navbar-fixed-bottom">
+<footer>
 	<div class="container text-center">
 		<p>&copy;&nbsp;2016 Prosjektgruppe 2
 		<span class="build-info">
