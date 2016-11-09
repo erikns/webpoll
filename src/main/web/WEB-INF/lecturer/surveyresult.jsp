@@ -7,7 +7,6 @@
 		<title>P-Poll Undersøkelseresultat</title>
 		<style>
 			body{padding-top:70px;padding-bottom:70px;}
-			/*footer{position:relative;bottom:auto;}*/
     		@media(max-width: 767px){body{padding-top:0;padding-bottom:0px;}}
 		</style>
 	</head>
@@ -31,9 +30,7 @@
                 <div class="panel-footer">
 					<p>
 						<label for="submit-form" class="btn btn-primary">Refresh</label>
-						<form method="post" action="clonesurvey">
-							<input type="submit" class="btn btn-default" value="Klon undersøkelse"/>
-						</form>
+						<button type="submit" formmethod="post" formaction="clonesurvey" class="btn btn-default">Klon undersøkelse</button>
 						<a href="<c:url value="lecturer"/>" class="btn btn-default" role="button">Tilbake</a>
 					</p>
     			</div>

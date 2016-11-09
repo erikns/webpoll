@@ -8,7 +8,7 @@
     <div class="panel-heading" role="tab" id="heading<c:out value="${survey.code}"/>">
       <h4 class="panel-title">
         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<c:out value="${survey.id}"/>">
-          <c:out value="${survey.name}"/><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+          <c:out value="${survey.name}"/>&nbsp;<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
         </a>
       </h4>
     </div>

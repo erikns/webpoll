@@ -8,7 +8,6 @@
 		<style>
 			body{padding-top:70px;padding-bottom:70px;}
 			.container{width:750px;}
-			/* footer{position:relative;bottom:auto;} */
     		@media(max-width: 767px){body{padding-top:0;padding-bottom:0px;}.container{width: auto;}}
 		</style>
 	</head>
@@ -69,6 +68,6 @@
     	</div>
 		<jsp:include page="/pages/footer.jsp"/>
 		<jsp:include page="/pages/js.jsp"/>
-		<script>$.backstretch("<c:url value="/assets/img/people.jpg"/>");</script>
+		<script>$.backstretch("<c:url value="/assets/img/desk.jpg"/>");</script>
 	</body>
 </html>

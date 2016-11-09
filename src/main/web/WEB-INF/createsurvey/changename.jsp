@@ -39,6 +39,6 @@
     	</div>
 		<jsp:include page="/pages/footer.jsp"/>
 		<jsp:include page="/pages/js.jsp"/>
-		<script>$.backstretch("<c:url value="/assets/img/people.jpg"/>");</script>
+		<script>$.backstretch("<c:url value="/assets/img/desk.jpg"/>");</script>
 	</body>
 </html>
