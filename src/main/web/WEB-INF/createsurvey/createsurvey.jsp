@@ -6,10 +6,10 @@
 		<jsp:include page="/pages/meta.jsp"/>
 		<title>P-Poll Ny undersøkelse</title>
 		<style>
-			body{padding-top:70px;}
+			body{padding-top:70px;padding-bottom:70px;}
 			.container{width:750px;}
 			/* footer{position:relative;bottom:auto;} */
-    		@media(max-width: 767px){body{padding-top:0;}.container{width:auto;}}
+    		@media(max-width: 767px){body{padding-top:0;padding-bottom:0px;}.container{width:auto;}}
 		</style>
 	</head>
 

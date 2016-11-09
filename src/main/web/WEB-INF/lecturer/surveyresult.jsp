@@ -6,9 +6,9 @@
 		<jsp:include page="/pages/meta.jsp"/>
 		<title>P-Poll Undersøkelseresultat</title>
 		<style>
-			body{padding-top:70px;}
+			body{padding-top:70px;padding-bottom:70px;}
 			/*footer{position:relative;bottom:auto;}*/
-    		@media(max-width: 767px){body{padding-top:0;}}
+    		@media(max-width: 767px){body{padding-top:0;padding-bottom:0px;}}
 		</style>
 	</head>
 
