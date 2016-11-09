@@ -8,8 +8,8 @@
 		<style>
 			body{padding-top:70px;}
 			.container{width:750px;}
-			footer{position:relative;bottom:auto;}
-    		@media(max-width: 767px){body{padding-top:0;}}
+			/* footer{position:relative;bottom:auto;} */
+    		@media(max-width: 767px){body{padding-top:0;}.container{width: auto;}}
 		</style>
 	</head>
 

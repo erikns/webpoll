@@ -7,7 +7,7 @@
 		<title>P-Poll Undersøkelseresultat</title>
 		<style>
 			body{padding-top:70px;}
-			footer{position:relative;bottom:auto;}
+			/*footer{position:relative;bottom:auto;}*/
     		@media(max-width: 767px){body{padding-top:0;}}
 		</style>
 	</head>
