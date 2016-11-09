@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
     <Resource id="webpollDb" type="javax.sql.DataSource">
+        factory = org.apache.tomcat.jdbc.pool.DataSourceFactory
         jdbcDriver = org.postgresql.Driver
         jdbcUrl = jdbc:postgresql://data1.hib.no:5433/h16_dat104_p02
         userName = h16_dat104_p02
         password = pass
+        timeBetweenEvictionRunsMillis = 60000
+        removeAbandoned = true
+        minEvictableIdleTimeMillis = 120000
+        maxWaitTime = 5000
     </Resource>
 </resources>
