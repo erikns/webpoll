@@ -19,18 +19,18 @@
     				<h3 class="panel-title">Resultat av undersøkelse</h3>
                 </div>
     			<div class="panel-body">
-                    <form class="form-inline" action="surveyresult" method="post">
+                    <form class="form-inline" id="refresh" action="surveyresult" method="get">
                     	<div class="form-group">
                     		<p>Undersøkelsenavn: <c:out value="${survey.name}"/></p>
                     		<p>Antall svar: <c:out value="${survey.numberOfResponses}"/>
-							<input formmethod="get" type="submit" id="submit-form" class="hidden">
+							<input type="submit" id="submit-form" class="hidden">
 						</div>
 					</form>
                 </div>
                 <div class="panel-footer">
 					<p>
 						<label for="submit-form" class="btn btn-primary">Refresh</label>
-						<button type="submit" formmethod="post" formaction="clonesurvey" class="btn btn-default">Klon undersøkelse</button>
+						<button type="submit" form="refresh" formmethod="post" formaction="clonesurvey" class="btn btn-default">Klon undersøkelse</button>
 						<a href="<c:url value="lecturer"/>" class="btn btn-default" role="button">Tilbake</a>
 					</p>
     			</div>

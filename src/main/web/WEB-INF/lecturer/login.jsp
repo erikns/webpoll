@@ -18,10 +18,8 @@
                            placeholder="Brukernavn" value="${not empty typedusername ? typedusername : ''}"
                            required autofocus>
 					<label for="inputPassword" class="sr-only">Passord</label>
-					<input type="password" id="inputPassword" name="password" class="form-control"
-                           placeholder="Passord" required>
+					<input type="password" id="inputPassword" name="password" class="form-control" placeholder="Passord" required>
 					<p class="errormsg">${errormsg}</p>
-					
 					<input class="btn btn-lg btn-primary btn-block" type="submit" value="Logg inn">
 				</form>
 			</div>
