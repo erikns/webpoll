@@ -20,15 +20,15 @@
 						<form action="startsurvey" method="post">
 							<h4>Sett en deadline for undersøkelsen</h4>
 							<div class="form-group">
-								<label for="days">Dager</label>
+								<label for="days">Dager: </label>
 								<input type="number" name="days" min="0"> 
 							</div>
 							<div class="form-group">
-								<label for="hours">Timer</label>
+								<label for="hours">Timer: </label>
 								<input type="number" name="hours" min="0" max="23">
 							</div>
 							<div class="form-group">
-								<label for="minutes">Minutt</label>
+								<label for="minutes">Minutt: </label>
 								<input type="number" name="minutes" min="0" max="59">
 							</div>
 							<div class="form-group">	
