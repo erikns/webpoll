@@ -147,13 +147,6 @@ a:hover {
     color: #ff0000;
 }
 
-
-/* Temp shit */
-
-.margin-top {
-    margin-top: 60px;
-}
-
 /*
  * Affix and center
  */
@@ -221,10 +214,6 @@ screen and (max-width:768px) {
         margin-left: 2.5%;
         margin-right: 2.5%;
     }
-
-    .margin-top {
-        margin-top: 0;
-    }
 }
 
 @media handheld,
@@ -258,9 +247,5 @@ screen and (max-width:992px) {
         max-width: 95%;
         margin-left: 2.5%;
         margin-right: 2.5%;
-    }
-
-    .margin-top {
-        margin-top: 0;
     }
 }

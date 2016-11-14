@@ -5,12 +5,16 @@
 	<head>
 		<jsp:include page="/pages/meta.jsp"/>
 		<title>P-Poll Foreleser</title>
+		<style>
+			body{padding-top:70px;padding-bottom:70px;}
+			@media(max-width:767px){body{padding-top:0;padding-bottom:0px;}}
+		</style>
 	</head>
 
 	<body>
 		<jsp:include page="/pages/navbar.jsp"/>
 		<div class="container">
-			<div class="panel panel-default margin-top">
+			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Ny undersøkelse</h3>
 				</div>
