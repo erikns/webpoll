@@ -1,6 +1,7 @@
 package no.hib.megagruppe.webpoll.models.lecturer;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
 
@@ -26,6 +27,8 @@ public class SurveyOverviewModel {
 	private String name;
 	private Timestamp dateCreated;
 	private Timestamp deadline;
+	private String formatedDeadline;
+	private SimpleDateFormat format;
 	private List<QuestionOverviewModel> resultData;
 	private Long numberOfResponses;
 	private String code;
@@ -39,7 +42,14 @@ public class SurveyOverviewModel {
 		this.numberOfResponses = numberOfResponses;
 		this.code = survey.getCode();
 	}
-	
+
+	private String getFormatedDeadline(){
+		format = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+		Date deadlineDate = new Date(deadline.getTime());
+		String formattedDeadline = format.format(deadlineDate);
+		return formattedDeadline;
+	}
+
 	public Boolean isPastDeadline() {
 		return deadline.before(new Timestamp(new Date().getTime()));
 	}
