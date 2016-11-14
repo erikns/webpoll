@@ -1,6 +1,8 @@
 package no.hib.megagruppe.webpoll.data;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -83,10 +85,11 @@ public class JpaSurveyRepository implements SurveyRepository {
     
     @Override
     public boolean existsActiveSurveyWithCode(String code){
-    	// TODO Istedetfor å skrive 's.active = true', bør vi skrive 's.deadline > now'? Da slipper vi å oppdatere 'active' attributten i databasen. Kanskje vi bare skal fjerne den...
-        // Kommentar: kanskje ikke? kan ikke en undersøkelse være inaktiv selv om fristen ikke har gått ut?
-    	Query query = entityManager.createQuery("select count(s) from survey s where s.active = true and s.code = :code");
+    	Date nowDate = new Date();
+    	Timestamp now = new Timestamp(nowDate.getTime());
+    	Query query = entityManager.createQuery("select count(s) from survey s where s.code = :code and s.deadline > :now");
         query.setParameter("code", code);
+        query.setParameter("now", now);
 
     	Long count = (Long) query.getSingleResult();
     	return count >= 1;

@@ -168,7 +168,7 @@ public class SurveyOverviewServiceImplTest {
 		survey.setActive(false);
 		survey.setDeadline(null);
 		Integer surveyID = survey.getId();
-		lecturerService.activateSurvey(new Timestamp(100), surveyID);
+		lecturerService.activateSurvey(new Timestamp(System.currentTimeMillis()+10000), surveyID);
 		
 		assertTrue(surveyRepository.findAll().get(0).getActive());
 		assertNotNull(surveyRepository.findAll().get(0).getDeadline());

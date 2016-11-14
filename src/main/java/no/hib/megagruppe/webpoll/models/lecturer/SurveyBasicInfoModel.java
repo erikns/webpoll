@@ -52,7 +52,7 @@ public class SurveyBasicInfoModel {
 	}
 
 	public boolean isActivated() {
-		return activated;
+		return deadline != null;
 	}
 
 	public Long getNumberOfResponses() {

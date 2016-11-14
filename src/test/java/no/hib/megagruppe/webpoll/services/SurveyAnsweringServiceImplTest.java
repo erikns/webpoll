@@ -54,7 +54,7 @@ public class SurveyAnsweringServiceImplTest {
 
 	@Test
 	public void isValidSurveyReturnsFalseForInactiveSurvey() {
-		survey.setActive(false);
+		survey.setDeadline(new Timestamp(System.currentTimeMillis()-1000));
 		assertFalse(service.isValidSurvey("abc"));
 	}
 	
