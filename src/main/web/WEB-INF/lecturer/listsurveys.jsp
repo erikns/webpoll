@@ -14,8 +14,8 @@
     </div>
     <div id="collapse<c:out value="${survey.id}"/>" class="panel-collapse collapse" role="tabpanel">
       <div class="panel-body">
-        <p>Dato laget: <c:out value="${survey.dateCreated}"/></p>
-        <p>Deadline: <c:out value="${not empty survey.deadline ? survey.deadline :'Ikke satt'}"/></p>
+        <p>Dato laget: <c:out value="${survey.formattedCreationTime}"/></p>
+        <p>Deadline: <c:out value="${not empty survey.deadline ? survey.formattedDeadline :'Ikke satt'}"/></p>
         <p>Kode: <c:out value="${survey.code}"/></p>
         <p>Antall svar: <c:out value="${survey.numberOfResponses}"/></p>
 

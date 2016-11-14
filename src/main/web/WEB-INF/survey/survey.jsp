@@ -17,11 +17,11 @@
             				<h3>
                             <c:out value="${survey.surveyName}"/>
                             <small>av<c:out value="${survey.creator}"/>, 
-                            <c:out value="${survey.surveyCreated}"/></small>
+                            <c:out value="${survey.formattedCreationTime}"/></small>
                             </h3>
                         </div>
             			<div class="panel-body">
-                            <p>Deadline: <c:out value="${survey.surveyDeadline}"/></p>
+                            <p>Deadline: <c:out value="${survey.formattedDeadline}"/></p>
             				<jsp:useBean id="now" class="java.util.Date"/>
             				<c:choose>
             					<c:when test="${survey.surveyDeadline lt now}">

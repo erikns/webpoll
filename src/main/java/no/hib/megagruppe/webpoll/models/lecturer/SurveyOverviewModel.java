@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Date;
 
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
+import no.hib.megagruppe.webpoll.util.TimestampFormatter;
 
 /**
  * A class for showing information about a survey, including all the responses and survey-search-code.
@@ -27,8 +28,8 @@ public class SurveyOverviewModel {
 	private String name;
 	private Timestamp dateCreated;
 	private Timestamp deadline;
-	private String formatedDeadline;
-	private SimpleDateFormat format;
+	private String formattedDeadline;
+	private String formattedCreationTime;
 	private List<QuestionOverviewModel> resultData;
 	private Long numberOfResponses;
 	private String code;
@@ -43,11 +44,12 @@ public class SurveyOverviewModel {
 		this.code = survey.getCode();
 	}
 
-	private String getFormatedDeadline(){
-		format = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-		Date deadlineDate = new Date(deadline.getTime());
-		String formattedDeadline = format.format(deadlineDate);
-		return formattedDeadline;
+	public String getFormattedDeadline(){
+		return TimestampFormatter.format(deadline);
+	}
+	
+	public String getFormattedCreationTime(){
+		return TimestampFormatter.format(dateCreated);
 	}
 
 	public Boolean isPastDeadline() {

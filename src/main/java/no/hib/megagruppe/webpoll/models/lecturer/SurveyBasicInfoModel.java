@@ -3,6 +3,8 @@ package no.hib.megagruppe.webpoll.models.lecturer;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import no.hib.megagruppe.webpoll.util.TimestampFormatter;
+
 /**
  * A class for showing basic information about a survey.
  * It does not encapsulate the responses like SurveyOverviewModel do.
@@ -16,6 +18,8 @@ public class SurveyBasicInfoModel {
 	private String name;
 	private Timestamp dateCreated;
 	private Timestamp deadline;
+	private String formattedDeadline;
+	private String formattedCreationTime;
 	private boolean activated;
 	private Long numberOfResponses;
 	private String code;
@@ -49,6 +53,14 @@ public class SurveyBasicInfoModel {
 
 	public Timestamp getDeadline() {
 		return deadline;
+	}
+	
+	public String getFormattedDeadline(){
+		return TimestampFormatter.format(deadline);
+	}
+	
+	public String getFormattedCreationTime(){
+		return TimestampFormatter.format(dateCreated);
 	}
 
 	public boolean isActivated() {

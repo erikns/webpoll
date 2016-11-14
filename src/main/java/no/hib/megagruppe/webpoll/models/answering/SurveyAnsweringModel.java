@@ -10,6 +10,7 @@ import java.util.List;
 import no.hib.megagruppe.webpoll.entities.QuestionEntity;
 import no.hib.megagruppe.webpoll.entities.SurveyEntity;
 import no.hib.megagruppe.webpoll.util.DurationFormatter;
+import no.hib.megagruppe.webpoll.util.TimestampFormatter;
 
 /**
  * 
@@ -37,6 +38,8 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 	private String surveyName;
 	private Timestamp surveyCreated;
 	private Timestamp surveyDeadline;
+	private String formattedDeadline;
+	private String formattedCreationTime;
 	private String creator;
 	
 	private int currentQuestionIndex;
@@ -150,6 +153,14 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 
 	public Timestamp getSurveyDeadline() {
 		return surveyDeadline;
+	}
+	
+	public String getFormattedDeadline(){
+		return TimestampFormatter.format(surveyDeadline);
+	}
+	
+	public String getFormattedCreationTime(){
+		return TimestampFormatter.format(surveyCreated);
 	}
 
 	public String getCreator() {
