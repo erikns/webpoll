@@ -78,6 +78,10 @@
 							<c:out value="${survey.name}" />
 						</p>
 						<p>
+							Kode
+							<c:out value="${survey.code}"/>
+						</p>
+						<p>
 							Antall svar:
 							<c:out value="${survey.numberOfResponses}" />
 							<input type="submit" id="submit-form" class="hidden">
