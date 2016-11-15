@@ -20,8 +20,8 @@ public class JpaSurveyRepository implements SurveyRepository {
 
     @Override
     public SurveyEntity findByCode(String code) {
-        Query query = entityManager.createQuery("select s from survey s where s.code = '"
-                + code + "'");
+        Query query = entityManager.createQuery("select s from survey s where s.code = :code");
+        query.setParameter("code", code);
         try {
             return (SurveyEntity) query.getSingleResult();
         } catch (RuntimeException e) {
