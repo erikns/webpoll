@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
@@ -18,13 +20,22 @@ public class JpaSurveyRepository implements SurveyRepository {
     @PersistenceContext(name = "webpollDb")
     private EntityManager entityManager;
 
+    private Logger logger;
+
+    public JpaSurveyRepository() {
+        logger = Logger.getAnonymousLogger();
+    }
+
     @Override
     public SurveyEntity findByCode(String code) {
+        logger.log(Level.INFO, "Attempting to find survey '" + code + "'");
+
         Query query = entityManager.createQuery("select s from survey s where s.code = :code");
         query.setParameter("code", code);
         try {
             return (SurveyEntity) query.getSingleResult();
         } catch (RuntimeException e) {
+            logger.log(Level.WARNING, "Error getting survey from database", e);
             return null;
         }
     }
@@ -35,6 +46,7 @@ public class JpaSurveyRepository implements SurveyRepository {
             entityManager.persist(entity);
             return entity;
         } catch (RuntimeException e) {
+            logger.log(Level.WARNING, "Exception while persisting survey", e);
             return null;
         }
     }
@@ -87,7 +99,8 @@ public class JpaSurveyRepository implements SurveyRepository {
     public boolean existsActiveSurveyWithCode(String code){
     	Date nowDate = new Date();
     	Timestamp now = new Timestamp(nowDate.getTime());
-    	Query query = entityManager.createQuery("select count(s) from survey s where s.code = :code and s.deadline > :now");
+    	Query query = entityManager.createQuery("select count(s) from survey s where s.code = :code " +
+                "and s.deadline > :now");
         query.setParameter("code", code);
         query.setParameter("now", now);
 

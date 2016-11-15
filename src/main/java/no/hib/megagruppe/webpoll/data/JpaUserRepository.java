@@ -9,6 +9,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @SuppressWarnings("unused")
 @RequestScoped
@@ -16,6 +18,12 @@ public class JpaUserRepository implements UserRepository {
 
     @PersistenceContext(name = "webpollDb")
     private EntityManager em;
+
+    private Logger logger;
+
+    public JpaUserRepository() {
+        logger = Logger.getAnonymousLogger();
+    }
 
     @Override
     public UserEntity findByEmail(String email) {
@@ -26,6 +34,7 @@ public class JpaUserRepository implements UserRepository {
             Object queryResult = query.getSingleResult();
             return (UserEntity) queryResult;
         } catch (RuntimeException e) {
+            logger.log(Level.WARNING, "Unable to find user " + email, e);
             return null;
         }
     }
