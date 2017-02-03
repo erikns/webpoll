@@ -15,3 +15,11 @@
 log/
 target/
 
+# Vim
+.*.swp
+.*.swo
+
+# Etc...
+src/main/web/WEB-INF/resources.xml
+
+
