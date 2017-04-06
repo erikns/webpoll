@@ -14,6 +14,7 @@ This is a webapplication with database integration that allows users to create
 and take polls, the results of which can be presented in different ways.
 
 ## screenshots
+![Placeholder screenshot](https://github.com/erikns/webpoll/Screenshot.png)
 ![Screenshot of poll creation](placeholderlink)
 ![Screenshot of poll taking](placeholderlink)
 
