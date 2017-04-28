@@ -10,7 +10,7 @@
 -->
 
 # webpoll
-This is a webapplication with database integration that allows users to create
+This is a web application with database integration that allows users to create
 and take polls, the results of which can be presented in different ways.
 
 ## Screenshots
@@ -21,7 +21,7 @@ and take polls, the results of which can be presented in different ways.
 ## Building
 The project is built with Maven.
 
-Before building the Java code and packaging into web archive, make shure the
+Before building the Java code and packaging into web archive, make sure the
 configuration is in place.
 
 ### Configuration
@@ -44,8 +44,8 @@ JDBC_URL=postgres://test/db USERNAME=test PASSWORD=test ./scripts/dbauth_inject.
 ```
 
 ### Building the Java code
-To produce a deployable web archive
-(.WAR-file), run the following command:
+To produce a deployable web archive (.WAR-file), run the following
+command:
 
 ```bash
 mvn package
