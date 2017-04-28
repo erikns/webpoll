@@ -15,8 +15,8 @@ and take polls, the results of which can be presented in different ways.
 
 ## Screenshots
 ![Placeholder screenshot](https://github.com/erikns/webpoll/blob/master/Screenshot.png)
-![Screenshot of poll creation](placeholderlink)
-![Screenshot of poll taking](placeholderlink)
+<!--![Screenshot of poll creation](placeholderlink)-->
+<!--![Screenshot of poll taking](placeholderlink)-->
 
 ## Building
 The project is built with Maven.
