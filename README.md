@@ -34,7 +34,7 @@ configuration of the database connection is contained in a template file
 suitable for substitution with proper values.
 
 There is a convenience script located in the `scripts/`-directory for
-automating this process. This script should be run to make shure the proper
+automating this process. This script should be run to make sure the proper
 configuration is in place before the source code is built and packaged. The
 script expects certain variables to be set before it is run. See example below.
 
