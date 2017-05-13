@@ -24,6 +24,10 @@ The project is built with Maven.
 Before building the Java code and packaging into web archive, make sure the
 configuration is in place.
 
+### Dependencies
+The software is written to work with PostgreSQL as the database backend. As
+such, the database is required to be running for the application to function.
+
 ### Configuration
 The runtime configuration is specified in several .xml-files in
 `src/main/web/WEB-INF`. 
