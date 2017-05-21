@@ -54,4 +54,8 @@ command:
 ```bash
 mvn package
 ```
+## Contributing
+
+All contributions are greatly appreciated. Please read about the [contribution
+process](CONTRIBUTING.md), before doing do.
 
