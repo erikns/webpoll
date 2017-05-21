@@ -9,7 +9,7 @@
                     |_|              
 -->
 
-# webpoll [![Build Status](https://travis-ci.org/erikns/webpoll.svg?branch=integrate-travis-ci)](https://travis-ci.org/erikns/webpoll)
+# webpoll [![Build Status](https://travis-ci.org/erikns/webpoll.svg?branch=master)](https://travis-ci.org/erikns/webpoll)
 This is a web application with database integration that allows users to create
 and take polls, the results of which can be presented in different ways.
 
