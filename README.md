@@ -44,7 +44,7 @@ script expects certain variables to be set before it is run. See example below.
 
 Example:
 ```bash
-JDBC_URL=postgres://test/db USERNAME=test PASSWORD=test ./scripts/dbauth_inject.sh
+JDBC_URL=postgres://test/db JDBC_USERNAME=test JDBC_PASSWORD=test ./scripts/dbauth_inject.sh
 ```
 
 ### Building the Java code

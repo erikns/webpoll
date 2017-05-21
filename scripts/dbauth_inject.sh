@@ -21,8 +21,8 @@ FULL_TARGET_PATH=$ROOT/$TARGET_FILE
 echo "Replacing placeholders in $SOURCE_FILE"
 
 sed -e 's ${jdbcUrl} '"$JDBC_URL"' g;' \
-    -e 's/${userName}/'"$USERNAME"'/g;' \
-    -e 's/${password}/'"$PASSWORD"'/g;' \
+    -e 's/${userName}/'"$JDBC_USERNAME"'/g;' \
+    -e 's/${password}/'"$JDBC_PASSWORD"'/g;' \
     $FULL_SRC_PATH > $FULL_TARGET_PATH
 
 echo "Result written to $TARGET_FILE"
