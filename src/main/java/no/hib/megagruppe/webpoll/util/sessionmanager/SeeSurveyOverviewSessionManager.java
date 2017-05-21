@@ -29,7 +29,7 @@ public class SeeSurveyOverviewSessionManager extends SessionManager {
 	public boolean hasSurveyID(){
 		HttpSession session = request.getSession();
 
-		return (Integer) session.getAttribute(SURVEY_ID) != null;
+		return session.getAttribute(SURVEY_ID) != null;
 	}
 	
 	public Timestamp getTimestamp(String daysS, String hoursS, String minutesS){

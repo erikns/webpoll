@@ -12,9 +12,7 @@ import no.hib.megagruppe.webpoll.util.TimestampFormatter;
  *
  */
 public class SurveyBasicInfoModel {
-
 	private Integer id;
-	
 	private String name;
 	private Timestamp dateCreated;
 	private Timestamp deadline;
@@ -23,9 +21,9 @@ public class SurveyBasicInfoModel {
 	private boolean activated;
 	private Long numberOfResponses;
 	private String code;
-	
 
-	public SurveyBasicInfoModel(Integer id, String name, Timestamp dateCreated, Timestamp deadline, boolean activated, Long numberOfResponses, String code) {
+	public SurveyBasicInfoModel(Integer id, String name, Timestamp dateCreated, Timestamp deadline,
+								boolean activated, Long numberOfResponses, String code) {
 		this.id = id;
 		this.name = name;
 		this.dateCreated = dateCreated;

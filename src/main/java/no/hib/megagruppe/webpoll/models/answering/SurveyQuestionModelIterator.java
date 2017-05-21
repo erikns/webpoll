@@ -3,7 +3,6 @@ package no.hib.megagruppe.webpoll.models.answering;
 import java.util.Iterator;
 
 public class SurveyQuestionModelIterator implements Iterator<SurveyQuestionModel>{
-
 	private SurveyQuestionModel[] questions;
 	private int arrayLength;
 	private int currentIndex;
@@ -25,5 +24,4 @@ public class SurveyQuestionModelIterator implements Iterator<SurveyQuestionModel
 		currentIndex++;
 		return question;
 	}
-
 }

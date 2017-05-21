@@ -13,7 +13,6 @@ import java.util.List;
 public class SurveyCreationModel {
 	private String name;
 	private String owner;
-	
 	private List<QuestionCreationModel> questions;
 	
 	public SurveyCreationModel(String name, String owner){
@@ -21,8 +20,6 @@ public class SurveyCreationModel {
 		this.owner = owner;
 		questions = new ArrayList<>();
 	}
-	
-	
 
 	/**
 	 * Adds a question to the survey.
@@ -39,8 +36,6 @@ public class SurveyCreationModel {
 	public void removeQuestionAtIndex(int questionNumber){
 		questions.remove(questionNumber);
 	}
-	
-	
 	
 	/**
 	 * Checks if the survey is ready to be built.
@@ -85,6 +80,4 @@ public class SurveyCreationModel {
 	public List<QuestionCreationModel> getQuestions() {
 		return questions;
 	}
-
-	
 }

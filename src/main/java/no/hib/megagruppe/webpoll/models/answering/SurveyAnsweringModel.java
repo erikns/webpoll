@@ -45,8 +45,8 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 	private int currentQuestionIndex;
 	
 	
-	public SurveyAnsweringModel(List<QuestionEntity> questions, String code, String surveyName, Timestamp surveyCreated, Timestamp surveyDeadline, String creator){
-		
+	public SurveyAnsweringModel(List<QuestionEntity> questions, String code, String surveyName,
+                                Timestamp surveyCreated, Timestamp surveyDeadline, String creator){
 		this.questions = new SurveyQuestionModel[questions.size()];
 		int i = 0; // XXX Finnes det en finere måte å gjøre dette på?
 		for(QuestionEntity qe : questions){
@@ -65,7 +65,9 @@ public class SurveyAnsweringModel implements Iterable<SurveyQuestionModel>{
 	}
 	
 	public SurveyAnsweringModel(SurveyEntity surveyEntity){
-		this(surveyEntity.getQuestions(), surveyEntity.getCode(), surveyEntity.getName(), surveyEntity.getDateCreated(), surveyEntity.getDeadline(), surveyEntity.getOwner().toString());
+		this(surveyEntity.getQuestions(), surveyEntity.getCode(), surveyEntity.getName(),
+                surveyEntity.getDateCreated(), surveyEntity.getDeadline(),
+                surveyEntity.getOwner().toString());
 	}
 
 	/**

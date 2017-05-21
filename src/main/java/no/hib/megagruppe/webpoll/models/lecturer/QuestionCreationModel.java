@@ -33,7 +33,8 @@ public class QuestionCreationModel {
 	 */
 	public QuestionCreationModel(String[] options, boolean canHaveMultipleAnswers, String questionText) {
 		this.options = options;
-		this.questionType = canHaveMultipleAnswers ? QuestionType.MULTIPLE_CHOICE_CHECKBOX : QuestionType.MULTIPLE_CHOICE_RADIO;
+		this.questionType = canHaveMultipleAnswers ?
+                    QuestionType.MULTIPLE_CHOICE_CHECKBOX : QuestionType.MULTIPLE_CHOICE_RADIO;
 		this.questionText = questionText;
 	}
 	
@@ -75,8 +76,6 @@ public class QuestionCreationModel {
 	public boolean hasQuestionText(){
 		return questionText != null && !questionText.equals("");
 	}
-	
-	
 
 	public QuestionType getQuestionType() {
 		return questionType;
@@ -101,5 +100,9 @@ public class QuestionCreationModel {
 	public String[] getOptions(){
 		return options;
 	}
-	
+
+	public boolean isReady() {
+		return (questionType == QuestionType.FREE_TEXT)
+				|| (questionType.isMultipleChoice() && hasAtleastOneOption());
+	}
 }

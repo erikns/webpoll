@@ -1,7 +1,6 @@
 package no.hib.megagruppe.webpoll.models.lecturer;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,12 +10,10 @@ import java.util.List;
  *
  */
 public class QuestionOverviewModel {
-	
 	private String questionText;
 	private HashMap<String, Integer> frequencyTable;
 	private int frequencySum;
 	private List<QuestionAnswerOverviewModel> answers;
-	
 	
 	public QuestionOverviewModel(String questionText) {
 		this.questionText = questionText;
@@ -39,7 +36,6 @@ public class QuestionOverviewModel {
 		frequencySum++;
 	}
 	
-	
 	/**
 	 * Creates and returns a list of all the answers in the form of QuestionAnswerOverviewModels.
 	 * QuestionAnswerOverviewModels contains the answertext, the number of times it has been chosen as an answer,
@@ -54,17 +50,13 @@ public class QuestionOverviewModel {
 			String answerText = key;
 			Integer frequency = frequencyTable.get(key);
 			double percentage = (double)frequency / frequencySum * 100;
-			QuestionAnswerOverviewModel answer = new QuestionAnswerOverviewModel(answerText, frequency, percentage);
+			QuestionAnswerOverviewModel answer = new QuestionAnswerOverviewModel(answerText, frequency,
+					percentage);
 			
 			answers.add(answer);
 		}
 		
-		answers.sort(new Comparator<QuestionAnswerOverviewModel>(){
-			@Override
-			public int compare(QuestionAnswerOverviewModel o1, QuestionAnswerOverviewModel o2) {
-				return o2.getFrequency()-o1.getFrequency();
-			}
-		});
+		answers.sort((o1, o2) -> o2.getFrequency()-o1.getFrequency());
 		
 		return answers;
 	}

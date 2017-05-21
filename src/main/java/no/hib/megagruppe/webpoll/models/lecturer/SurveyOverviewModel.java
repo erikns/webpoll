@@ -12,19 +12,8 @@ import no.hib.megagruppe.webpoll.util.TimestampFormatter;
  * A class for showing information about a survey, including all the responses and survey-search-code.
  * 
  * @author Jonas
- *
  */
 public class SurveyOverviewModel {
-	
-	/**
-	 * NOTE:
-	 * variabler:
-	 * 		Responsene fra surveysen
-	 * 		Navnet til survey
-	 * Metoder:
-	 * 		QuestionOverviewModel getResultData();
-	 * 		
-	 */
 	private String name;
 	private Timestamp dateCreated;
 	private Timestamp deadline;
@@ -35,7 +24,8 @@ public class SurveyOverviewModel {
 	private String code;
 	private boolean activated;
 	
-	public SurveyOverviewModel(List<QuestionOverviewModel> responses, SurveyEntity survey, Long numberOfResponses) {
+	public SurveyOverviewModel(List<QuestionOverviewModel> responses, SurveyEntity survey,
+							   Long numberOfResponses) {
 		name = survey.getName();
 		dateCreated = survey.getDateCreated();
 		deadline = survey.getDeadline();
