@@ -19,7 +19,5 @@ RUN echo "Installing application..." \
 # Add custom startup script
 ADD container/run_webpoll.sh /usr/local/tomee/run_webpoll.sh
 
-# TODO: add custom startup script to facilitate runtime environment
-# configuration
 CMD ["./run_webpoll.sh"]
 
