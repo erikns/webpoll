@@ -8,7 +8,15 @@ set -e
 echo "ENVIRONMENT CONFIG:"
 echo ${!WEBPOLL_*}
 
-# TODO: inject specific configuration here
+SOURCE_CONFIG=webapps/ROOT/WEB-INF/resources.xml.templ
+TARGET_CONFIG=webapps/ROOT/WEB-INF/resources.xml
+
+echo "Configuring Webpoll..."
+sed -e 's ${jdbcUrl} '"$WEBPOLL_JDBC_URL"' g;' \
+    -e 's/${userName}/'"$WEBPOLL_USERNAME"'/g;' \
+    -e 's/${password}/'"$WEBPOLL_PASSWORD"'/g;' \
+    $SOURCE_CONFIG > $TARGET_CONFIG
+echo "Final configuration written to: $TARGET_CONFIG"
 
 echo "Running Webpoll..."
 catalina.sh run
