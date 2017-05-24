@@ -17,5 +17,5 @@ script:
     - mvn -B package
 
 after_success:
-    - ./scripts/dockerize.sh
+    - ./scripts/dockerize.sh --imagefile
 
