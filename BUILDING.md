@@ -1,15 +1,11 @@
 # Building webpoll
 
-The project is built with Maven.
+The build process is primarily driven by Maven. Maven manages most compile- and
+runtime dependencies.
 
-Before building the Java code and packaging into web archive, make sure the
-configuration is in place.
+## Using Maven
 
-## Dependencies
-The software is written to work with PostgreSQL as the database backend. As
-such, the database is required to be running for the application to function.
-
-## Configuration
+### Configuration
 The runtime configuration is specified in several .xml-files in
 `src/main/web/WEB-INF`. 
 
@@ -25,14 +21,42 @@ script expects certain variables to be set before it is run. See example below.
 
 Example:
 ```bash
-JDBC_URL=postgres://test/db JDBC_USERNAME=test JDBC_PASSWORD=test ./scripts/dbauth_inject.sh
+JDBC_URL=postgres://test/db \
+    JDBC_USERNAME=test \
+    JDBC_PASSWORD=test \
+    ./scripts/dbauth_inject.sh
 ```
 
-## Building the Java code
-To produce a deployable web archive (.WAR-file), run the following
-command:
+### Building
+After the configuration is injected, a .WAR-file can be produced by running: 
+`mvn package`.
+
+Note that the project is written for running inside a TomEE container.
+Furthermore, it depends on the JDBC-driver for PostgreSQL being present in the
+container classpath (i.e. in its `lib/` directory). The required .jar-file can
+be downloaded by running `scripts/pull_vendored.sh`.
+
+## Using Docker
+
+Using Docker simplifies the build process, and the image produced is versatile,
+as the configuration is provided when the image is run.
+
+### Building
+The Docker process uses the same .WAR-file as the plain Maven route. It is
+produced the same way: `mvn package`.
+
+To build the image run: `scripts/dockerize.sh`. If you want to generate a
+compressed image file, add the `--imagefile`-flag to the above command.
+
+The resulting image accepts environment variables when run with docker.
+Example:
 
 ```bash
-mvn package
+docker run --rm -it \
+    -e WEBPOLL_JDBC_URL=jdbc:postgresql://localhost/db \
+    -e WEBPOLL_USERNAME=user \
+    -e WEBPOLL_PASSWORD=password \
+    -p 8080:8080 \
+    webpoll:DEV
 ```
 
