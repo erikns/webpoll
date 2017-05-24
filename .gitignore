@@ -20,6 +20,7 @@ target/
 .*.swo
 
 # Etc...
+.notes/
 vendor/
 src/main/web/WEB-INF/resources.xml
 
