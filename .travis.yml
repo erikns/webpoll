@@ -16,3 +16,6 @@ before_script:
 script:
     - mvn -B package
 
+after_success:
+    - ./scripts/dockerize.sh
+
