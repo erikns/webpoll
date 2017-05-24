@@ -1,4 +1,18 @@
+sudo: required
+
 language: java
 jdk:
     - oraclejdk8
+
+services:
+    - docker
+
+before_install:
+    - ./scripts/pull_vendored.sh
+
+before_script:
+    - ./scripts/inject_build_data.sh
+
+script:
+    - mvn -B package
 
