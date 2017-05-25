@@ -2,7 +2,7 @@
 
 echo "Deploying image..."
 
-scp -o StrictHostKeyChecking=no -o UserKnownHotsFile=/dev/null \
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
     -q -P $DEPLOY_PORT \
     webpoll-$TRAVIS_BUILD_NUMBER.tar.gz \
     travis@$DEPLOY_HOST:~/webpoll-$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER.tar.gz
