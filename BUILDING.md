@@ -60,3 +60,9 @@ docker run --rm -it \
     webpoll:DEV
 ```
 
+### Running a development build
+
+There is a convenience script in `scripts/`-directory called `serve_dev.sh`. It
+sets up a development runtime environment including a postgres database, and
+runs the application in the console. It even exposes a JVM debug port `15005`.
+
