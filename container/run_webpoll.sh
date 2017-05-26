@@ -18,6 +18,13 @@ sed -e 's ${jdbcUrl} '"$WEBPOLL_JDBC_URL"' g;' \
     $SOURCE_CONFIG > $TARGET_CONFIG
 echo "Final configuration written to: $TARGET_CONFIG"
 
+if [ "$WEBPOLL_DEBUG" -eq 1 ]; then
+    OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"
+    echo "DEBUG mode!"
+    echo 'JAVA_OPTS="$JAVA_OPTS '"$OPTS"'"' > bin/setenv.sh
+    chmod +x bin/setenv.sh
+fi
+
 echo "Running Webpoll..."
 catalina.sh run
 

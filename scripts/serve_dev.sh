@@ -38,5 +38,6 @@ docker run --rm -it \
     -e WEBPOLL_PASSWORD=postgres \
     -e WEBPOLL_DEBUG=1 \
     -p 8080:8080 \
+    -p 15005:8000 \
     webpoll:DEV
 
