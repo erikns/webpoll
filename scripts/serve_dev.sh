@@ -30,8 +30,14 @@ PGPASSWORD=postgres psql -h localhost -p 5434 -q -U postgres postgres \
 PGPASSWORD=postgres psql -h localhost -p 5434 -q -U postgres postgres \
     -f sql/webpoll_seed.sql
 
+if [ -t 1 ]; then
+    INTERACTIVE_FLAG=-it
+else
+    INTERACTIVE_FLAG=
+fi
+
 echo "Running webpoll..."
-docker run --rm -it \
+docker run --rm ${INTERACTIVE_FLAG} \
     --link webpoll-db:db \
     -e WEBPOLL_JDBC_URL=jdbc:postgresql://db/postgres \
     -e WEBPOLL_USERNAME=postgres \
