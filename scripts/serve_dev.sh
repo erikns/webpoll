@@ -17,11 +17,16 @@ scripts/dockerize.sh
 
 DB_RUNNING=$(docker inspect -f {{.State.Running}} webpoll-db)
 if [ $? -ne 0 ] || [ "$DB_RUNNING" = "false" ]; then
-    echo "Starting database server..."
-    docker run --name webpoll-db -e POSTGRES_PASSWORD=postgres \
-        -d -p 5434:5432 postgres
-    echo "Waiting for database server..."
-    sleep 5
+    if [ "$DB_RUNNING" = "false" ]; then
+        echo "Starting existing container..."
+        docker start webpoll-db
+    else
+        echo "Starting database server..."
+        docker run --name webpoll-db -e POSTGRES_PASSWORD=postgres \
+            -d -p 5434:5432 postgres
+        echo "Waiting for database server..."
+        sleep 5
+    fi
 fi
 
 echo "Preparing database..."
@@ -33,7 +38,7 @@ PGPASSWORD=postgres psql -h localhost -p 5434 -q -U postgres postgres \
 if [ -t 1 ]; then
     INTERACTIVE_FLAG=-it
 else
-    INTERACTIVE_FLAG=
+    INTERACTIVE_FLAG=-t
 fi
 
 echo "Running webpoll..."
