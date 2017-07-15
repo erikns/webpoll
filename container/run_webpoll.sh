@@ -26,5 +26,5 @@ if [ "$WEBPOLL_DEBUG" -eq 1 ]; then
 fi
 
 echo "Running Webpoll..."
-catalina.sh run
+exec catalina.sh run
 
